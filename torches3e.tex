@@ -57,10 +57,10 @@
 \definecolor{ash}{HTML}{151515}
 \definecolor{barred}{HTML}{1A1A1A}
 
-% Subtle zebra striping on soot
-\definecolor{rowA}{RGB}{22,22,22}
-\definecolor{rowB}{RGB}{12,12,12}
-\definecolor{thead}{RGB}{32,32,32}
+% Enhanced zebra striping with better contrast for professional look
+\definecolor{rowA}{RGB}{28,28,28}
+\definecolor{rowB}{RGB}{16,16,16}
+\definecolor{thead}{RGB}{40,40,40}
 
 \pagecolor{soot}
 \color{ink}
@@ -69,8 +69,16 @@
 \clubpenalty=10000
 \widowpenalty=10000
 \displaywidowpenalty=10000
-\setlength{\parskip}{2pt}
+\setlength{\parskip}{4pt plus 1pt minus 1pt}
 \setlength{\parindent}{0pt}
+
+% ---------- Enhanced typography ----------
+% Improved line spacing for readability
+\linespread{1.08}
+% Better spacing around headings
+\titlespacing*{\section}{0pt}{20pt plus 4pt minus 2pt}{12pt plus 2pt minus 2pt}
+\titlespacing*{\subsection}{0pt}{16pt plus 3pt minus 2pt}{8pt plus 2pt minus 1pt}
+\titlespacing*{\subsubsection}{0pt}{12pt plus 2pt minus 1pt}{6pt plus 1pt minus 1pt}
 
 % ---------- Keep-with-next helper ----------
 \newcommand{\keepwithnext}[1]{\Needspace{#1\baselineskip}}
@@ -146,12 +154,23 @@
   \renewcommand{\headrule}{\hbox to\headwidth{\color{iron}\leaders\hrule height \headrulewidth\hfill}}
 }
 
-% ---------- Section styling ----------
+% ---------- Enhanced section styling ----------
 \sectionfont{\color{bone}\scshape}
 \subsectionfont{\color{bone}}
-\titleformat{\section}{\Large\scshape\color{bone}}{\thesection}{.75em}{\raggedright}
-\titleformat{\subsection}{\large\bfseries\color{bone}}{\thesubsection}{.6em}{\raggedright}
-\titleformat{\subsubsection}{\normalsize\bfseries\color{bone}}{\thesubsubsection}{.5em}{\raggedright}
+
+% Professional heading hierarchy with improved sizing and spacing
+\titleformat{\section}
+  {\LARGE\scshape\color{bone}\raggedright}
+  {\thesection}{1em}{}
+  [\vspace{-2pt}\titlerule[0.5pt]]
+
+\titleformat{\subsection}
+  {\Large\bfseries\color{bone}\raggedright}
+  {\thesubsection}{0.8em}{}
+
+\titleformat{\subsubsection}
+  {\large\bfseries\color{bone}\raggedright}
+  {\thesubsubsection}{0.6em}{}
 
 % ---------- Blood separator ----------
 \newcommand{\bloodrule}{%
@@ -213,37 +232,77 @@
     \fbox{\parbox[c][.18\textheight][c]{.8\linewidth}{\centering
     \color{iron}\small Missing image: \texttt{#2}}}}}
 
-% ---------- Lists ----------
-\setlist[itemize]{itemsep=1pt,topsep=2pt,left=1.1em,
-  label=\textcolor{gold}{\scriptsize$\blacktriangleright$}}
-\setlist[enumerate]{itemsep=1pt,topsep=2pt,left=1.4em,
-  label=\textcolor{gold}{\arabic*.}}
+% ---------- Enhanced lists with professional formatting ----------
+\setlist[itemize]{
+  itemsep=2pt plus 1pt minus 1pt,
+  topsep=4pt plus 2pt minus 1pt,
+  left=1.2em,
+  label=\textcolor{gold}{\scriptsize$\blacktriangleright$}
+}
+\setlist[enumerate]{
+  itemsep=2pt plus 1pt minus 1pt,
+  topsep=4pt plus 2pt minus 1pt,
+  left=1.5em,
+  label=\textcolor{gold}{\arabic*.}
+}
 
-% ---------- Multicol ----------
-\setlength{\columnsep}{12pt}
-\setlength{\multicolsep}{4pt}
+% Nested list improvements
+\setlist[itemize,2]{
+  label=\textcolor{bone}{\scriptsize$\circ$},
+  left=1.8em
+}
+\setlist[enumerate,2]{
+  label=\textcolor{bone}{\alph*)},
+  left=2em
+}
+
+% ---------- Professional multicol settings ----------
+\setlength{\columnsep}{18pt}
+\setlength{\multicolsep}{8pt plus 2pt minus 2pt}
 \raggedcolumns
 
-% ---------- Tables: hairlines + striping ----------
-\setlength{\arrayrulewidth}{0.3pt}
-\renewcommand{\arraystretch}{1.08}
+% Custom column environments for specific content types
+\newenvironment{rpgtwocol}
+  {\begin{multicols}{2}[\vspace{2pt}]\raggedcolumns\small}
+  {\end{multicols}}
+
+\newenvironment{rpgthreecol}
+  {\begin{multicols}{3}[\vspace{2pt}]\raggedcolumns\footnotesize}
+  {\end{multicols}}
+
+% ---------- Enhanced tables with professional formatting ----------
+\setlength{\arrayrulewidth}{0.4pt}
+\renewcommand{\arraystretch}{1.15}
 \arrayrulecolor{iron}
+
+% Enhanced zebra striping - defined earlier but improved here
 \newcommand{\stripetable}{\rowcolors{2}{rowA}{rowB}}
 
-% ---------- Featured tables ----------
-\newcommand{\compacttablewidth}{0.85\linewidth}
+% ---------- Professional table environments ----------
+\newcommand{\compacttablewidth}{0.88\linewidth}
 \newenvironment{compacttabular}[1]{%
-  \begin{center}\begin{minipage}{\compacttablewidth}\stripetable\small
+  \begin{center}\begin{minipage}{\compacttablewidth}
+  \stripetable\small\centering
   \begin{tabular}{#1}
 }{%
   \end{tabular}
   \end{minipage}\end{center}
 }
 
-% Full-width tight table if needed
+% Enhanced full-width table
 \newenvironment{tighttabular}[1]{%
-  \stripetable\footnotesize\begin{tabular}{#1}
-}{\end{tabular}}
+  \stripetable\footnotesize\centering\begin{tabular}{#1}
+}{%
+  \end{tabular}
+}
+
+% Professional stat block table for monsters/NPCs
+\newenvironment{statblocktable}[1]{%
+  \small\centering
+  \begin{tabular}{#1}
+}{%
+  \end{tabular}
+}
 
 % ---------- Title ----------
 \title{\textbf{\color{gold}Torches in the Dark Alpha 1.0}}
@@ -413,17 +472,19 @@ Characters begin with 10 attribute points to distribute among nine ability score
 \subsection{Races}
 Some races are rare. To play a rare race, roll a d100 and roll equal to or lower than the number shown. Playing as a non-human race \textbf{is} your \term{Grim Sort}.
 
-\begin{multicols}{2}
-{\small
-\begin{itemize}
-\item \textbf{Human} \;|\; Common — +1 to any ability score, choose one passive and active trait.
-\item \textbf{Empire Dwarf} \;|\; 40\% — +3 Endurance, +2 Might, \term{Iron Gut}.
-\item \textbf{Drakon} \;|\; 20\% — +2 Might, +3 Faith, \term{Unshakable Faith}.
-\item \textbf{Orkon} \;|\; 20\% — +4 Might, +1 Endurance, \term{Tenacious}.
-\item \textbf{Astral Elf} \;|\; 10\% — +2 Magick, +3 Presence, \term{Void Gaze}, \term{Quiet Mind}.
-\end{itemize}
-}
-\end{multicols}
+\begin{rpgtwocol}
+\begin{description}[style=nextline, leftmargin=0pt, itemsep=6pt]
+\item[\textbf{Human}] \textcolor{gold}{Common} — +1 to any ability score, choose one passive and active trait.
+
+\item[\textbf{Empire Dwarf}] \textcolor{bone}{40\%} — +3 Endurance, +2 Might, \term{Iron Gut}.
+
+\item[\textbf{Drakon}] \textcolor{bone}{20\%} — +2 Might, +3 Faith, \term{Unshakable Faith}.
+
+\item[\textbf{Orkon}] \textcolor{bone}{20\%} — +4 Might, +1 Endurance, \term{Tenacious}.
+
+\item[\textbf{Astral Elf}] \textcolor{bone}{10\%} — +2 Magick, +3 Presence, \term{Void Gaze}, \term{Quiet Mind}.
+\end{description}
+\end{rpgtwocol}
 
 \bloodrule
 
@@ -1062,79 +1123,67 @@ At zero strikes, roll 1d12 on the Horrible Wounds table by damage type. Death is
 
 % COMMON WEAPON TAGS
 \subsection{Common Weapon Tags}
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{commoncolor}{\textbf{Accurate:}} \textcolor{commoncolor}{+1 Attack.}
-\item \textcolor{commoncolor}{\textbf{Balanced:}} \textcolor{commoncolor}{+1 Defense.}
-\item \textcolor{commoncolor}{\textbf{Light:}} \textcolor{commoncolor}{Weight -1 slot (min 1).}
-\item \textcolor{commoncolor}{\textbf{Quick-Draw:}} \textcolor{commoncolor}{Draw as free action.}
-\item \textcolor{commoncolor}{\textbf{Throwing:}} \textcolor{commoncolor}{Range 6 squares when thrown.}
-\item \textcolor{commoncolor}{\textbf{Parrying:}} \textcolor{commoncolor}{+1 Defense vs melee.}
-\item \textcolor{commoncolor}{\textbf{Concealed:}} \textcolor{commoncolor}{Advantage to hide weapon.}
-\item \textcolor{commoncolor}{\textbf{Crude:}} \textcolor{commoncolor}{Half cost, -1 Attack.}
-\end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{commoncolor}{\textbf{Sturdy:}} \textcolor{commoncolor}{Advantage vs breaking.}
-\item \textcolor{commoncolor}{\textbf{Well-Made:}} \textcolor{commoncolor}{+10\% selling price.}
-\item \textcolor{commoncolor}{\textbf{Notched:}} \textcolor{commoncolor}{+1 damage vs one creature type.}
-\item \textcolor{commoncolor}{\textbf{Weather-Sealed:}} \textcolor{commoncolor}{No penalties in rain/cold.}
-\item \textcolor{commoncolor}{\textbf{Weighted Pommel:}} \textcolor{commoncolor}{+1 to disarm attempts.}
-\item \textcolor{commoncolor}{\textbf{Sharp:}} \textcolor{commoncolor}{Reroll 1s on damage.}
-\item \textcolor{commoncolor}{\textbf{Worn Grip:}} \textcolor{commoncolor}{Advantage vs being disarmed.}
-\item \textcolor{commoncolor}{\textbf{Field-Repaired:}} \textcolor{commoncolor}{Fixed with basic tools.}
-\end{itemize}
-\end{minipage}
 
-\vspace{0.5cm}
+\begin{rpgtwocol}
+\begin{description}[style=nextline, leftmargin=0pt, itemsep=4pt]
+\item[\textcolor{commoncolor}{\textbf{Accurate}}] \textcolor{commoncolor}{+1 Attack.}
+\item[\textcolor{commoncolor}{\textbf{Balanced}}] \textcolor{commoncolor}{+1 Defense.}
+\item[\textcolor{commoncolor}{\textbf{Light}}] \textcolor{commoncolor}{Weight -1 slot (min 1).}
+\item[\textcolor{commoncolor}{\textbf{Quick-Draw}}] \textcolor{commoncolor}{Draw as free action.}
+\item[\textcolor{commoncolor}{\textbf{Throwing}}] \textcolor{commoncolor}{Range 6 squares when thrown.}
+\item[\textcolor{commoncolor}{\textbf{Parrying}}] \textcolor{commoncolor}{+1 Defense vs melee.}
+\item[\textcolor{commoncolor}{\textbf{Concealed}}] \textcolor{commoncolor}{Advantage to hide weapon.}
+\item[\textcolor{commoncolor}{\textbf{Crude}}] \textcolor{commoncolor}{Half cost, -1 Attack.}
+\item[\textcolor{commoncolor}{\textbf{Sturdy}}] \textcolor{commoncolor}{Advantage vs breaking.}
+\item[\textcolor{commoncolor}{\textbf{Well-Made}}] \textcolor{commoncolor}{+10\% selling price.}
+\item[\textcolor{commoncolor}{\textbf{Notched}}] \textcolor{commoncolor}{+1 damage vs one creature type.}
+\item[\textcolor{commoncolor}{\textbf{Weather-Sealed}}] \textcolor{commoncolor}{No penalties in rain/cold.}
+\item[\textcolor{commoncolor}{\textbf{Weighted Pommel}}] \textcolor{commoncolor}{+1 to disarm attempts.}
+\item[\textcolor{commoncolor}{\textbf{Sharp}}] \textcolor{commoncolor}{Reroll 1s on damage.}
+\item[\textcolor{commoncolor}{\textbf{Worn Grip}}] \textcolor{commoncolor}{Advantage vs being disarmed.}
+\item[\textcolor{commoncolor}{\textbf{Field-Repaired}}] \textcolor{commoncolor}{Fixed with basic tools.}
+\end{description}
+\end{rpgtwocol}
 
 % UNCOMMON WEAPON TAGS
 \subsection{Uncommon Weapon Tags}
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{uncommoncolor}{\textbf{Bashing:}} \textcolor{uncommoncolor}{Ignore shields and helmets.}
-\item \textcolor{uncommoncolor}{\textbf{Finesse:}} \textcolor{uncommoncolor}{Use Finesse for attack.}
-\item \textcolor{uncommoncolor}{\textbf{Heavy:}} \textcolor{uncommoncolor}{-2 Attack, +1 Strike damage.}
-\item \textcolor{uncommoncolor}{\textbf{Reach:}} \textcolor{uncommoncolor}{Attack enemies 2 squares away.}
-\item \textcolor{uncommoncolor}{\textbf{Defensive:}} \textcolor{uncommoncolor}{+2 Defense, cannot attack.}
-\item \textcolor{uncommoncolor}{\textbf{Serrated:}} \textcolor{uncommoncolor}{Crit: BLEEDING WOUND.}
-\item \textcolor{uncommoncolor}{\textbf{Barbed:}} \textcolor{uncommoncolor}{Enemy takes 1 Strike on fumble.}
-\item \textcolor{uncommoncolor}{\textbf{Versatile:}} \textcolor{uncommoncolor}{Two-handed: +1 Strike.}
-\item \textcolor{uncommoncolor}{\textbf{Vicious:}} \textcolor{uncommoncolor}{+1 Strike vs wounded enemies.}
-\item \textcolor{uncommoncolor}{\textbf{Entangling:}} \textcolor{uncommoncolor}{Crit: target HOBBLED.}
-\item \textcolor{uncommoncolor}{\textbf{Sundering:}} \textcolor{uncommoncolor}{Max damage destroys gear.}
-\item \textcolor{uncommoncolor}{\textbf{Flanking:}} \textcolor{uncommoncolor}{+1 Attack vs surrounded foes.}
-\item \textcolor{uncommoncolor}{\textbf{Knockback:}} \textcolor{uncommoncolor}{Max damage pushes 1 square.}
-\item \textcolor{uncommoncolor}{\textbf{Piercing:}} \textcolor{uncommoncolor}{Ignore 1 point of armor DR.}
-\item \textcolor{uncommoncolor}{\textbf{Cold Iron:}} \textcolor{uncommoncolor}{+1 Strike vs supernatural.}
-\item \textcolor{uncommoncolor}{\textbf{Spiked:}} \textcolor{uncommoncolor}{1 damage to grapplers.}
-\end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{uncommoncolor}{\textbf{Momentum:}} \textcolor{uncommoncolor}{+1 Strike if moved this turn.}
-\item \textcolor{uncommoncolor}{\textbf{Intimidating:}} \textcolor{uncommoncolor}{+2 Presence for threats.}
-\item \textcolor{uncommoncolor}{\textbf{Brittle:}} \textcolor{uncommoncolor}{+1 Strike, breaks on nat 1-2.}
-\item \textcolor{uncommoncolor}{\textbf{Weighted:}} \textcolor{uncommoncolor}{+1 Strike, -1 Finesse to hit.}
-\item \textcolor{uncommoncolor}{\textbf{Smoke-Wreathed:}} \textcolor{uncommoncolor}{Hit: 1 sq obscuring cloud.}
-\item \textcolor{uncommoncolor}{\textbf{Rust-Touched:}} \textcolor{uncommoncolor}{Damages metal armor DR.}
-\item \textcolor{uncommoncolor}{\textbf{Chain-Weapon:}} \textcolor{uncommoncolor}{2-square reach, entangles.}
-\item \textcolor{uncommoncolor}{\textbf{Jagged:}} \textcolor{uncommoncolor}{All hits cause 1 bleeding.}
-\item \textcolor{uncommoncolor}{\textbf{Crippling:}} \textcolor{uncommoncolor}{Max damage: movement halved.}
-\item \textcolor{uncommoncolor}{\textbf{Masterwork:}} \textcolor{uncommoncolor}{+1 Attack, double cost.}
-\item \textcolor{uncommoncolor}{\textbf{Dueling:}} \textcolor{uncommoncolor}{+2 Defense vs single foe.}
-\item \textcolor{uncommoncolor}{\textbf{Savage:}} \textcolor{uncommoncolor}{Crits on 19-20 vs unarmored.}
-\item \textcolor{uncommoncolor}{\textbf{Bone-Carved:}} \textcolor{uncommoncolor}{+1 vs undead, horrifies living.}
-\item \textcolor{uncommoncolor}{\textbf{Hunting:}} \textcolor{uncommoncolor}{Track wounded enemies.}
-\item \textcolor{uncommoncolor}{\textbf{Throwing-Return:}} \textcolor{uncommoncolor}{Returns to hand when thrown.}
-\item \textcolor{uncommoncolor}{\textbf{War-Forged:}} \textcolor{uncommoncolor}{Advantage in large battles.}
-\end{itemize}
-\end{minipage}
 
-\vspace{0.5cm}
+\begin{rpgtwocol}
+\begin{description}[style=nextline, leftmargin=0pt, itemsep=4pt]
+\item[\textcolor{uncommoncolor}{\textbf{Bashing}}] \textcolor{uncommoncolor}{Ignore shields and helmets.}
+\item[\textcolor{uncommoncolor}{\textbf{Finesse}}] \textcolor{uncommoncolor}{Use Finesse for attack.}
+\item[\textcolor{uncommoncolor}{\textbf{Heavy}}] \textcolor{uncommoncolor}{-2 Attack, +1 Strike damage.}
+\item[\textcolor{uncommoncolor}{\textbf{Reach}}] \textcolor{uncommoncolor}{Attack enemies 2 squares away.}
+\item[\textcolor{uncommoncolor}{\textbf{Defensive}}] \textcolor{uncommoncolor}{+2 Defense, cannot attack.}
+\item[\textcolor{uncommoncolor}{\textbf{Serrated}}] \textcolor{uncommoncolor}{Crit: BLEEDING WOUND.}
+\item[\textcolor{uncommoncolor}{\textbf{Barbed}}] \textcolor{uncommoncolor}{Enemy takes 1 Strike on fumble.}
+\item[\textcolor{uncommoncolor}{\textbf{Versatile}}] \textcolor{uncommoncolor}{Two-handed: +1 Strike.}
+\item[\textcolor{uncommoncolor}{\textbf{Vicious}}] \textcolor{uncommoncolor}{+1 Strike vs wounded enemies.}
+\item[\textcolor{uncommoncolor}{\textbf{Entangling}}] \textcolor{uncommoncolor}{Crit: target HOBBLED.}
+\item[\textcolor{uncommoncolor}{\textbf{Sundering}}] \textcolor{uncommoncolor}{Max damage destroys gear.}
+\item[\textcolor{uncommoncolor}{\textbf{Flanking}}] \textcolor{uncommoncolor}{+1 Attack vs surrounded foes.}
+\item[\textcolor{uncommoncolor}{\textbf{Knockback}}] \textcolor{uncommoncolor}{Max damage pushes 1 square.}
+\item[\textcolor{uncommoncolor}{\textbf{Piercing}}] \textcolor{uncommoncolor}{Ignore 1 point of armor DR.}
+\item[\textcolor{uncommoncolor}{\textbf{Cold Iron}}] \textcolor{uncommoncolor}{+1 Strike vs supernatural.}
+\item[\textcolor{uncommoncolor}{\textbf{Spiked}}] \textcolor{uncommoncolor}{1 damage to grapplers.}
+\item[\textcolor{uncommoncolor}{\textbf{Momentum}}] \textcolor{uncommoncolor}{+1 Strike if moved this turn.}
+\item[\textcolor{uncommoncolor}{\textbf{Intimidating}}] \textcolor{uncommoncolor}{+2 Presence for threats.}
+\item[\textcolor{uncommoncolor}{\textbf{Brittle}}] \textcolor{uncommoncolor}{+1 Strike, breaks on nat 1-2.}
+\item[\textcolor{uncommoncolor}{\textbf{Weighted}}] \textcolor{uncommoncolor}{+1 Strike, -1 Finesse to hit.}
+\item[\textcolor{uncommoncolor}{\textbf{Smoke-Wreathed}}] \textcolor{uncommoncolor}{Hit: 1 sq obscuring cloud.}
+\item[\textcolor{uncommoncolor}{\textbf{Rust-Touched}}] \textcolor{uncommoncolor}{Damages metal armor DR.}
+\item[\textcolor{uncommoncolor}{\textbf{Chain-Weapon}}] \textcolor{uncommoncolor}{2-square reach, entangles.}
+\item[\textcolor{uncommoncolor}{\textbf{Jagged}}] \textcolor{uncommoncolor}{All hits cause 1 bleeding.}
+\item[\textcolor{uncommoncolor}{\textbf{Crippling}}] \textcolor{uncommoncolor}{Max damage: movement halved.}
+\item[\textcolor{uncommoncolor}{\textbf{Masterwork}}] \textcolor{uncommoncolor}{+1 Attack, double cost.}
+\item[\textcolor{uncommoncolor}{\textbf{Dueling}}] \textcolor{uncommoncolor}{+2 Defense vs single foe.}
+\item[\textcolor{uncommoncolor}{\textbf{Savage}}] \textcolor{uncommoncolor}{Crits on 19-20 vs unarmored.}
+\item[\textcolor{uncommoncolor}{\textbf{Bone-Carved}}] \textcolor{uncommoncolor}{+1 vs undead, horrifies living.}
+\item[\textcolor{uncommoncolor}{\textbf{Hunting}}] \textcolor{uncommoncolor}{Track wounded enemies.}
+\item[\textcolor{uncommoncolor}{\textbf{Throwing-Return}}] \textcolor{uncommoncolor}{Returns to hand when thrown.}
+\item[\textcolor{uncommoncolor}{\textbf{War-Forged}}] \textcolor{uncommoncolor}{Advantage in large battles.}
+\end{description}
+\end{rpgtwocol}
 
 % RARE WEAPON TAGS
 \subsection{Rare Weapon Tags}
