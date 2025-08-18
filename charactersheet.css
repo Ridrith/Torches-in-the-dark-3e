@@ -1,0 +1,831 @@
+/*
+    Torches in the Dark - CSS v9.4
+    "The Sorcerer's Ledger" Redesign
+    Fixed fonts for Roll20 compatibility + Strike Dots + Polish Improvements + New Features
+*/
+
+/* --- FONTS & CORE STYLES --- */
+/* Removed @import - using web-safe fonts for Roll20 compatibility */
+
+.charsheet {
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    /* Dark Red Border — maintain original thickness */
+    box-shadow: inset 0 0 0 4px #3d0000;
+    /* Consistent internal padding */
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: rgba(169, 169, 169, 0.9); /* Iron */
+    font-size: 2rem;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    text-align: center;
+    margin: 15px 0 25px 0;
+    padding-bottom: 10px;
+    position: relative;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(169, 169, 169, 0.5), transparent);
+}
+
+h4 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: rgba(169, 169, 169, 0.8);
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    margin: 15px 0 10px 0;
+    font-weight: 600;
+}
+
+/* --- TAB SYSTEM (CSS DRIVEN) --- */
+.sheet-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid rgba(169, 169, 169, 0.2);
+    gap: 4px;
+}
+
+.sheet-tab-button {
+    font-family: Georgia, "Times New Roman", serif;
+    background: none;
+    border: none;
+    color: rgba(169, 169, 169, 0.6);
+    padding: 12px 24px;
+    font-size: 1.3em;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    font-weight: 700;
+    position: relative;
+}
+
+.sheet-tab-button:hover {
+    color: rgba(169, 169, 169, 0.9);
+    background-color: rgba(26, 26, 26, 0.3);
+}
+
+input[name="attr_tab"] { display: none; }
+
+input[value="character"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="character"],
+input[value="inventory"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="inventory"],
+input[value="abilities"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="abilities"],
+input[value="dread"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="dread"] {
+    color: rgba(169, 169, 169, 1);
+    border-bottom-color: rgba(169, 169, 169, 0.8);
+    background-color: rgba(26, 26, 26, 0.4);
+}
+
+.sheet-tab-content { display: none; }
+input[value="character"]:checked ~ .sheet-tab-content[data-tab="character"],
+input[value="inventory"]:checked ~ .sheet-tab-content[data-tab="inventory"],
+input[value="abilities"]:checked ~ .sheet-tab-content[data-tab="abilities"],
+input[value="dread"]:checked ~ .sheet-tab-content[data-tab="dread"] {
+    display: block;
+}
+
+/* --- LAYOUT & SECTIONS --- */
+.sheet-container { 
+    padding: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sheet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+
+.sheet-section {
+    background: rgba(26, 26, 26, 0.5);
+    border: 1px solid rgba(169, 169, 169, 0.2);
+    border-radius: 6px;
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* --- FORMS, INPUTS, BUTTONS --- */
+input[type="text"], input[type="number"], select, textarea {
+    background-color: #0a0a0a;
+    border: 1px solid rgba(169, 169, 169, 0.3);
+    color: #e0e0e0;
+    border-radius: 4px;
+    padding: 10px 12px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: rgba(169, 169, 169, 0.8);
+    box-shadow: 0 0 6px rgba(169, 169, 169, 0.3);
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(169, 169, 169, 0.5);
+}
+
+textarea { 
+    resize: vertical; 
+    min-height: 80px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* BUTTON FIX: ENHANCED SPECIFICITY FOR ROLL20 */
+.charsheet button[type="roll"],
+.charsheet .sheet-ability-plaque button[type="roll"],
+.charsheet .repitem button[type="roll"] {
+    background-image: none !important;
+    background-color: #1a1a1a !important;
+    color: rgba(169, 169, 169, 0.8) !important;
+    border: 1px solid rgba(169, 169, 169, 0.4) !important;
+    padding: 10px 14px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    width: 100% !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    letter-spacing: 1.5px !important;
+    font-size: 0.9em !important;
+    text-shadow: none !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.5) !important;
+    margin: 0 !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+}
+
+.charsheet button[type="roll"]:hover,
+.charsheet .sheet-ability-plaque button[type="roll"]:hover,
+.charsheet .repitem button[type="roll"]:hover {
+    background-color: #2a2a2a !important;
+    color: rgba(224, 224, 224, 1) !important;
+    border-color: rgba(169, 169, 169, 0.8) !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+.charsheet button[type="roll"]::before,
+.charsheet button[type="roll"]::after { 
+    content: '' !important; 
+    display: none !important;
+}
+
+/* --- SPECIFIC COMPONENTS --- */
+.sheet-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.sheet-header input[type="text"] {
+    font-size: 1.5em;
+    font-weight: 600;
+    text-align: center;
+}
+
+.sheet-core-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sheet-stat-box {
+    background: rgba(26, 26, 26, 0.5);
+    border: 1px solid rgba(169, 169, 169, 0.2);
+    padding: 14px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s ease;
+}
+
+.sheet-stat-box:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sheet-stat-box-label {
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: rgba(169, 169, 169, 0.8);
+    margin-bottom: 8px;
+}
+
+.sheet-stat-box-value {
+    font-size: 2em;
+    font-weight: 700;
+    color: #e0e0e0;
+    line-height: 1.2;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sheet-stat-box-value input {
+    font: inherit; 
+    color: inherit; 
+    background: transparent;
+    border: none; 
+    padding: 0; 
+    width: 50px; 
+    display: inline-block;
+    box-shadow: none; 
+    text-align: center;
+}
+
+/* --- STRIKES SYSTEM --- */
+.sheet-strikes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.sheet-strikes-dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3px;
+    max-width: 100%;
+    padding: 4px;
+}
+
+.sheet-strike-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid rgba(169, 169, 169, 0.6);
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    background-image: none !important;
+    position: relative;
+}
+
+.sheet-strike-dot:hover {
+    border-color: rgba(169, 169, 169, 1);
+    transform: scale(1.15);
+    background-image: none !important;
+    box-shadow: 0 0 4px rgba(169, 169, 169, 0.4);
+}
+
+.sheet-strike-dot:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(169, 169, 169, 0.4);
+}
+
+/* Filled state styling using hidden input values */
+input[name="attr_strikes_display"][value="1"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+1),
+input[name="attr_strikes_display"][value="2"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+2),
+input[name="attr_strikes_display"][value="3"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+3),
+input[name="attr_strikes_display"][value="4"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+4),
+input[name="attr_strikes_display"][value="5"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+5),
+input[name="attr_strikes_display"][value="6"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+6),
+input[name="attr_strikes_display"][value="7"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+7),
+input[name="attr_strikes_display"][value="8"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+8),
+input[name="attr_strikes_display"][value="9"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+9),
+input[name="attr_strikes_display"][value="10"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+10) {
+    background-color: #c70039 !important;
+    border-color: #c70039 !important;
+    box-shadow: 0 0 6px rgba(199, 0, 57, 0.6) !important;
+    background-image: none !important;
+}
+
+input[name="attr_strikes_display"][value="1"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+1):hover,
+input[name="attr_strikes_display"][value="2"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+2):hover,
+input[name="attr_strikes_display"][value="3"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+3):hover,
+input[name="attr_strikes_display"][value="4"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+4):hover,
+input[name="attr_strikes_display"][value="5"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+5):hover,
+input[name="attr_strikes_display"][value="6"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+6):hover,
+input[name="attr_strikes_display"][value="7"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+7):hover,
+input[name="attr_strikes_display"][value="8"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+8):hover,
+input[name="attr_strikes_display"][value="9"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+9):hover,
+input[name="attr_strikes_display"][value="10"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+10):hover {
+    background-color: #e0004a !important;
+    border-color: #e0004a !important;
+    background-image: none !important;
+    transform: scale(1.15) !important;
+}
+
+.sheet-strikes-remaining {
+    font-size: 0.8em;
+    color: rgba(169, 169, 169, 0.8);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* --- ABILITY SCORE PLAQUES --- */
+.sheet-abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.sheet-ability-plaque {
+    border: 1px solid rgba(169, 169, 169, 0.2);
+    border-radius: 6px;
+    background: rgba(26, 26, 26, 0.5);
+    padding: 14px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s ease;
+}
+
+.sheet-ability-plaque:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sheet-ability-plaque .label {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.4em;
+    text-transform: capitalize;
+    color: rgba(169, 169, 169, 0.8);
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.sheet-ability-plaque .score {
+    font-size: 2.5em;
+    font-weight: 700;
+    padding: 8px;
+    color: #e0e0e0;
+    border-radius: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 4px;
+}
+
+.sheet-ability-plaque .score input {
+    font: inherit; 
+    color: inherit; 
+    background: transparent;
+    border: none; 
+    padding: 0; 
+    width: 100%; 
+    box-shadow: none;
+    text-align: center;
+}
+
+/* --- CUSTOM CLASS CONFIGURATION --- */
+.sheet-custom-class-section {
+    background: rgba(26, 26, 26, 0.7);
+    border: 2px solid rgba(169, 169, 169, 0.3);
+    display: none; /* Hidden by default */
+}
+
+/* Show custom class section when attr_show_custom_class is 1 */
+input[name="attr_show_custom_class"][value="1"] ~ .sheet-tab-content .sheet-section.sheet-custom-class-section {
+    display: block;
+}
+
+.repeating_custom_abilities .repitem {
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+/* --- REPEATING SECTIONS --- */
+.repcontainer .repitem {
+    border: 1px solid rgba(169, 169, 169, 0.2);
+    border-radius: 6px;
+    padding: 14px;
+    margin-bottom: 14px;
+    background-color: rgba(26, 26, 26, 0.5);
+    display: grid;
+    gap: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s ease;
+}
+
+.repcontainer .repitem:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.repeating_weapons .repitem { 
+    grid-template-columns: 3fr 1fr; 
+    gap: 12px;
+}
+
+.repeating_inventory .repitem { 
+    grid-template-columns: 3fr 1fr; 
+    gap: 12px;
+}
+
+.repeating_abilities .repitem,
+.repeating_traits .repitem,
+.repeating_magic .repitem,
+.repeating_custom .repitem {
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.repcontrol { 
+    text-align: right; 
+    margin-top: 15px; 
+}
+
+/* --- FORM STYLING IMPROVEMENTS --- */
+label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: rgba(169, 169, 169, 0.9);
+}
+
+hr {
+    border: none; 
+    border-bottom: 1px solid rgba(169, 169, 169, 0.3); 
+    margin: 15px 0;
+}
+
+/* --- CURRENCY SYSTEM --- */
+.sheet-currency-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    align-items: end;
+}
+
+.sheet-currency-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sheet-currency-item label {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: rgba(169, 169, 169, 0.9);
+    text-transform: capitalize;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.sheet-currency-item input[type="number"] {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 8px 12px;
+    background-color: rgba(26, 26, 26, 0.7);
+    border: 1px solid rgba(169, 169, 169, 0.3);
+    color: #ffa500;
+}
+
+/* --- DREAD SYSTEM --- */
+.sheet-dread-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.sheet-dread-current {
+    text-align: center;
+}
+
+.sheet-dread-label {
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: rgba(169, 169, 169, 0.8);
+    margin-bottom: 8px;
+}
+
+.sheet-dread-value {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #c70039;
+    line-height: 1.2;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sheet-dread-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.sheet-dread-btn {
+    background-color: #1a1a1a !important;
+    color: rgba(169, 169, 169, 0.8) !important;
+    border: 1px solid rgba(169, 169, 169, 0.4) !important;
+    padding: 8px 16px !important;
+    font-weight: 700 !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 1.2em !important;
+    width: 50px !important;
+    height: 40px !important;
+    background-image: none !important;
+}
+
+.sheet-dread-btn:hover {
+    background-color: #2a2a2a !important;
+    color: rgba(224, 224, 224, 1) !important;
+    border-color: rgba(169, 169, 169, 0.8) !important;
+}
+
+.sheet-dread-descriptions {
+    width: 100%;
+    min-height: 80px;
+    text-align: left;
+}
+
+.sheet-dread-desc {
+    display: none;
+    padding: 12px;
+    background: rgba(26, 26, 26, 0.3);
+    border-radius: 4px;
+    border-left: 3px solid #c70039;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+/* Show specific dread description based on dread_display value */
+input[name="attr_dread_display"][value="0"] ~ .sheet-tab-content .sheet-dread-descriptions .sheet-dread-desc[data-level="0"],
+input[name="attr_dread_display"][value="1"] ~ .sheet-tab-content .sheet-dread-descriptions .sheet-dread-desc[data-level="1"],
+input[name="attr_dread_display"][value="2"] ~ .sheet-tab-content .sheet-dread-descriptions .sheet-dread-desc[data-level="2"],
+input[name="attr_dread_display"][value="3"] ~ .sheet-tab-content .sheet-dread-descriptions .sheet-dread-desc[data-level="3"],
+input[name="attr_dread_display"][value="4"] ~ .sheet-tab-content .sheet-dread-descriptions .sheet-dread-desc[data-level="4"],
+input[name="attr_dread_display"][value="5"] ~ .sheet-tab-content .sheet-dread-descriptions .sheet-dread-desc[data-level="5"],
+input[name="attr_dread_display"][value="6"] ~ .sheet-tab-content .sheet-dread-descriptions .sheet-dread-desc[data-level="6"] {
+    display: block;
+}
+
+.sheet-dread-desc[data-level="0"] {
+    border-left-color: #50c878;
+}
+
+.sheet-dread-desc[data-level="1"],
+.sheet-dread-desc[data-level="2"] {
+    border-left-color: #ffa500;
+}
+
+.sheet-dread-desc[data-level="3"],
+.sheet-dread-desc[data-level="4"] {
+    border-left-color: #ff6347;
+}
+
+.sheet-dread-desc[data-level="5"],
+.sheet-dread-desc[data-level="6"] {
+    border-left-color: #c70039;
+}
+
+/* --- TORCH SYSTEM --- */
+.sheet-torch-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.sheet-torch-current {
+    text-align: center;
+}
+
+.sheet-torch-label {
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: rgba(169, 169, 169, 0.8);
+    margin-bottom: 8px;
+}
+
+.sheet-torch-value {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #ffa500;
+    line-height: 1.2;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sheet-torch-status {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.sheet-torch-status-label {
+    font-weight: 700;
+    color: rgba(169, 169, 169, 0.8);
+}
+
+.sheet-torch-status-value {
+    font-weight: 700;
+    color: #e0e0e0;
+}
+
+.sheet-torch-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.sheet-torch-btn {
+    background-color: #1a1a1a !important;
+    color: rgba(169, 169, 169, 0.8) !important;
+    border: 1px solid rgba(169, 169, 169, 0.4) !important;
+    padding: 8px 12px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    letter-spacing: 0.5px !important;
+    font-size: 0.8em !important;
+    background-image: none !important;
+}
+
+.sheet-torch-btn:hover {
+    background-color: #2a2a2a !important;
+    color: rgba(224, 224, 224, 1) !important;
+    border-color: rgba(169, 169, 169, 0.8) !important;
+}
+
+.sheet-torch-progression {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(26, 26, 26, 0.3);
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.sheet-torch-stage {
+    font-family: monospace;
+    font-weight: normal;
+    color: rgba(169, 169, 169, 0.5);
+    transition: all 0.2s ease;
+}
+
+.sheet-torch-arrow {
+    color: rgba(169, 169, 169, 0.4);
+    font-size: 0.8em;
+}
+
+/* --- ROLL TEMPLATE --- */
+.sheet-rolltemplate-titd table {
+    width: 100%;
+    background-color: #0a0a0a;
+    border: 2px solid rgba(169, 169, 169, 0.8);
+    color: #e0e0e0;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 8px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    border-collapse: collapse;
+    border-radius: 4px;
+}
+
+.sheet-rolltemplate-titd .sheet-header {
+    background-color: transparent;
+    color: rgba(169, 169, 169, 1);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.5em;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+    font-weight: 700;
+}
+
+.sheet-rolltemplate-titd .sheet-row { 
+    padding: 8px; 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px;
+}
+
+.sheet-rolltemplate-titd .sheet-label { 
+    font-weight: bold; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sheet-rolltemplate-titd .sheet-result { 
+    font-weight: bold; 
+    font-size: 1.1em; 
+    text-align: right; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sheet-rolltemplate-titd .sheet-desc { 
+    grid-column: 1 / -1; 
+    font-size: 0.9em; 
+    font-style: italic; 
+    padding: 10px; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sheet-rolltemplate-titd .inlinerollresult { 
+    background: rgba(255,255,255,0.1); 
+    border: 1px solid rgba(169, 169, 169, 0.3); 
+    color: #e0e0e0; 
+    font-weight: bold; 
+    padding: 3px 6px; 
+    border-radius: 3px; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sheet-rolltemplate-titd .inlinerollresult.fullcrit { 
+    color: #50c878; 
+    border-color: #50c878;
+    box-shadow: 0 0 4px rgba(80, 200, 120, 0.3);
+}
+
+.sheet-rolltemplate-titd .inlinerollresult.fullfail { 
+    color: #c70039; 
+    border-color: #c70039;
+    box-shadow: 0 0 4px rgba(199, 0, 57, 0.3);
+}
+
+/* --- ADDITIONAL ROLL20 COMPATIBILITY --- */
+/* Fix for Roll20's default button styling interference */
+.charsheet button {
+    background-image: none !important;
+    text-decoration: none !important;
+}
+
+/* Ensure proper checkbox styling */
+.charsheet input[type="checkbox"] {
+    width: auto !important;
+    height: auto !important;
+    box-shadow: none !important;
+    margin-right: 6px !important;
+}
+
+/* --- RESPONSIVE IMPROVEMENTS --- */
+@media (max-width: 768px) {
+    .sheet-core-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .sheet-abilities-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .sheet-header {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .sheet-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .sheet-currency-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
