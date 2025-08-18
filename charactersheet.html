@@ -1,0 +1,993 @@
+<!-- Roll20 Character Sheet for Torches in the Dark -->
+<!-- Wrapper removed: Roll20 automatically wraps the sheet in a .charsheet div -->
+<div class="sheet-container">
+    <!-- HIDDEN RADIO BUTTONS FOR CSS-DRIVEN TABS -->
+    <input type="radio" name="attr_tab" value="character" checked="checked">
+    <input type="radio" name="attr_tab" value="inventory">
+    <input type="radio" name="attr_tab" value="abilities">
+    <input type="radio" name="attr_tab" value="dread">
+
+    <!-- HIDDEN INPUT FOR CUSTOM CLASS VISIBILITY -->
+    <input type="hidden" name="attr_show_custom_class" value="0">
+    
+    <!-- HIDDEN INPUT FOR DREAD DISPLAY -->
+    <input type="hidden" name="attr_dread_display" value="0">
+    
+    <!-- HIDDEN INPUT FOR STRIKES DISPLAY -->
+    <input type="hidden" name="attr_strikes_display" value="0">
+
+    <!-- HEADER SECTION -->
+    <div class="sheet-header">
+        <input type="text" name="attr_character_name" placeholder="Character Name" style="font-size: 1.5em; font-weight: 600; text-align: center;">
+        <input type="text" name="attr_grim_sort_race" placeholder="Race">
+        <select name="attr_class_name">
+            <option value="None" selected>-- Select a Class --</option>
+            <option value="Custom">Custom Class</option>
+            <option value="Mercenary">Mercenary</option>
+            <option value="Knave">Knave</option>
+            <option value="Wytch Hunter">Wytch Hunter</option>
+            <option value="Prelate">Prelate</option>
+            <option value="Marauder">Marauder</option>
+            <option value="Hunter">Hunter</option>
+            <option value="Crusader">Crusader</option>
+            <option value="Pyromancer">Pyromancer</option>
+            <option value="Alchemist">Alchemist</option>
+            <option value="Wolfgroom">Wolfgroom</option>
+            <option value="Blackguard">Blackguard</option>
+            <option value="Skald">Skald</option>
+            <option value="Wytch">Wytch</option>
+        </select>
+    </div>
+
+    <!-- CORE STATS SECTION -->
+    <div class="sheet-core-stats">
+        <div class="sheet-stat-box">
+            <div class="sheet-stat-box-label">Health</div>
+            <div class="sheet-stat-box-value">
+                <div class="sheet-strikes-container">
+                    <!-- Hidden inputs for strikes system -->
+                    <input type="hidden" name="attr_strikes" value="0">
+                    <input type="hidden" name="attr_strikes_max" value="0">
+                    <input type="hidden" name="attr_strikes_remaining" value="0">
+                    
+                    <!-- Strike dots -->
+                    <div class="sheet-strikes-dots">
+                        <button type="action" name="act_strike_dot_1" class="sheet-strike-dot" data-strike="1" title="Strike 1"></button>
+                        <button type="action" name="act_strike_dot_2" class="sheet-strike-dot" data-strike="2" title="Strike 2"></button>
+                        <button type="action" name="act_strike_dot_3" class="sheet-strike-dot" data-strike="3" title="Strike 3"></button>
+                        <button type="action" name="act_strike_dot_4" class="sheet-strike-dot" data-strike="4" title="Strike 4"></button>
+                        <button type="action" name="act_strike_dot_5" class="sheet-strike-dot" data-strike="5" title="Strike 5"></button>
+                        <button type="action" name="act_strike_dot_6" class="sheet-strike-dot" data-strike="6" title="Strike 6"></button>
+                        <button type="action" name="act_strike_dot_7" class="sheet-strike-dot" data-strike="7" title="Strike 7"></button>
+                        <button type="action" name="act_strike_dot_8" class="sheet-strike-dot" data-strike="8" title="Strike 8"></button>
+                        <button type="action" name="act_strike_dot_9" class="sheet-strike-dot" data-strike="9" title="Strike 9"></button>
+                        <button type="action" name="act_strike_dot_10" class="sheet-strike-dot" data-strike="10" title="Strike 10"></button>
+                    </div>
+                    
+                    <!-- Remaining health display -->
+                    <div class="sheet-strikes-remaining">
+                        (<span name="attr_strikes_remaining">0</span>)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sheet-stat-box">
+            <div class="sheet-stat-box-label">Defense</div>
+            <div class="sheet-stat-box-value">
+                <span name="attr_defense">5</span>
+            </div>
+        </div>
+        
+        <div class="sheet-stat-box">
+            <div class="sheet-stat-box-label">Inventory</div>
+            <div class="sheet-stat-box-value">
+                <span name="attr_inventory_current">0</span>/<span name="attr_inventory_max">10</span>
+            </div>
+        </div>
+        
+        <div class="sheet-stat-box">
+            <div class="sheet-stat-box-label">DR Chance</div>
+            <div class="sheet-stat-box-value">
+                <span name="attr_dr_chance_display">0/6</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB NAVIGATION -->
+    <nav class="sheet-tabs">
+        <button type="action" name="act_tab_character" class="sheet-tab-button" data-tab="character">Character</button>
+        <button type="action" name="act_tab_inventory" class="sheet-tab-button" data-tab="inventory">Inventory</button>
+        <button type="action" name="act_tab_abilities" class="sheet-tab-button" data-tab="abilities">Abilities</button>
+        <button type="action" name="act_tab_dread" class="sheet-tab-button" data-tab="dread">Dread</button>
+    </nav>
+
+    <!-- CHARACTER TAB CONTENT -->
+    <div class="sheet-tab-content" data-tab="character">
+        <!-- Ability Scores Section -->
+        <div class="sheet-section">
+            <h3>Ability Scores</h3>
+            <div class="sheet-abilities-grid">
+                <div class="sheet-ability-plaque">
+                    <div class="label">Might</div>
+                    <div class="score">
+                        <input type="number" name="attr_might" value="0">
+                    </div>
+                    <button type="roll" name="roll_might" value="&{template:titd} {{name=@{character_name}}} {{title=Might Check}} {{result=[[1d20+@{might}]]}}">Roll</button>
+                </div>
+                
+                <div class="sheet-ability-plaque">
+                    <div class="label">Finesse</div>
+                    <div class="score">
+                        <input type="number" name="attr_finesse" value="0">
+                    </div>
+                    <button type="roll" name="roll_finesse" value="&{template:titd} {{name=@{character_name}}} {{title=Finesse Check}} {{result=[[1d20+@{finesse}]]}}">Roll</button>
+                </div>
+                
+                <div class="sheet-ability-plaque">
+                    <div class="label">Endurance</div>
+                    <div class="score">
+                        <input type="number" name="attr_endurance" value="0">
+                    </div>
+                    <button type="roll" name="roll_endurance" value="&{template:titd} {{name=@{character_name}}} {{title=Endurance Check}} {{result=[[1d20+@{endurance}]]}}">Roll</button>
+                </div>
+                
+                <div class="sheet-ability-plaque">
+                    <div class="label">Insight</div>
+                    <div class="score">
+                        <input type="number" name="attr_insight" value="0">
+                    </div>
+                    <button type="roll" name="roll_insight" value="&{template:titd} {{name=@{character_name}}} {{title=Insight Check}} {{result=[[1d20+@{insight}]]}}">Roll</button>
+                </div>
+                
+                <div class="sheet-ability-plaque">
+                    <div class="label">Resolve</div>
+                    <div class="score">
+                        <input type="number" name="attr_resolve" value="0">
+                    </div>
+                    <button type="roll" name="roll_resolve" value="&{template:titd} {{name=@{character_name}}} {{title=Resolve Check}} {{result=[[1d20+@{resolve}]]}}">Roll</button>
+                </div>
+                
+                <div class="sheet-ability-plaque">
+                    <div class="label">Presence</div>
+                    <div class="score">
+                        <input type="number" name="attr_presence" value="0">
+                    </div>
+                    <button type="roll" name="roll_presence" value="&{template:titd} {{name=@{character_name}}} {{title=Presence Check}} {{result=[[1d20+@{presence}]]}}">Roll</button>
+                </div>
+                
+                <div class="sheet-ability-plaque">
+                    <div class="label">Faith</div>
+                    <div class="score">
+                        <input type="number" name="attr_faith" value="0">
+                    </div>
+                    <button type="roll" name="roll_faith" value="&{template:titd} {{name=@{character_name}}} {{title=Faith Check}} {{result=[[1d20+@{faith}]]}}">Roll</button>
+                </div>
+                
+                <div class="sheet-ability-plaque">
+                    <div class="label">Magick</div>
+                    <div class="score">
+                        <input type="number" name="attr_magick" value="0">
+                    </div>
+                    <button type="roll" name="roll_magick" value="&{template:titd} {{name=@{character_name}}} {{title=Magick Check}} {{result=[[1d20+@{magick}]]}}">Roll</button>
+                </div>
+                
+                <div class="sheet-ability-plaque">
+                    <div class="label">Luck</div>
+                    <div class="score">
+                        <input type="number" name="attr_luck" value="0">
+                    </div>
+                    <button type="roll" name="roll_luck" value="&{template:titd} {{name=@{character_name}}} {{title=Luck Check}} {{result=[[1d20+@{luck}]]}}">Roll</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Class Configuration (only visible when Custom class is selected) -->
+        <div class="sheet-section sheet-custom-class-section">
+            <h3>Custom Class Configuration</h3>
+            <div class="sheet-grid">
+                <div>
+                    <label for="attr_custom_class_name">Class Name:</label>
+                    <input type="text" name="attr_custom_class_name" id="attr_custom_class_name" placeholder="Enter custom class name">
+                </div>
+                <div>
+                    <label for="attr_custom_strikes_max">Max Strikes:</label>
+                    <input type="number" name="attr_custom_strikes_max" id="attr_custom_strikes_max" value="5" min="1" max="10">
+                </div>
+            </div>
+            <h4 style="margin-top: 20px; margin-bottom: 10px; color: rgba(169, 169, 169, 0.8);">Custom Abilities</h4>
+            <fieldset class="repeating_customabilities">
+                <input type="text" name="attr_customability_name" placeholder="Ability Name">
+                <textarea name="attr_customability_desc" placeholder="Description..."></textarea>
+            </fieldset>
+        </div>
+
+        <!-- Character Details Grid -->
+        <div class="sheet-grid">
+            <!-- Combat Gear Section -->
+            <div class="sheet-section">
+                <h3>Combat Gear</h3>
+                
+                <label for="attr_armor_type">Armor:</label>
+                <select name="attr_armor_type" id="attr_armor_type">
+                    <option value="0">None</option>
+                    <option value="1">Light Armor</option>
+                    <option value="2">Medium Armor</option>
+                    <option value="3">Heavy Armor</option>
+                </select>
+                
+                <label>
+                    <input type="checkbox" name="attr_shield" value="1" style="box-shadow:none; width:auto;">
+                    Shield (+1 DR)
+                </label>
+                
+                <label>
+                    <input type="checkbox" name="attr_helmet" value="1" style="box-shadow:none; width:auto;">
+                    Helmet (+1 DEF)
+                </label>
+                
+                <hr>
+                
+                <button type="roll" name="roll_dr" value="&{template:titd} {{name=@{character_name}}} {{title=Damage Reduction}} {{result=[[1d6cs<@{dr_chance}cf>@{dr_chance}]]}} {{desc=Needs a [[@{dr_chance}]] or less to succeed.}}">
+                    Roll for Damage Reduction
+                </button>
+            </div>
+
+            <!-- Notes & Conditions Section -->
+            <div class="sheet-section">
+                <h3>Notes & Conditions</h3>
+                <textarea name="attr_notes" placeholder="List any active conditions, background notes, etc..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- INVENTORY TAB CONTENT -->
+    <div class="sheet-tab-content" data-tab="inventory">
+        <div class="sheet-grid">
+            <!-- Currency Section -->
+            <div class="sheet-section" style="grid-column: 1 / -1;">
+                <h3>Currency</h3>
+                <div class="sheet-currency-grid">
+                    <div class="sheet-currency-item">
+                        <label for="attr_currency_golm">Golm</label>
+                        <input type="number" name="attr_currency_golm" id="attr_currency_golm" value="0" min="0">
+                    </div>
+                    <div class="sheet-currency-item">
+                        <label for="attr_currency_mark">Mark</label>
+                        <input type="number" name="attr_currency_mark" id="attr_currency_mark" value="0" min="0">
+                    </div>
+                    <div class="sheet-currency-item">
+                        <label for="attr_currency_castar">Castar</label>
+                        <input type="number" name="attr_currency_castar" id="attr_currency_castar" value="0" min="0">
+                    </div>
+                    <div class="sheet-currency-item">
+                        <label for="attr_currency_luminary">Luminary</label>
+                        <input type="number" name="attr_currency_luminary" id="attr_currency_luminary" value="0" min="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weapons Section -->
+            <div class="sheet-section" style="grid-column: 1 / -1;">
+                <h3>Weapons</h3>
+                <fieldset class="repeating_weapons">
+                    <input type="text" name="attr_weapon_name" placeholder="Weapon Name">
+                    <button type="roll" name="roll_attack" value="&{template:titd} {{name=@{character_name}}} {{title=Attacks with @{weapon_name}}} {{result=[[1d20+@{weapon_bonus}]]}} {{desc=@{weapon_desc}}}">
+                        Attack
+                    </button>
+                    <textarea name="attr_weapon_desc" placeholder="Damage/Effects..." style="grid-column: 1 / -1;"></textarea>
+                    <input type="text" name="attr_weapon_bonus" placeholder="Attack Bonus (e.g. @{might})" style="grid-column: 1 / -1;">
+                </fieldset>
+            </div>
+
+            <!-- Inventory Section -->
+            <div class="sheet-section" style="grid-column: 1 / -1;">
+                <h3>Inventory</h3>
+                <fieldset class="repeating_inventory">
+                    <input type="text" name="attr_item_name" placeholder="Item Name">
+                    <input type="number" name="attr_item_slots" value="1" min="0" title="Inventory Slots">
+                    <textarea name="attr_item_desc" placeholder="Description..." style="grid-column: 1 / -1;"></textarea>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABILITIES TAB CONTENT -->
+    <div class="sheet-tab-content" data-tab="abilities">
+        <div class="sheet-grid">
+            <!-- Class Abilities Section -->
+            <div class="sheet-section">
+                <h3>Class Abilities</h3>
+                <fieldset class="repeating_classabilities">
+                    <input type="text" name="attr_classability_name" placeholder="Ability Name">
+                    <textarea name="attr_classability_desc" placeholder="Description..."></textarea>
+                </fieldset>
+            </div>
+
+            <!-- Traits Section -->
+            <div class="sheet-section">
+                <h3>Traits (Passive & Active)</h3>
+                <fieldset class="repeating_traits">
+                    <input type="text" name="attr_trait_name" placeholder="Trait Name">
+                    <textarea name="attr_trait_desc" placeholder="Description..."></textarea>
+                </fieldset>
+            </div>
+
+            <!-- Spells & Miracles Section -->
+            <div class="sheet-section">
+                <h3>Spells & Miracles</h3>
+                <fieldset class="repeating_spellsmiracles">
+                    <input type="text" name="attr_spellmiracle_name" placeholder="Spell/Miracle Name">
+                    <textarea name="attr_spellmiracle_desc" placeholder="Description..."></textarea>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <!-- DREAD TAB CONTENT -->
+    <div class="sheet-tab-content" data-tab="dread">
+        <div class="sheet-grid">
+            <!-- Dread Level Section -->
+            <div class="sheet-section">
+                <h3>Dread Level</h3>
+                <div class="sheet-dread-container">
+                    <!-- Hidden inputs for dread system -->
+                    <input type="hidden" name="attr_dread_level" value="0">
+                    
+                    <!-- Dread level display -->
+                    <div class="sheet-dread-current">
+                        <div class="sheet-dread-label">Current Dread Level</div>
+                        <div class="sheet-dread-value">
+                            <span name="attr_dread_display">0</span>/6
+                        </div>
+                    </div>
+                    
+                    <!-- Dread level buttons -->
+                    <div class="sheet-dread-buttons">
+                        <button type="action" name="act_dread_decrease" class="sheet-dread-btn">-</button>
+                        <button type="action" name="act_dread_increase" class="sheet-dread-btn">+</button>
+                    </div>
+                    
+                    <!-- Dread level descriptions -->
+                    <div class="sheet-dread-descriptions">
+                        <div class="sheet-dread-desc" data-level="0">
+                            <strong>Level 0:</strong> Light holds back the dread.
+                        </div>
+                        <div class="sheet-dread-desc" data-level="1">
+                            <strong>Level 1:</strong> Unease. All Resolve saves are at disadvantage until light returns.
+                        </div>
+                        <div class="sheet-dread-desc" data-level="2">
+                            <strong>Level 2:</strong> Disorientation. Insight and Finesse checks at disadvantage. You drift unless you declare physical contact.
+                        </div>
+                        <div class="sheet-dread-desc" data-level="3">
+                            <strong>Level 3:</strong> Shadows lengthen. Each character makes a Resolve save DC 10 or suffers Morale Broken.
+                        </div>
+                        <div class="sheet-dread-desc" data-level="4">
+                            <strong>Level 4:</strong> Grasping dark. One random character is attacked by unseen claws. Fang and Claw damage. Ignores DR.
+                        </div>
+                        <div class="sheet-dread-desc" data-level="5">
+                            <strong>Level 5:</strong> Dragged screaming. One random character makes an Endurance save DC 14 or is pulled into black and separated.
+                        </div>
+                        <div class="sheet-dread-desc" data-level="6">
+                            <strong>Level 6:</strong> The Hunt. Each round, 1d4 shadow beasts attack until light is restored. Their strikes ignore DR and cause Bleeding Wound.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Torchlight Section -->
+            <div class="sheet-section">
+                <h3>Torchlight</h3>
+                <div class="sheet-torch-container">
+                    <!-- Hidden inputs for torch system -->
+                    <input type="hidden" name="attr_torch_die" value="d12">
+                    <input type="hidden" name="attr_torch_active" value="1">
+                    
+                    <!-- Current torch die display -->
+                    <div class="sheet-torch-current">
+                        <div class="sheet-torch-label">Usage Die</div>
+                        <div class="sheet-torch-value">
+                            <span name="attr_torch_die">d12</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Torch status -->
+                    <div class="sheet-torch-status">
+                        <div class="sheet-torch-status-label">Status:</div>
+                        <div class="sheet-torch-status-value">
+                            <span name="attr_torch_status">Burning Bright</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Torch roll button -->
+                    <button type="roll" name="roll_torch_usage" value="&{template:titd} {{name=@{character_name}}} {{title=Torch Usage}} {{result=[[1@{torch_die}]]}} {{desc=Roll 1-2 to degrade torch die.}}">
+                        Roll Torch Usage
+                    </button>
+                    
+                    <!-- Manual torch controls -->
+                    <div class="sheet-torch-controls">
+                        <button type="action" name="act_torch_degrade" class="sheet-torch-btn">Degrade Torch</button>
+                        <button type="action" name="act_torch_relight" class="sheet-torch-btn">Light New Torch</button>
+                    </div>
+                    
+                    <!-- Torch progression display -->
+                    <div class="sheet-torch-progression">
+                        <div class="sheet-torch-stage">d12</div>
+                        <div class="sheet-torch-arrow">→</div>
+                        <div class="sheet-torch-stage">d10</div>
+                        <div class="sheet-torch-arrow">→</div>
+                        <div class="sheet-torch-stage">d8</div>
+                        <div class="sheet-torch-arrow">→</div>
+                        <div class="sheet-torch-stage">d6</div>
+                        <div class="sheet-torch-arrow">→</div>
+                        <div class="sheet-torch-stage">d4</div>
+                        <div class="sheet-torch-arrow">→</div>
+                        <div class="sheet-torch-stage">Out</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- End .sheet-container -->
+
+<!-- ROLL TEMPLATE -->
+<rolltemplate class="sheet-rolltemplate-titd">
+    <table>
+        <tbody>
+            <tr class="sheet-header">
+                <td colspan="2">{{name}} - {{title}}</td>
+            </tr>
+            {{#result}}
+            <tr class="sheet-row">
+                <td class="sheet-label">Result:</td>
+                <td class="sheet-result">{{result}}</td>
+            </tr>
+            {{/result}}
+            {{#desc}}
+            <tr class="sheet-row">
+                <td colspan="2" class="sheet-desc">{{desc}}</td>
+            </tr>
+            {{/desc}}
+        </tbody>
+    </table>
+</rolltemplate>
+
+<!-- SHEET WORKER SCRIPT -->
+<script type="text/worker">
+    // CLASS DATA - Simplified to only contain strikes
+    const classData = {
+        "Mercenary": { strikes: 6 },
+        "Knave": { strikes: 5 },
+        "Wytch Hunter": { strikes: 5 },
+        "Prelate": { strikes: 4 },
+        "Marauder": { strikes: 6 },
+        "Hunter": { strikes: 5 },
+        "Crusader": { strikes: 6 },
+        "Pyromancer": { strikes: 4 },
+        "Alchemist": { strikes: 4 },
+        "Wolfgroom": { strikes: 5 },
+        "Blackguard": { strikes: 6 },
+        "Skald": { strikes: 5 },
+        "Wytch": { strikes: 3 },
+        "Custom": { strikes: 5 }
+    };
+
+    // ARMOR DATA
+    const armorData = { 
+        "0": { def: 0, dr: 0 }, 
+        "1": { def: 4, dr: 1 }, 
+        "2": { def: 2, dr: 2 }, 
+        "3": { def: -2, dr: 3 } 
+    };
+
+    // TAB SYSTEM
+    const TABS = ["character", "inventory", "abilities", "dread"];
+    TABS.forEach(tab => {
+        on(`clicked:tab_${tab}`, () => {
+            setAttrs({ tab });
+        });
+    });
+
+    // STRIKES SYSTEM - Health/Damage Tracking
+    const updateStrikeDots = () => {
+        getAttrs(["strikes", "strikes_max"], v => {
+            const strikes = parseInt(v.strikes) || 0;
+            const strikesMax = parseInt(v.strikes_max) || 0;
+            const strikesRemaining = Math.max(0, strikesMax - strikes);
+            
+            // Update the display values
+            setAttrs({ 
+                strikes_display: strikes,
+                strikes_remaining: strikesRemaining
+            });
+        });
+    };
+
+    // Handle strike dot clicks  
+    for (let i = 1; i <= 10; i++) {
+        on(`clicked:strike_dot_${i}`, () => handleStrikeClick(i));
+    }
+
+    const handleStrikeClick = (dotNumber) => {
+        getAttrs(["strikes"], v => {
+            const currentStrikes = parseInt(v.strikes) || 0;
+            let newStrikes;
+            
+            if (dotNumber <= currentStrikes) {
+                // Clicking on a filled dot (damage taken) - reduce damage to dotNumber-1
+                newStrikes = dotNumber - 1;
+            } else {
+                // Clicking on an empty dot - set damage taken to dotNumber
+                newStrikes = dotNumber;
+            }
+            
+            setAttrs({ strikes: newStrikes }, () => {
+                updateStrikeDots();
+            });
+        });
+    };
+
+    // CALCULATIONS
+    const calculateSheet = () => {
+        getAttrs(["finesse", "endurance", "armor_type", "shield", "helmet"], v => {
+            const finesse = parseInt(v.finesse) || 0;
+            const endurance = parseInt(v.endurance) || 0;
+            const armorType = v.armor_type || "0";
+            const shield = parseInt(v.shield) || 0;
+            const helmet = parseInt(v.helmet) || 0;
+
+            const armorDef = armorData[armorType].def;
+            const helmetDef = helmet ? 1 : 0;
+            const defense = 5 + finesse + armorDef + helmetDef;
+
+            const armorDr = armorData[armorType].dr;
+            const shieldDr = shield ? 1 : 0;
+            const dr_chance = armorDr + shieldDr;
+            const dr_chance_display = `${dr_chance}/6`;
+            
+            const inventory_max = 10 + endurance;
+
+            setAttrs({
+                defense: defense,
+                dr_chance: dr_chance,
+                dr_chance_display: dr_chance_display,
+                inventory_max: inventory_max
+            });
+        });
+    };
+
+    // INVENTORY TRACKING
+    const updateInventory = () => {
+        getSectionIDs('repeating_inventory', ids => {
+            if (!ids || ids.length === 0) {
+                setAttrs({ inventory_current: 0 });
+                return;
+            }
+            const fields = ids.map(id => `repeating_inventory_${id}_item_slots`);
+            getAttrs(fields, v => {
+                const totalSlots = ids.reduce((sum, id) => {
+                    return sum + (parseInt(v[`repeating_inventory_${id}_item_slots`]) || 0);
+                }, 0);
+                setAttrs({ inventory_current: totalSlots });
+            });
+        });
+    };
+
+    // CLASS CHANGE HANDLER
+    const handleClassChange = (className) => {
+        const data = classData[className] || { strikes: 0, abilities: [] };
+        
+        // Show/hide custom class configuration
+        const customSection = document.querySelector('.sheet-custom-class-section');
+        if (customSection) {
+            if (className === "Custom") {
+                customSection.style.display = 'block';
+                
+                // For custom class, use the custom_strikes_max value
+                getAttrs(["custom_strikes_max"], v => {
+                    const customStrikes = parseInt(v.custom_strikes_max) || 5;
+                    setAttrs({ 
+                        strikes: 0,
+                        strikes_max: customStrikes 
+                    }, () => {
+                        updateStrikeDots();
+                    });
+                });
+            } else {
+                customSection.style.display = 'none';
+                
+                // Only auto-populate class abilities if the section is empty
+                getSectionIDs('repeating_class_abilities', ids => {
+                    if (!ids || ids.length === 0) {
+                        // Section is empty, populate with default class abilities
+                        if(data.abilities.length > 0) {
+                            data.abilities.forEach(ability => {
+                                const newId = generateRowID();
+                                const newRow = {};
+                                newRow[`repeating_class_abilities_${newId}_ability_name`] = ability.name;
+                                newRow[`repeating_class_abilities_${newId}_ability_desc`] = ability.desc;
+                                setAttrs(newRow);
+                            });
+                        }
+                    }
+                    // If section has entries, don't overwrite user's custom abilities
+                });
+                
+                setAttrs({ 
+                    strikes: 0,  // Start with 0 damage taken
+                    strikes_max: data.strikes 
+                }, () => {
+                    updateStrikeDots();
+                });
+            }
+        }
+    };
+
+    // DREAD SYSTEM
+    const updateDreadDisplay = () => {
+        getAttrs(["dread_level"], v => {
+            const dreadLevel = Math.max(0, Math.min(6, parseInt(v.dread_level) || 0));
+            setAttrs({ dread_display: dreadLevel });
+        });
+    };
+
+    const changeDread = (change) => {
+        getAttrs(["dread_level"], v => {
+            const currentDread = parseInt(v.dread_level) || 0;
+            const newDread = Math.max(0, Math.min(6, currentDread + change));
+            setAttrs({ dread_level: newDread }, () => {
+                updateDreadDisplay();
+            });
+        });
+    };
+
+    // TORCH SYSTEM
+    const torchDieProgression = ["d12", "d10", "d8", "d6", "d4", "out"];
+    
+    const updateTorchDisplay = () => {
+        getAttrs(["torch_die", "torch_active"], v => {
+            const torchDie = v.torch_die || "d12";
+            const torchActive = parseInt(v.torch_active) || 1;
+            
+            let status = "Burning Bright";
+            if (torchDie === "out" || !torchActive) {
+                status = "Extinguished";
+            } else if (torchDie === "d4") {
+                status = "Flickering";
+            } else if (torchDie === "d6") {
+                status = "Dimming";
+            }
+            
+            setAttrs({ torch_status: status });
+        });
+    };
+
+    const degradeTorch = () => {
+        getAttrs(["torch_die"], v => {
+            const currentDie = v.torch_die || "d12";
+            const currentIndex = torchDieProgression.indexOf(currentDie);
+            
+            if (currentIndex < torchDieProgression.length - 1) {
+                const newDie = torchDieProgression[currentIndex + 1];
+                const newActive = newDie === "out" ? 0 : 1;
+                
+                setAttrs({ 
+                    torch_die: newDie,
+                    torch_active: newActive
+                }, () => {
+                    updateTorchDisplay();
+                    
+                    // If torch goes out, set dread to 6
+                    if (newDie === "out") {
+                        setAttrs({ dread_level: 6 }, () => {
+                            updateDreadDisplay();
+                        });
+                    }
+                });
+            }
+        });
+    };
+
+    const relightTorch = () => {
+        setAttrs({ 
+            torch_die: "d12",
+            torch_active: 1
+        }, () => {
+            updateTorchDisplay();
+        });
+    };
+
+    // EVENT LISTENERS - Completely isolated from ability sections
+    const attributesToWatch = ["finesse", "endurance", "armor_type", "shield", "helmet"].map(attr => `change:${attr}`).join(" ");
+    on(attributesToWatch, calculateSheet);
+    on("change:class_name", (eventinfo) => handleClassChange(eventinfo.newValue));
+    on("change:custom_strikes_max", () => {
+        getAttrs(["class_name", "custom_strikes_max"], v => {
+            if (v.class_name === "Custom") {
+                const customStrikes = parseInt(v.custom_strikes_max) || 5;
+                setAttrs({ strikes_max: customStrikes }, () => {
+                    updateStrikeDots();
+                });
+            }
+        });
+    });
+    
+    // Only inventory tracking - no ability sections
+    on("change:repeating_inventory remove:repeating_inventory", updateInventory);
+    on("change:strikes", updateStrikeDots);
+    
+    // Dread system event listeners
+    on("clicked:dread_increase", () => changeDread(1));
+    on("clicked:dread_decrease", () => changeDread(-1));
+    
+    // Torch system event listeners
+    on("clicked:torch_degrade", degradeTorch);
+    on("clicked:torch_relight", relightTorch);
+    
+    // ABILITY USAGE TRACKING - Simplified approach
+    // Class Abilities usage tracking
+    on("clicked:repeating_class_abilities:ability_use_increase", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[2];
+        getAttrs([`repeating_class_abilities_${rowId}_ability_uses_current`, `repeating_class_abilities_${rowId}_ability_uses_max`], v => {
+            const current = parseInt(v[`repeating_class_abilities_${rowId}_ability_uses_current`]) || 0;
+            const max = parseInt(v[`repeating_class_abilities_${rowId}_ability_uses_max`]) || 0;
+            if (current < max) {
+                const update = {};
+                update[`repeating_class_abilities_${rowId}_ability_uses_current`] = current + 1;
+                setAttrs(update);
+            }
+        });
+    });
+    
+    // RESET ALL USES FUNCTIONALITY
+    on("clicked:reset_all_uses", () => {
+        // Reset all ability uses to their max values
+        const sectionsToReset = ['repeating_class_abilities', 'repeating_traits', 'repeating_spells', 'repeating_custom_abilities'];
+        
+        sectionsToReset.forEach(sectionName => {
+            getSectionIDs(sectionName, ids => {
+                if (ids && ids.length > 0) {
+                    const fields = [];
+                    ids.forEach(id => {
+                        let usesCurrentField, usesMaxField;
+                        
+                        if (sectionName === 'repeating_class_abilities') {
+                            usesCurrentField = `${sectionName}_${id}_ability_uses_current`;
+                            usesMaxField = `${sectionName}_${id}_ability_uses_max`;
+                        } else if (sectionName === 'repeating_traits') {
+                            usesCurrentField = `${sectionName}_${id}_trait_uses_current`;
+                            usesMaxField = `${sectionName}_${id}_trait_uses_max`;
+                        } else if (sectionName === 'repeating_spells') {
+                            usesCurrentField = `${sectionName}_${id}_spell_uses_current`;
+                            usesMaxField = `${sectionName}_${id}_spell_uses_max`;
+                        } else if (sectionName === 'repeating_custom_abilities') {
+                            usesCurrentField = `${sectionName}_${id}_custom_ability_uses_current`;
+                            usesMaxField = `${sectionName}_${id}_custom_ability_uses_max`;
+                        }
+                        
+                        fields.push(usesCurrentField, usesMaxField);
+                    });
+                    
+                    getAttrs(fields, v => {
+                        const update = {};
+                        ids.forEach(id => {
+                            let usesCurrentField, usesMaxField;
+                            
+                            if (sectionName === 'repeating_class_abilities') {
+                                usesCurrentField = `${sectionName}_${id}_ability_uses_current`;
+                                usesMaxField = `${sectionName}_${id}_ability_uses_max`;
+                            } else if (sectionName === 'repeating_traits') {
+                                usesCurrentField = `${sectionName}_${id}_trait_uses_current`;
+                                usesMaxField = `${sectionName}_${id}_trait_uses_max`;
+                            } else if (sectionName === 'repeating_spells') {
+                                usesCurrentField = `${sectionName}_${id}_spell_uses_current`;
+                                usesMaxField = `${sectionName}_${id}_spell_uses_max`;
+                            } else if (sectionName === 'repeating_custom_abilities') {
+                                usesCurrentField = `${sectionName}_${id}_custom_ability_uses_current`;
+                                usesMaxField = `${sectionName}_${id}_custom_ability_uses_max`;
+                            }
+                            
+                            const maxUses = parseInt(v[usesMaxField]) || 0;
+                            if (maxUses > 0) {
+                                update[usesCurrentField] = maxUses;
+                            }
+                        });
+                        
+                        if (Object.keys(update).length > 0) {
+                            setAttrs(update);
+                        }
+                    });
+                }
+            });
+        });
+    });
+    
+    on("clicked:repeating_class_abilities:ability_use_decrease", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[2];
+        getAttrs([`repeating_class_abilities_${rowId}_ability_uses_current`], v => {
+            const current = parseInt(v[`repeating_class_abilities_${rowId}_ability_uses_current`]) || 0;
+            if (current > 0) {
+                const update = {};
+                update[`repeating_class_abilities_${rowId}_ability_uses_current`] = current - 1;
+                setAttrs(update);
+            }
+        });
+    });
+    
+    on("change:repeating_class_abilities:ability_uses_max", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[2];
+        getAttrs([`repeating_class_abilities_${rowId}_ability_uses_current`, `repeating_class_abilities_${rowId}_ability_uses_max`], v => {
+            const current = parseInt(v[`repeating_class_abilities_${rowId}_ability_uses_current`]) || 0;
+            const max = parseInt(v[`repeating_class_abilities_${rowId}_ability_uses_max`]) || 0;
+            const update = {};
+            if (max > 0 && current === 0) {
+                update[`repeating_class_abilities_${rowId}_ability_uses_current`] = max;
+            } else if (current > max) {
+                update[`repeating_class_abilities_${rowId}_ability_uses_current`] = max;
+            }
+            if (Object.keys(update).length > 0) {
+                setAttrs(update);
+            }
+        });
+    });
+
+    // Traits usage tracking
+    on("clicked:repeating_traits:trait_use_increase", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[2];
+        getAttrs([`repeating_traits_${rowId}_trait_uses_current`, `repeating_traits_${rowId}_trait_uses_max`], v => {
+            const current = parseInt(v[`repeating_traits_${rowId}_trait_uses_current`]) || 0;
+            const max = parseInt(v[`repeating_traits_${rowId}_trait_uses_max`]) || 0;
+            if (current < max) {
+                const update = {};
+                update[`repeating_traits_${rowId}_trait_uses_current`] = current + 1;
+                setAttrs(update);
+            }
+        });
+    });
+    
+    on("clicked:repeating_traits:trait_use_decrease", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[2];
+        getAttrs([`repeating_traits_${rowId}_trait_uses_current`], v => {
+            const current = parseInt(v[`repeating_traits_${rowId}_trait_uses_current`]) || 0;
+            if (current > 0) {
+                const update = {};
+                update[`repeating_traits_${rowId}_trait_uses_current`] = current - 1;
+                setAttrs(update);
+            }
+        });
+    });
+    
+    on("change:repeating_traits:trait_uses_max", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[2];
+        getAttrs([`repeating_traits_${rowId}_trait_uses_current`, `repeating_traits_${rowId}_trait_uses_max`], v => {
+            const current = parseInt(v[`repeating_traits_${rowId}_trait_uses_current`]) || 0;
+            const max = parseInt(v[`repeating_traits_${rowId}_trait_uses_max`]) || 0;
+            const update = {};
+            if (max > 0 && current === 0) {
+                update[`repeating_traits_${rowId}_trait_uses_current`] = max;
+            } else if (current > max) {
+                update[`repeating_traits_${rowId}_trait_uses_current`] = max;
+            }
+            if (Object.keys(update).length > 0) {
+                setAttrs(update);
+            }
+        });
+    });
+
+    // Spells usage tracking
+    on("clicked:repeating_spells:spell_use_increase", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[2];
+        getAttrs([`repeating_spells_${rowId}_spell_uses_current`, `repeating_spells_${rowId}_spell_uses_max`], v => {
+            const current = parseInt(v[`repeating_spells_${rowId}_spell_uses_current`]) || 0;
+            const max = parseInt(v[`repeating_spells_${rowId}_spell_uses_max`]) || 0;
+            if (current < max) {
+                const update = {};
+                update[`repeating_spells_${rowId}_spell_uses_current`] = current + 1;
+                setAttrs(update);
+            }
+        });
+    });
+    
+    on("clicked:repeating_spells:spell_use_decrease", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[2];
+        getAttrs([`repeating_spells_${rowId}_spell_uses_current`], v => {
+            const current = parseInt(v[`repeating_spells_${rowId}_spell_uses_current`]) || 0;
+            if (current > 0) {
+                const update = {};
+                update[`repeating_spells_${rowId}_spell_uses_current`] = current - 1;
+                setAttrs(update);
+            }
+        });
+    });
+    
+    on("change:repeating_spells:spell_uses_max", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[2];
+        getAttrs([`repeating_spells_${rowId}_spell_uses_current`, `repeating_spells_${rowId}_spell_uses_max`], v => {
+            const current = parseInt(v[`repeating_spells_${rowId}_spell_uses_current`]) || 0;
+            const max = parseInt(v[`repeating_spells_${rowId}_spell_uses_max`]) || 0;
+            const update = {};
+            if (max > 0 && current === 0) {
+                update[`repeating_spells_${rowId}_spell_uses_current`] = max;
+            } else if (current > max) {
+                update[`repeating_spells_${rowId}_spell_uses_current`] = max;
+            }
+            if (Object.keys(update).length > 0) {
+                setAttrs(update);
+            }
+        });
+    });
+
+    // Custom Abilities usage tracking
+    on("clicked:repeating_custom_abilities:custom_ability_use_increase", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[3];
+        getAttrs([`repeating_custom_abilities_${rowId}_custom_ability_uses_current`, `repeating_custom_abilities_${rowId}_custom_ability_uses_max`], v => {
+            const current = parseInt(v[`repeating_custom_abilities_${rowId}_custom_ability_uses_current`]) || 0;
+            const max = parseInt(v[`repeating_custom_abilities_${rowId}_custom_ability_uses_max`]) || 0;
+            if (current < max) {
+                const update = {};
+                update[`repeating_custom_abilities_${rowId}_custom_ability_uses_current`] = current + 1;
+                setAttrs(update);
+            }
+        });
+    });
+    
+    on("clicked:repeating_custom_abilities:custom_ability_use_decrease", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[3];
+        getAttrs([`repeating_custom_abilities_${rowId}_custom_ability_uses_current`], v => {
+            const current = parseInt(v[`repeating_custom_abilities_${rowId}_custom_ability_uses_current`]) || 0;
+            if (current > 0) {
+                const update = {};
+                update[`repeating_custom_abilities_${rowId}_custom_ability_uses_current`] = current - 1;
+                setAttrs(update);
+            }
+        });
+    });
+    
+    on("change:repeating_custom_abilities:custom_ability_uses_max", (eventinfo) => {
+        const rowId = eventinfo.sourceAttribute.split('_')[3];
+        getAttrs([`repeating_custom_abilities_${rowId}_custom_ability_uses_current`, `repeating_custom_abilities_${rowId}_custom_ability_uses_max`], v => {
+            const current = parseInt(v[`repeating_custom_abilities_${rowId}_custom_ability_uses_current`]) || 0;
+            const max = parseInt(v[`repeating_custom_abilities_${rowId}_custom_ability_uses_max`]) || 0;
+            const update = {};
+            if (max > 0 && current === 0) {
+                update[`repeating_custom_abilities_${rowId}_custom_ability_uses_current`] = max;
+            } else if (current > max) {
+                update[`repeating_custom_abilities_${rowId}_custom_ability_uses_current`] = max;
+            }
+            if (Object.keys(update).length > 0) {
+                setAttrs(update);
+            }
+        });
+    });
+    
+    // SHEET INITIALIZATION
+    on("sheet:opened", () => {
+        calculateSheet();
+        updateInventory();
+        updateStrikeDots();
+        updateDreadDisplay();
+        updateTorchDisplay();
+        
+        // Handle custom class visibility on sheet open
+        getAttrs(["class_name"], v => {
+            if (v.class_name === "Custom") {
+                const customSection = document.querySelector('.sheet-custom-class-section');
+                if (customSection) {
+                    customSection.style.display = 'block';
+                }
+            }
+        });
+        
+        // Ensure proper initial state for new characters
+        getAttrs(["strikes_max"], v => {
+            if (!v.strikes_max || v.strikes_max === "0") {
+                // No class selected yet, everything should be 0
+                setAttrs({
+                    strikes: 0,
+                    strikes_remaining: 0
+                });
+            }
+        });
+    });
+</script>
