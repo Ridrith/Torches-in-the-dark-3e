@@ -213,31 +213,30 @@
                 
                 <label for="attr_armor_type">Armor:</label>
                 <select name="attr_armor_type" id="attr_armor_type">
-                    <option value="0">None (0 DEF, 0/6 DR, 0 slots) - 0g</option>
+                    <option value="0">None - 0 Slots, +0 DEF, 0/6 DR</option>
                     <optgroup label="Light Armor">
-                        <option value="padded">Padded Armor (+3 DEF, 1/6 DR, 1 slot) - 8g</option>
-                        <option value="leather">Leather Armor (+4 DEF, 1/6 DR, 1 slot) - 12g</option>
-                        <option value="studded">Studded Leather (+5 DEF, 1/6 DR, 1 slot) - 18g</option>
+                        <option value="padded">Padded Armor - 1 Slot, +4 DEF, 1/6 DR</option>
+                        <option value="leather">Leather Armor - 1 Slot, +5 DEF, 1/6 DR</option>
+                        <option value="studded">Studded Leather - 1 Slot, +6 DEF, 1/6 DR</option>
                     </optgroup>
                     <optgroup label="Medium Armor">
-                        <option value="chain_shirt">Chain Shirt (+1 DEF, 2/6 DR, 2 slots) - 25g</option>
-                        <option value="scale_mail">Scale Mail (+2 DEF, 2/6 DR, 2 slots) - 35g</option>
-                        <option value="chain_mail">Chain Mail (+3 DEF, 2/6 DR, 2 slots) - 45g</option>
+                        <option value="chain_shirt">Chain Shirt - 2 Slots, +2 DEF, 2/6 DR</option>
+                        <option value="scale_mail">Scale Mail - 2 Slots, +3 DEF, 2/6 DR</option>
+                        <option value="chain_mail">Chain Mail - 2 Slots, +4 DEF, 2/6 DR</option>
                     </optgroup>
                     <optgroup label="Heavy Armor">
-                        <option value="banded_mail">Banded Mail (+1 DEF, 3/6 DR, 3 slots) - 60g</option>
-                        <option value="plate_mail">Plate Mail (+2 DEF, 3/6 DR, 3 slots) - 100g</option>
-                        <option value="full_plate">Full Plate (+3 DEF, 3/6 DR, 3 slots) - 200g</option>
+                        <option value="banded_mail">Banded Mail - 3 Slots, -2 DEF, 3/6 DR</option>
+                        <option value="plate_mail">Plate Mail - 3 Slots, -1 DEF, 3/6 DR</option>
+                        <option value="full_plate">Full Plate - 3 Slots, +1 DEF, 3/6 DR</option>
                     </optgroup>
                 </select>
                 
                 <label for="attr_shield_type">Shield:</label>
                 <select name="attr_shield_type" id="attr_shield_type">
-                    <option value="0">None (0 DR) - 0g</option>
-                    <option value="buckler">Buckler (+1 DR, Small, Light) - 5g</option>
-                    <option value="round">Round Shield (+1 DR, Medium) - 8g</option>
-                    <option value="heater">Heater Shield (+1 DR, +1 DEF, Large) - 12g</option>
-                    <option value="tower">Tower Shield (+2 DR, Massive, Unwieldy) - 20g</option>
+                    <option value="0">None - 0 Slots, +0 DR Chance</option>
+                    <option value="buckler">Buckler - 1 Slot, +1 DR Chance</option>
+                    <option value="round">Round Shield - 2 Slots, +1 DR Chance, +1 DEF</option>
+                    <option value="tower">Tower Shield - 3 Slots, +1 DR Chance, +2 DEF, Unwieldy</option>
                 </select>
                 
                 <label>
@@ -501,28 +500,27 @@
         "3": { def: -2, dr: 3, slots: 3, cost: 100, name: "Heavy Armor" },
         
         // Light Armor
-        "padded": { def: 3, dr: 1, slots: 1, cost: 8, name: "Padded Armor" },
-        "leather": { def: 4, dr: 1, slots: 1, cost: 12, name: "Leather Armor" },
-        "studded": { def: 5, dr: 1, slots: 1, cost: 18, name: "Studded Leather" },
+        "padded": { def: 4, dr: 1, slots: 1, cost: 8, name: "Padded Armor" },
+        "leather": { def: 5, dr: 1, slots: 1, cost: 12, name: "Leather Armor" },
+        "studded": { def: 6, dr: 1, slots: 1, cost: 18, name: "Studded Leather" },
         
         // Medium Armor
-        "chain_shirt": { def: 1, dr: 2, slots: 2, cost: 25, name: "Chain Shirt" },
-        "scale_mail": { def: 2, dr: 2, slots: 2, cost: 35, name: "Scale Mail" },
-        "chain_mail": { def: 3, dr: 2, slots: 2, cost: 45, name: "Chain Mail" },
+        "chain_shirt": { def: 2, dr: 2, slots: 2, cost: 25, name: "Chain Shirt" },
+        "scale_mail": { def: 3, dr: 2, slots: 2, cost: 35, name: "Scale Mail" },
+        "chain_mail": { def: 4, dr: 2, slots: 2, cost: 45, name: "Chain Mail" },
         
         // Heavy Armor
-        "banded_mail": { def: 1, dr: 3, slots: 3, cost: 60, name: "Banded Mail" },
-        "plate_mail": { def: 2, dr: 3, slots: 3, cost: 100, name: "Plate Mail" },
-        "full_plate": { def: 3, dr: 3, slots: 3, cost: 200, name: "Full Plate" }
+        "banded_mail": { def: -2, dr: 3, slots: 3, cost: 60, name: "Banded Mail" },
+        "plate_mail": { def: -1, dr: 3, slots: 3, cost: 100, name: "Plate Mail" },
+        "full_plate": { def: 1, dr: 3, slots: 3, cost: 200, name: "Full Plate" }
     };
 
     // SHIELD DATA
     const shieldData = {
-        "0": { def: 0, dr: 0, cost: 0, name: "None", properties: "" },
-        "buckler": { def: 0, dr: 1, cost: 5, name: "Buckler", properties: "Small, Light" },
-        "round": { def: 0, dr: 1, cost: 8, name: "Round Shield", properties: "Medium" },
-        "heater": { def: 1, dr: 1, cost: 12, name: "Heater Shield", properties: "Large" },
-        "tower": { def: 0, dr: 2, cost: 20, name: "Tower Shield", properties: "Massive, Unwieldy" }
+        "0": { def: 0, dr: 0, slots: 0, cost: 0, name: "None", properties: "" },
+        "buckler": { def: 0, dr: 1, slots: 1, cost: 5, name: "Buckler", properties: "" },
+        "round": { def: 1, dr: 1, slots: 2, cost: 8, name: "Round Shield", properties: "" },
+        "tower": { def: 2, dr: 1, slots: 3, cost: 20, name: "Tower Shield", properties: "Unwieldy" }
     };
 
     // TAB SYSTEM
@@ -593,15 +591,17 @@
             
             const inventory_max = 10 + endurance;
             
-            // Calculate armor slots used
+            // Calculate armor and shield slots used
             const armorSlots = armorData[armorType] ? armorData[armorType].slots : 0;
+            const shieldSlots = shieldData[shieldType] ? shieldData[shieldType].slots : 0;
+            const totalArmorShieldSlots = armorSlots + shieldSlots;
 
             setAttrs({
                 defense: defense,
                 dr_chance: dr_chance,
                 dr_chance_display: dr_chance_display,
                 inventory_max: inventory_max,
-                armor_slots_used: armorSlots
+                armor_slots_used: totalArmorShieldSlots
             });
         });
     };
