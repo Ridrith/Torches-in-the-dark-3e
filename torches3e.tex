@@ -57,10 +57,10 @@
 \definecolor{ash}{HTML}{151515}
 \definecolor{barred}{HTML}{1A1A1A}
 
-% Subtle zebra striping on soot
-\definecolor{rowA}{RGB}{22,22,22}
-\definecolor{rowB}{RGB}{12,12,12}
-\definecolor{thead}{RGB}{32,32,32}
+% Enhanced zebra striping with better contrast for professional look
+\definecolor{rowA}{RGB}{28,28,28}
+\definecolor{rowB}{RGB}{16,16,16}
+\definecolor{thead}{RGB}{40,40,40}
 
 \pagecolor{soot}
 \color{ink}
@@ -69,8 +69,16 @@
 \clubpenalty=10000
 \widowpenalty=10000
 \displaywidowpenalty=10000
-\setlength{\parskip}{2pt}
+\setlength{\parskip}{4pt plus 1pt minus 1pt}
 \setlength{\parindent}{0pt}
+
+% ---------- Enhanced typography ----------
+% Improved line spacing for readability
+\linespread{1.08}
+% Better spacing around headings
+\titlespacing*{\section}{0pt}{20pt plus 4pt minus 2pt}{12pt plus 2pt minus 2pt}
+\titlespacing*{\subsection}{0pt}{16pt plus 3pt minus 2pt}{8pt plus 2pt minus 1pt}
+\titlespacing*{\subsubsection}{0pt}{12pt plus 2pt minus 1pt}{6pt plus 1pt minus 1pt}
 
 % ---------- Keep-with-next helper ----------
 \newcommand{\keepwithnext}[1]{\Needspace{#1\baselineskip}}
@@ -146,12 +154,23 @@
   \renewcommand{\headrule}{\hbox to\headwidth{\color{iron}\leaders\hrule height \headrulewidth\hfill}}
 }
 
-% ---------- Section styling ----------
+% ---------- Enhanced section styling ----------
 \sectionfont{\color{bone}\scshape}
 \subsectionfont{\color{bone}}
-\titleformat{\section}{\Large\scshape\color{bone}}{\thesection}{.75em}{\raggedright}
-\titleformat{\subsection}{\large\bfseries\color{bone}}{\thesubsection}{.6em}{\raggedright}
-\titleformat{\subsubsection}{\normalsize\bfseries\color{bone}}{\thesubsubsection}{.5em}{\raggedright}
+
+% Professional heading hierarchy with improved sizing and spacing
+\titleformat{\section}
+  {\LARGE\scshape\color{bone}\raggedright}
+  {\thesection}{1em}{}
+  [\vspace{-2pt}\titlerule[0.5pt]]
+
+\titleformat{\subsection}
+  {\Large\bfseries\color{bone}\raggedright}
+  {\thesubsection}{0.8em}{}
+
+\titleformat{\subsubsection}
+  {\large\bfseries\color{bone}\raggedright}
+  {\thesubsubsection}{0.6em}{}
 
 % ---------- Blood separator ----------
 \newcommand{\bloodrule}{%
@@ -213,37 +232,92 @@
     \fbox{\parbox[c][.18\textheight][c]{.8\linewidth}{\centering
     \color{iron}\small Missing image: \texttt{#2}}}}}
 
-% ---------- Lists ----------
-\setlist[itemize]{itemsep=1pt,topsep=2pt,left=1.1em,
-  label=\textcolor{gold}{\scriptsize$\blacktriangleright$}}
-\setlist[enumerate]{itemsep=1pt,topsep=2pt,left=1.4em,
-  label=\textcolor{gold}{\arabic*.}}
+% ---------- Enhanced lists with professional formatting ----------
+\setlist[itemize]{
+  itemsep=2pt plus 1pt minus 1pt,
+  topsep=4pt plus 2pt minus 1pt,
+  left=1.2em,
+  label=\textcolor{gold}{\scriptsize$\blacktriangleright$}
+}
+\setlist[enumerate]{
+  itemsep=2pt plus 1pt minus 1pt,
+  topsep=4pt plus 2pt minus 1pt,
+  left=1.5em,
+  label=\textcolor{gold}{\arabic*.}
+}
 
-% ---------- Multicol ----------
-\setlength{\columnsep}{12pt}
-\setlength{\multicolsep}{4pt}
+% Nested list improvements
+\setlist[itemize,2]{
+  label=\textcolor{bone}{\scriptsize$\circ$},
+  left=1.8em
+}
+\setlist[enumerate,2]{
+  label=\textcolor{bone}{\alph*)},
+  left=2em
+}
+
+% ---------- Professional multicol settings ----------
+\setlength{\columnsep}{18pt}
+\setlength{\multicolsep}{8pt plus 2pt minus 2pt}
 \raggedcolumns
 
-% ---------- Tables: hairlines + striping ----------
-\setlength{\arrayrulewidth}{0.3pt}
-\renewcommand{\arraystretch}{1.08}
+% Custom column environments for specific content types
+\newenvironment{rpgtwocol}
+  {\begin{multicols}{2}[\vspace{2pt}]\raggedcolumns\small}
+  {\end{multicols}}
+
+\newenvironment{rpgthreecol}
+  {\begin{multicols}{3}[\vspace{2pt}]\raggedcolumns\footnotesize}
+  {\end{multicols}}
+
+% ---------- Enhanced tables with professional formatting ----------
+\setlength{\arrayrulewidth}{0.4pt}
+\renewcommand{\arraystretch}{1.15}
 \arrayrulecolor{iron}
+
+% Enhanced zebra striping - defined earlier but improved here
 \newcommand{\stripetable}{\rowcolors{2}{rowA}{rowB}}
 
-% ---------- Featured tables ----------
-\newcommand{\compacttablewidth}{0.85\linewidth}
+% ---------- Professional table environments ----------
+\newcommand{\compacttablewidth}{0.88\linewidth}
 \newenvironment{compacttabular}[1]{%
-  \begin{center}\begin{minipage}{\compacttablewidth}\stripetable\small
+  \begin{center}\begin{minipage}{\compacttablewidth}
+  \stripetable\small\centering
   \begin{tabular}{#1}
 }{%
   \end{tabular}
   \end{minipage}\end{center}
 }
 
-% Full-width tight table if needed
+% Enhanced full-width table
 \newenvironment{tighttabular}[1]{%
-  \stripetable\footnotesize\begin{tabular}{#1}
-}{\end{tabular}}
+  \stripetable\footnotesize\centering\begin{tabular}{#1}
+}{%
+  \end{tabular}
+}
+
+% Professional stat block table for monsters/NPCs
+\newenvironment{statblocktable}[1]{%
+  \small\centering
+  \begin{tabular}{#1}
+}{%
+  \end{tabular}
+}
+
+% Enhanced monster stat block environment
+\newenvironment{monsterstatblock}[2]{%
+  \keepwithnext{3}
+  \vspace{4pt plus 2pt minus 1pt}
+  \subsubsection{#1}
+  \textit{#2}
+  \vspace{2pt}
+  \begin{grimnote}[title={}]
+  \setlength{\parskip}{3pt}
+  \small
+}{%
+  \end{grimnote}
+  \vspace{2pt plus 1pt minus 1pt}
+}
 
 % ---------- Title ----------
 \title{\textbf{\color{gold}Torches in the Dark Alpha 1.0}}
@@ -413,17 +487,19 @@ Characters begin with 10 attribute points to distribute among nine ability score
 \subsection{Races}
 Some races are rare. To play a rare race, roll a d100 and roll equal to or lower than the number shown. Playing as a non-human race \textbf{is} your \term{Grim Sort}.
 
-\begin{multicols}{2}
-{\small
-\begin{itemize}
-\item \textbf{Human} \;|\; Common — +1 to any ability score, choose one passive and active trait.
-\item \textbf{Empire Dwarf} \;|\; 40\% — +3 Endurance, +2 Might, \term{Iron Gut}.
-\item \textbf{Drakon} \;|\; 20\% — +2 Might, +3 Faith, \term{Unshakable Faith}.
-\item \textbf{Orkon} \;|\; 20\% — +4 Might, +1 Endurance, \term{Tenacious}.
-\item \textbf{Astral Elf} \;|\; 10\% — +2 Magick, +3 Presence, \term{Void Gaze}, \term{Quiet Mind}.
-\end{itemize}
-}
-\end{multicols}
+\begin{rpgtwocol}
+\begin{description}[style=nextline, leftmargin=0pt, itemsep=6pt]
+\item[\textbf{Human}] \textcolor{gold}{Common} — +1 to any ability score, choose one passive and active trait.
+
+\item[\textbf{Empire Dwarf}] \textcolor{bone}{40\%} — +3 Endurance, +2 Might, \term{Iron Gut}.
+
+\item[\textbf{Drakon}] \textcolor{bone}{20\%} — +2 Might, +3 Faith, \term{Unshakable Faith}.
+
+\item[\textbf{Orkon}] \textcolor{bone}{20\%} — +4 Might, +1 Endurance, \term{Tenacious}.
+
+\item[\textbf{Astral Elf}] \textcolor{bone}{10\%} — +2 Magick, +3 Presence, \term{Void Gaze}, \term{Quiet Mind}.
+\end{description}
+\end{rpgtwocol}
 
 \bloodrule
 
@@ -503,27 +579,29 @@ Heavy Armor  & 3 & -2 & 3/6 (roll 1--3) \\
 \section{Spellcasting \& Miracles}
 \bloodrule
 
-\begin{multicols}{2}
+\begin{rpgtwocol}
+
 \subsection{Spellcasting (Arcane Magic)}
 Wytches roll 1d20 + Magick vs the spell's DC. \textbf{Base Spell DC: 10.}
 
-\subsubsection{Armor Interference}
-\begin{itemize}
+\begin{rulesbox}[title={Armor Interference}]
+\begin{itemize}[itemsep=1pt]
 \item Light Armor: +4 to spell DC
 \item Medium Armor: +8 to spell DC
 \item Heavy Armor: +12 to spell DC
 \end{itemize}
-
-\columnbreak
+\end{rulesbox}
 
 \subsection{Miracles (Divine Magic)}
 Crusaders, Prelates, Pyromancers channel divine power. Gods ignore mortals. \textbf{Base Miracle DC: 12.}
 
-\subsubsection{Divine Mishaps (Natural 1)}
+\begin{warningbox}[title={Divine Mishaps (Natural 1)}]
 On a natural 1: (1) Lose 1 Faith; (2) Roll 1d100 on Divine Mishap Table.
-\end{multicols}
+\end{warningbox}
 
-\subsubsection{Magical Mishaps (Natural 1)}
+\end{rpgtwocol}
+
+\subsection{Magical Mishaps (Natural 1)}
 On a natural 1: (1) Lose 1 Presence; (2) Roll 1d100 on the Magical Mishap Table.
 
 \begin{compacttabular}{@{} l p{.65\linewidth} @{}}
@@ -673,379 +751,323 @@ At zero strikes, roll 1d12 on the Horrible Wounds table by damage type. Death is
 \bloodrule
 
 \subsection{Passive Traits}
-\begin{multicols}{2}
-{\footnotesize
-\begin{itemize}
+
+\begin{rpgtwocol}
+\begin{description}[style=nextline, leftmargin=0pt, itemsep=4pt]
+
 % Combat Focused
-\item \textbf{Battle Hardened:} +2 max Strikes.
-\item \textbf{Scarred Veteran:} +2 saves vs fear and mental effects.
-\item \textbf{Pain Tolerance:} Critical hits deal normal damage.
-\item \textbf{Combat Reflexes:} +1 Initiative; act first in surprise.
-\item \textbf{Weapon Master:} +1 attack with chosen weapon type.
-\item \textbf{Shield Expert:} +1 Defense with shield; negate any attack.
-\item \textbf{Armor Training:} Ignore movement penalties; sleep in armor.
-\item \textbf{Defensive Fighter:} +1 Defense when fighting defensively.
-\item \textbf{Ironbound:} +1 DR chance in heavy armor.
-\item \textbf{Divine Shell:} Reduce unholy damage by 1 Strike/encounter.
+\item[\textbf{Battle Hardened}] +2 max Strikes.
+\item[\textbf{Scarred Veteran}] +2 saves vs fear and mental effects.
+\item[\textbf{Pain Tolerance}] Critical hits deal normal damage.
+\item[\textbf{Combat Reflexes}] +1 Initiative; act first in surprise.
+\item[\textbf{Weapon Master}] +1 attack with chosen weapon type.
+\item[\textbf{Shield Expert}] +1 Defense with shield; negate any attack.
+\item[\textbf{Armor Training}] Ignore movement penalties; sleep in armor.
+\item[\textbf{Defensive Fighter}] +1 Defense when fighting defensively.
+\item[\textbf{Ironbound}] +1 DR chance in heavy armor.
+\item[\textbf{Divine Shell}] Reduce unholy damage by 1 Strike/encounter.
 
 % Survival & Exploration
-\item \textbf{Iron Constitution:} +3 Endurance vs poison, disease.
-\item \textbf{Keen Senses:} +3 Insight for perception and tracking.
-\item \textbf{Night Eyes:} See clearly in darkness; stealth advantage.
-\item \textbf{Beast Friend:} Animals non-hostile; understand intent.
-\item \textbf{Survivalist:} Find food/water for party once per day.
-\item \textbf{Trap Sense:} Auto-detect obvious traps; +3 vs effects.
-\item \textbf{Danger Sense:} Cannot be surprised.
+\item[\textbf{Iron Constitution}] +3 Endurance vs poison, disease.
+\item[\textbf{Keen Senses}] +3 Insight for perception and tracking.
+\item[\textbf{Night Eyes}] See clearly in darkness; stealth advantage.
+\item[\textbf{Beast Friend}] Animals non-hostile; understand intent.
+\item[\textbf{Survivalist}] Find food/water for party once per day.
+\item[\textbf{Trap Sense}] Auto-detect obvious traps; +3 vs effects.
+\item[\textbf{Danger Sense}] Cannot be surprised.
 
 % Social & Mental
-\item \textbf{Iron Will:} Ignore one mental effect per encounter.
-\item \textbf{Commanding Presence:} +3 Presence for intimidation.
-\item \textbf{Silver Tongue:} +3 Presence for persuasion and deception.
-\item \textbf{Lore Master:} Know facts about history, monsters, magic.
-\item \textbf{Street Smart:} +3 Insight for motives; know customs.
-\item \textbf{Inspiring:} Once per session, grant ally advantage.
+\item[\textbf{Iron Will}] Ignore one mental effect per encounter.
+\item[\textbf{Commanding Presence}] +3 Presence for intimidation.
+\item[\textbf{Silver Tongue}] +3 Presence for persuasion and deception.
+\item[\textbf{Lore Master}] Know facts about history, monsters, magic.
+\item[\textbf{Street Smart}] +3 Insight for motives; know customs.
+\item[\textbf{Inspiring}] Once per session, grant ally advantage.
 
 % Magic & Faith
-\item \textbf{Spell Resistance:} +3 saves vs hostile magic.
-\item \textbf{Magic Sense:} Detect magic within 20 feet.
-\item \textbf{Ritual Knowledge:} Perform minor rituals.
-\item \textbf{Arcane Focus:} +2 spellcasting; no armor heavier than light.
+\item[\textbf{Spell Resistance}] +3 saves vs hostile magic.
+\item[\textbf{Magic Sense}] Detect magic within 20 feet.
+\item[\textbf{Ritual Knowledge}] Perform minor rituals.
+\item[\textbf{Arcane Focus}] +2 spellcasting; no armor heavier than light.
 
 % Specialized
-\item \textbf{Lucky:} Reroll one d20 per session, keep better result.
-\item \textbf{Tenacious:} Remain conscious until --2 Strikes.
-\item \textbf{Corpse Robber:} Find extra loot on 5--6 when searching.
-\item \textbf{Merchant:} Sell items for 25\% more; know values.
-\item \textbf{Berserker:} Below half Strikes: +1 attack, immune fear.
-\item \textbf{Spell Eater:} Reduce magical damage by 1 Strike/encounter.
-\item \textbf{Thick Skin:} +1 DR chance regardless of armor.
-\end{itemize}
-}
-\end{multicols}
+\item[\textbf{Lucky}] Reroll one d20 per session, keep better result.
+\item[\textbf{Tenacious}] Remain conscious until --2 Strikes.
+\item[\textbf{Corpse Robber}] Find extra loot on 5--6 when searching.
+\item[\textbf{Merchant}] Sell items for 25\% more; know values.
+\item[\textbf{Berserker}] Below half Strikes: +1 attack, immune fear.
+\item[\textbf{Spell Eater}] Reduce magical damage by 1 Strike/encounter.
+\item[\textbf{Thick Skin}] +1 DR chance regardless of armor.
+
+\end{description}
+\end{rpgtwocol}
 \bloodrule
 
 \vspace{18mm}
 
 \subsection{Active Traits}
-\begin{multicols}{2}
-{\footnotesize
-\begin{itemize}
-% NEW ACTIVE TRAITS FOR TORCHES IN THE DARK
+
+\begin{rpgtwocol}
+\begin{description}[style=nextline, leftmargin=0pt, itemsep=3pt]
 
 % 1/ENCOUNTER ABILITIES (HIGH IMPACT)
-\item ▶ \textbf{Bone-Crushing Blow (1/encounter):} Target permanently loses 1 point from random ability score.
-
-\item ▶ \textbf{Death's Door (1/encounter):} When reduced to 1 Strike, next attack deals double damage.
-
-\item ▶ \textbf{Soul Rend (1/encounter):} Target loses 1d4 Resolve permanently on crit.
-
-\item ▶ \textbf{Void Strike (1/encounter):} Attack ignores all defenses and resistances.
-
-\item ▶ \textbf{Terror Incarnate (1/encounter):} All enemies in 6 squares save vs fear or flee.
-
-\item ▶ \textbf{Mortal Wound (1/encounter):} Target cannot heal for 24 hours.
-
-\item ▶ \textbf{Execution (1/encounter):} Auto-kill target with 3 or fewer Strikes.
-
-\item ▶ \textbf{Reality Tear (1/encounter):} Teleport anywhere within sight, take 1 Strike.
-
-\item ▶ \textbf{Nightmare Fuel (1/encounter):} Target gains permanent phobia (GM choice).
-
-\item ▶ \textbf{Corpse Explosion (1/encounter):} Kill causes body to explode for 2 Strikes in 3 squares.
-
-\item ▶ \textbf{Soul Drain (1/encounter):} Heal to full Strikes, target loses 1d6 Resolve.
-
-\item ▶ \textbf{Time Stop (1/encounter):} Take 3 actions while enemies cannot act.
-
-\item ▶ \textbf{Death Mark (1/encounter):} Next attack vs marked foe deals +5 Strikes.
-
-\item ▶ \textbf{Plague Touch (1/encounter):} Hit spreads disease to all adjacent enemies.
-
-\item ▶ \textbf{Mind Shatter (1/encounter):} Target becomes permanently CRAZED.
-
-\item ▶ \textbf{Void Step (1/encounter):} Phase through walls/enemies for 1 round.
-
-\item ▶ \textbf{Blood Ritual (1/encounter):} Sacrifice 3 Strikes to double all damage for encounter.
-
-\item ▶ \textbf{Necromantic Surge (1/encounter):} Animate all corpses in 10 squares as allies.
-
-\item ▶ \textbf{Divine Wrath (1/encounter):} All enemies in sight take 3 Strikes, lose 2 Faith.
-
-\item ▶ \textbf{Fate Reversal (1/encounter):} Swap current Strikes with target.
+\item[▶ \textbf{Bone-Crushing Blow (1/encounter)}] Target permanently loses 1 point from random ability score.
+\item[▶ \textbf{Death's Door (1/encounter)}] When reduced to 1 Strike, next attack deals double damage.
+\item[▶ \textbf{Soul Rend (1/encounter)}] Target loses 1d4 Resolve permanently on crit.
+\item[▶ \textbf{Void Strike (1/encounter)}] Attack ignores all defenses and resistances.
+\item[▶ \textbf{Terror Incarnate (1/encounter)}] All enemies in 6 squares save vs fear or flee.
+\item[▶ \textbf{Mortal Wound (1/encounter)}] Target cannot heal for 24 hours.
+\item[▶ \textbf{Execution (1/encounter)}] Auto-kill target with 3 or fewer Strikes.
+\item[▶ \textbf{Reality Tear (1/encounter)}] Teleport anywhere within sight, take 1 Strike.
+\item[▶ \textbf{Nightmare Fuel (1/encounter)}] Target gains permanent phobia (GM choice).
+\item[▶ \textbf{Corpse Explosion (1/encounter)}] Kill causes body to explode for 2 Strikes in 3 squares.
+\item[▶ \textbf{Soul Drain (1/encounter)}] Heal to full Strikes, target loses 1d6 Resolve.
+\item[▶ \textbf{Time Stop (1/encounter)}] Take 3 actions while enemies cannot act.
+\item[▶ \textbf{Death Mark (1/encounter)}] Next attack vs marked foe deals +5 Strikes.
+\item[▶ \textbf{Plague Touch (1/encounter)}] Hit spreads disease to all adjacent enemies.
+\item[▶ \textbf{Mind Shatter (1/encounter)}] Target becomes permanently CRAZED.
+\item[▶ \textbf{Void Step (1/encounter)}] Phase through walls/enemies for 1 round.
+\item[▶ \textbf{Blood Ritual (1/encounter)}] Sacrifice 3 Strikes to double all damage for encounter.
+\item[▶ \textbf{Necromantic Surge (1/encounter)}] Animate all corpses in 10 squares as allies.
+\item[▶ \textbf{Divine Wrath (1/encounter)}] All enemies in sight take 3 Strikes, lose 2 Faith.
+\item[▶ \textbf{Fate Reversal (1/encounter)}] Swap current Strikes with target.
 
 % 2/ENCOUNTER ABILITIES (MODERATE IMPACT)
-\item ▶ \textbf{Arterial Strike (2/encounter):} Hit causes ARTERY SLASH condition.
-
-\item ▶ \textbf{Bone Shatter (2/encounter):} Target's armor permanently loses 1 DR.
-
-\item ▶ \textbf{Grave Touch (2/encounter):} Heal 1d4 Strikes by touching corpse.
-
-\item ▶ \textbf{Predator's Instinct (2/encounter):} Auto-hit next attack vs wounded enemy.
-
-\item ▶ \textbf{Savage Maiming (2/encounter):} Crit causes permanent disfigurement.
-
-\item ▶ \textbf{Blood Frenzy (2/encounter):} +2 attacks this round, take 1 Strike.
-
-\item ▶ \textbf{Throat Rip (2/encounter):} Target cannot speak/cast for 1 hour.
-
-\item ▶ \textbf{Crippling Blow (2/encounter):} Target permanently loses 1 movement.
-
-\item ▶ \textbf{Pain Mastery (2/encounter):} Ignore all conditions for 1 round.
-
-\item ▶ \textbf{Unholy Strength (2/encounter):} +3 Strikes damage, lose 1 Faith.
-
-\item ▶ \textbf{Flesh Rend (2/encounter):} Target gains BLEEDING WOUND and HOBBLED.
-
-\item ▶ \textbf{Terror Strike (2/encounter):} Hit foe must save or gain CONFUSED.
-
-\item ▶ \textbf{Vampiric Drain (2/encounter):} Heal 2 Strikes on successful hit.
-
-\item ▶ \textbf{Skull Crack (2/encounter):} Target gains SKULL CRACK condition on hit.
-
-\item ▶ \textbf{Shadow Step (2/encounter):} Teleport behind enemy for advantage.
-
-\item ▶ \textbf{Poison Blade (2/encounter):} Weapon becomes POISONED for 3 rounds.
-
-\item ▶ \textbf{Brutalize (2/encounter):} Hit causes BRUTALIZED condition.
-
-\item ▶ \textbf{Limb Sever (2/encounter):} Crit removes enemy limb permanently.
-
-\item ▶ \textbf{Soul Strike (2/encounter):} Damage bypasses armor, hits Resolve instead.
-
-\item ▶ \textbf{Curse Wound (2/encounter):} Target cannot remove conditions for 24 hours.
+\item[▶ \textbf{Arterial Strike (2/encounter)}] Hit causes ARTERY SLASH condition.
+\item[▶ \textbf{Bone Shatter (2/encounter)}] Target's armor permanently loses 1 DR.
+\item[▶ \textbf{Grave Touch (2/encounter)}] Heal 1d4 Strikes by touching corpse.
+\item[▶ \textbf{Predator's Instinct (2/encounter)}] Auto-hit next attack vs wounded enemy.
+\item[▶ \textbf{Savage Maiming (2/encounter)}] Crit causes permanent disfigurement.
+\item[▶ \textbf{Blood Frenzy (2/encounter)}] +2 attacks this round, take 1 Strike.
+\item[▶ \textbf{Throat Rip (2/encounter)}] Target cannot speak/cast for 1 hour.
+\item[▶ \textbf{Crippling Blow (2/encounter)}] Target permanently loses 1 movement.
+\item[▶ \textbf{Pain Mastery (2/encounter)}] Ignore all conditions for 1 round.
+\item[▶ \textbf{Unholy Strength (2/encounter)}] +3 Strikes damage, lose 1 Faith.
+\item[▶ \textbf{Flesh Rend (2/encounter)}] Target gains BLEEDING WOUND and HOBBLED.
+\item[▶ \textbf{Terror Strike (2/encounter)}] Hit foe must save or gain CONFUSED.
+\item[▶ \textbf{Vampiric Drain (2/encounter)}] Heal 2 Strikes on successful hit.
+\item[▶ \textbf{Skull Crack (2/encounter)}] Target gains SKULL CRACK condition on hit.
+\item[▶ \textbf{Shadow Step (2/encounter)}] Teleport behind enemy for advantage.
+\item[▶ \textbf{Poison Blade (2/encounter)}] Weapon becomes POISONED for 3 rounds.
+\item[▶ \textbf{Brutalize (2/encounter)}] Hit causes BRUTALIZED condition.
+\item[▶ \textbf{Limb Sever (2/encounter)}] Crit removes enemy limb permanently.
+\item[▶ \textbf{Soul Strike (2/encounter)}] Damage bypasses armor, hits Resolve instead.
+\item[▶ \textbf{Curse Wound (2/encounter)}] Target cannot remove conditions for 24 hours.
 
 % 3/ENCOUNTER ABILITIES (TACTICAL OPTIONS)
-\item ▶ \textbf{Dirty Fighting (3/encounter):} Target disadvantage on next action.
+\item[▶ \textbf{Dirty Fighting (3/encounter)}] Target disadvantage on next action.
+\item[▶ \textbf{Precise Strike (3/encounter)}] Ignore 2 points of DR this hit.
+\item[▶ \textbf{Combat Reflexes (3/encounter)}] Act twice in initiative order.
+\item[▶ \textbf{Berserker's Fury (3/encounter)}] +1 Strike damage, cannot retreat.
+\item[▶ \textbf{Tactical Advance (3/encounter)}] Move and attack without opportunity.
+\item[▶ \textbf{Bloodletting (3/encounter)}] All bleeding effects deal +1 damage.
+\item[▶ \textbf{Weapon Mastery (3/encounter)}] Reroll attack and damage dice.
+\item[▶ \textbf{Battle Surge (3/encounter)}] Heal 1 Strike after killing enemy.
+\item[▶ \textbf{Intimidating Presence (3/encounter)}] Enemies -1 to all rolls near you.
+\item[▶ \textbf{Survival Instinct (3/encounter)}] Automatically succeed next save.
+\item[▶ \textbf{Quick Strike (3/encounter)}] Attack before initiative is rolled.
+\item[▶ \textbf{Defensive Stance (3/encounter)}] +3 Defense for 1 round, cannot attack.
+\item[▶ \textbf{Power Attack (3/encounter)}] -2 to hit, +2 Strikes damage.
+\item[▶ \textbf{Disabling Strike (3/encounter)}] Target loses next action on hit.
+\item[▶ \textbf{Combat Awareness (3/encounter)}] Cannot be surprised for encounter.
+\item[▶ \textbf{Killing Blow (3/encounter)}] +3 Strikes vs enemies at 1 Strike.
+\item[▶ \textbf{Parry Mastery (3/encounter)}] Negate attack and counter-strike.
+\item[▶ \textbf{Exploit Weakness (3/encounter)}] Target loses 1 Defense permanently.
+\item[▶ \textbf{Adrenaline Rush (3/encounter)}] +2 to all rolls for 1 round.
+\item[▶ \textbf{Martial Focus (3/encounter)}] Next attack auto-crits on 18-20.
+\item[▶ \textbf{Evasive Maneuvers (3/encounter)}] Move through enemies without attacks.
+\item[▶ \textbf{Finishing Move (3/encounter)}] Double damage vs STUNNED enemies.
+\item[▶ \textbf{Battle Hardened (3/encounter)}] Ignore 1 Strike of damage this round.
+\item[▶ \textbf{Weapon Throw (3/encounter)}] Thrown weapon returns and gains +1 Strike.
+\item[▶ \textbf{Combat Instinct (3/encounter)}] Reroll initiative, take higher result.
+\item[▶ \textbf{Savage Strike (3/encounter)}] Deal max weapon damage this attack.
+\item[▶ \textbf{Opportunistic (3/encounter)}] Free attack when enemy moves adjacent.
+\item[▶ \textbf{Shield Bash (3/encounter)}] Attack with shield for STUNNED condition.
+\item[▶ \textbf{Reckless Assault (3/encounter)}] +2 attacks, -2 Defense this round.
+\item[▶ \textbf{Last Stand (3/encounter)}] +1 attack per missing Strike.
 
-\item ▶ \textbf{Precise Strike (3/encounter):} Ignore 2 points of DR this hit.
-
-\item ▶ \textbf{Combat Reflexes (3/encounter):} Act twice in initiative order.
-
-\item ▶ \textbf{Berserker's Fury (3/encounter):} +1 Strike damage, cannot retreat.
-
-\item ▶ \textbf{Tactical Advance (3/encounter):} Move and attack without opportunity.
-
-\item ▶ \textbf{Bloodletting (3/encounter):} All bleeding effects deal +1 damage.
-
-\item ▶ \textbf{Weapon Mastery (3/encounter):} Reroll attack and damage dice.
-
-\item ▶ \textbf{Battle Surge (3/encounter):} Heal 1 Strike after killing enemy.
-
-\item ▶ \textbf{Intimidating Presence (3/encounter):} Enemies -1 to all rolls near you.
-
-\item ▶ \textbf{Survival Instinct (3/encounter):} Automatically succeed next save.
-
-\item ▶ \textbf{Quick Strike (3/encounter):} Attack before initiative is rolled.
-
-\item ▶ \textbf{Defensive Stance (3/encounter):} +3 Defense for 1 round, cannot attack.
-
-\item ▶ \textbf{Power Attack (3/encounter):} -2 to hit, +2 Strikes damage.
-
-\item ▶ \textbf{Disabling Strike (3/encounter):} Target loses next action on hit.
-
-\item ▶ \textbf{Combat Awareness (3/encounter):} Cannot be surprised for encounter.
-
-\item ▶ \textbf{Killing Blow (3/encounter):} +3 Strikes vs enemies at 1 Strike.
-
-\item ▶ \textbf{Parry Mastery (3/encounter):} Negate attack and counter-strike.
-
-\item ▶ \textbf{Exploit Weakness (3/encounter):} Target loses 1 Defense permanently.
-
-\item ▶ \textbf{Adrenaline Rush (3/encounter):} +2 to all rolls for 1 round.
-
-\item ▶ \textbf{Martial Focus (3/encounter):} Next attack auto-crits on 18-20.
-
-\item ▶ \textbf{Evasive Maneuvers (3/encounter):} Move through enemies without attacks.
-
-\item ▶ \textbf{Finishing Move (3/encounter):} Double damage vs STUNNED enemies.
-
-\item ▶ \textbf{Battle Hardened (3/encounter):} Ignore 1 Strike of damage this round.
-
-\item ▶ \textbf{Weapon Throw (3/encounter):} Thrown weapon returns and gains +1 Strike.
-
-\item ▶ \textbf{Combat Instinct (3/encounter):} Reroll initiative, take higher result.
-
-\item ▶ \textbf{Savage Strike (3/encounter):} Deal max weapon damage this attack.
-
-\item ▶ \textbf{Opportunistic (3/encounter):} Free attack when enemy moves adjacent.
-
-\item ▶ \textbf{Shield Bash (3/encounter):} Attack with shield for STUNNED condition.
-
-\item ▶ \textbf{Reckless Assault (3/encounter):} +2 attacks, -2 Defense this round.
-
-\item ▶ \textbf{Last Stand (3/encounter):} +1 attack per missing Strike.
-
-\end{itemize}
-}
-\end{multicols}
+\end{description}
+\end{rpgtwocol}
 
 %==================================================
 \section{Grim Sorts}
 \bloodrule
 
-\begin{multicols}{2}
-\subsection{Mercenary \;|\; 6 Strikes}
-\textit{Professional Soldier}
-\begin{itemize}
+\begin{rpgtwocol}
+
+% Create professional class presentation
+\newcommand{\grimclass}[3]{%
+  \subsection{#1}
+  \textit{#2}
+  \vspace{2pt}
+  \begin{summarybox}[title={}]
+  \small
+  #3
+  \end{summarybox}
+  \vspace{4pt}
+}
+
+\grimclass{Mercenary \;|\; 6 Strikes}{Professional Soldier}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Contract Killer (2/encounter): Mark target, +1 Strike for encounter.
 \item Combat Veteran (2/encounter): Reroll attack, accept second result.
 \item Mercenary's Edge (2/encounter): Heal 2 Strikes on critical hit.
 \end{itemize}
+}
 
-\subsection{Knave \;|\; 4 Strikes}
-\textit{Cunning Rogue}
-\begin{itemize}
+\grimclass{Knave \;|\; 4 Strikes}{Cunning Rogue}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Dirty Fighting (2/encounter): Target disadvantage next round.
 \item Lucky Dodge (1/encounter): Turn hit into miss.
 \item Knife in the Dark (3/encounter): +2 Strikes if target hasn't acted.
 \end{itemize}
+}
 
-\subsection{Wytch Hunter \;|\; 5 Strikes}
-\textit{Scourge of the Arcane}
-\begin{itemize}
+\grimclass{Wytch Hunter \;|\; 5 Strikes}{Scourge of the Arcane}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Sanctified Weapons (Passive): Blessed; +1 Strike to spellcasters.
 \item Wytch Sight (3/encounter): See illusions, detect auras 12 sq for 1 round.
 \item Supernatural Resistance (Passive): +2 saves vs magical effects.
 \end{itemize}
+}
 
-\subsection{Prelate \;|\; 4 Strikes}
-\textit{Sawbones and silent gods}
-\begin{itemize}
+\grimclass{Prelate \;|\; 4 Strikes}{Sawbones and silent gods}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Medicinal Preparation (Passive): 2 doses/day.
 \item Herbal Remedy (2/encounter): Cure Poisoned, Bleeding, or Exhausted.
 \item Field Surgery (2/encounter): Heal ally 3 Strikes, stunned next round.
 \end{itemize}
+}
 
-\subsection{Marauder \;|\; 5 Strikes}
-\textit{Brutal Raider}
-\begin{itemize}
+\grimclass{Marauder \;|\; 5 Strikes}{Brutal Raider}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Berserker Rage (1/encounter): 4 rounds; +2 attacks; immune fear/stun.
 \item Hate-Fueled (Passive): +1 Strike vs enemies who wounded you.
 \item Crushing Blow (3/encounter): Next attack ignores armor/shields.
 \end{itemize}
+}
 
-\vspace{5mm}
-
-\subsection{Ranger \;|\; 5 Strikes}
-\textit{Master Tracker}
-\begin{itemize}
+\grimclass{Ranger \;|\; 5 Strikes}{Master Tracker}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Expert Shot (3/encounter): Ranged ignores cover; +1 Strike.
 \item Ranger's Shot (1/encounter): Skip move/attack 1 round; next attack +3 Strikes.
 \item Tracker's Sense (Passive): Follow week-old tracks; know creature details.
 \end{itemize}
+}
 
-\subsection{Crusader \;|\; 6 Strikes}
-\textit{Holy Warrior}
-\begin{itemize}
+\grimclass{Crusader \;|\; 6 Strikes}{Holy Warrior}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Empyrean Aura (Passive): Undead/demons in 2 sq take 1 Strike at turn start.
 \item Divine Weapon (2/encounter): Next attack +2 Strikes; blessed.
 \item Divine Healing (2/encounter): Heal 1 Strike via prayer.
 \end{itemize}
+}
 
-\subsection{Pyromancer \;|\; 4 Strikes}
-\textit{Fire Wielder}
-\begin{itemize}
+\grimclass{Pyromancer \;|\; 4 Strikes}{Fire Wielder}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Anointed Oil Bomb (2/encounter): Oil explodes 2 Strikes in 4 sq.
 \item Flame Divination (Passive): Read omens in fire; sense lies.
 \item Righteous Immolation (1/encounter): 3 rounds; immune cold; +2 Strike.
 \end{itemize}
-\subsection{Corpse Shepherd | 5 Strikes}
-\textit{Commander of the restless dead.}
-\begin{itemize}
-\item \textbf{Whisper to Bones (Passive):} Speak with corpses dead less than 7 days; one question per corpse.
-\item \textbf{Deadman's March (2/encounter):} Animate 1d4 skeletons for encounter; 1 Strike each, +2 attack.
-\item \textbf{Grave's Embrace (1/encounter):} Touch attack; Endurance DC 14 or CHILLED 3 rounds.
-\end{itemize}
+}
 
-\subsection{Mirthless Fool | 4 Strikes}
-\textit{Dark jester of gallows humor.}
-\begin{itemize}
-\item \textbf{Bitter Jest (3/encounter):} Mock enemy; they attack you next or take disadvantage on actions.
-\item \textbf{Fool's Luck (1/encounter):} Force any d20 reroll; accept second result even if worse.
-\item \textbf{Last Laugh (Passive):} When reduced to 1 Strike, enemies in 3 sq make Resolve DC 12 or STUNNED.
+\grimclass{Corpse Shepherd \;|\; 5 Strikes}{Commander of the restless dead}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
+\item Whisper to Bones (Passive): Speak with corpses dead less than 7 days; one question per corpse.
+\item Deadman's March (2/encounter): Animate 1d4 skeletons for encounter; 1 Strike each, +2 attack.
+\item Grave's Embrace (1/encounter): Touch attack; Endurance DC 14 or CHILLED 3 rounds.
 \end{itemize}
-\columnbreak
+}
 
-\subsection{Alchemist \;|\; 4 Strikes}
-\textit{Master of Transmutation}
-\begin{itemize}
+\grimclass{Mirthless Fool \;|\; 4 Strikes}{Dark jester of gallows humor}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
+\item Bitter Jest (3/encounter): Mock enemy; they attack you next or take disadvantage on actions.
+\item Fool's Luck (1/encounter): Force any d20 reroll; accept second result even if worse.
+\item Last Laugh (Passive): When reduced to 1 Strike, enemies in 3 sq make Resolve DC 12 or STUNNED.
+\end{itemize}
+}
+
+\grimclass{Alchemist \;|\; 4 Strikes}{Master of Transmutation}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Acid Vial (2/encounter): Acid 1 Strike; 1 next round; ignores armor.
 \item Mutagen (1/encounter): +5 ability score 10 min; lose 2 Strikes.
 \item Alchemical Mastery (Passive): Create 1d4 concoctions daily.
 \end{itemize}
+}
 
-\subsection{Wolfgroom \;|\; 5 Strikes}
-\textit{Beast Master}
-\begin{itemize}
+\grimclass{Wolfgroom \;|\; 5 Strikes}{Beast Master}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Go for the Throat (Passive): You and companion +1 attack vs same target.
 \item Companion's Sacrifice (1/encounter): Companion takes attack's damage.
 \item Drag Down (2/encounter): Wolf drags foe; next attack advantage.
 \end{itemize}
+}
 
-\subsection{Blackguard \;|\; 6 Strikes}
-\textit{Intimidation \& Brutality}
-\begin{itemize}
+\grimclass{Blackguard \;|\; 6 Strikes}{Intimidation \& Brutality}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Ruthless Assault (1/encounter): Two attacks vs target; +2 Strikes if both hit.
 \item Cruel Efficiency (Passive): +1 Strike to wounded/frightened/helpless.
 \item Intimidating Reputation (Passive): +3 Presence to intimidate.
 \end{itemize}
+}
 
-\subsection{Skald \;|\; 5 Strikes}
-\textit{Warrior Poet}
-\begin{itemize}
+\grimclass{Skald \;|\; 5 Strikes}{Warrior Poet}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Court Intrigue (Passive): Advantage in social with nobility.
 \item Warrior's Challenge (2/encounter): Enemy focuses you 2 rounds.
 \item Hero's Last Stand (1/encounter): At 1 Strike, allies +2 attack/Defense.
 \end{itemize}
+}
 
-\subsection{Wytch \;|\; 3 Strikes}
-\textit{Arcane Practitioner (15\%)}
-\begin{itemize}
+\grimclass{Wytch \;|\; 3 Strikes}{Arcane Practitioner (15\%)}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Harvest the Dead (Passive): Cut spell-inscribed flesh for Black Book.
 \item Black Book Ritual (3/encounter): Chant 1 round; cast with advantage.
 \item Flesh-Bound Tome (Passive): Indestructible spellbook; horrifies viewers.
 \end{itemize}
+}
 
-\subsection{Iron Peddler \;|\; 4 Strikes}
-\textit{Nails, knives, armor—then uses them.}
-\begin{itemize}
+\grimclass{Iron Peddler \;|\; 4 Strikes}{Nails, knives, armor—then uses them}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Merchant's Cunning (Passive): Talk past guard/toll once/session.
 \item Hidden Iron (2/encounter): Throw concealed blade for 1 Strike.
 \item Spiked Surprise (1/encounter): Caltrops in 1 sq; Finesse DC 12.
 \end{itemize}
+}
 
-\subsection{Pit-Fighter \;|\; 5 Strikes}
-\textit{Blood-soaked pit veteran.}
-\begin{itemize}
+\grimclass{Pit-Fighter \;|\; 5 Strikes}{Blood-soaked pit veteran}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Arena Reflexes (Passive): Advantage Finesse vs grapples/disarms.
 \item Low Cut (2/encounter): Halve target's movement 1 round on hit.
 \item Show the Crowd (1/encounter): +1 attack rolls after kill. (Max +5)
 \end{itemize}
+}
 
-\subsection{Sword Saint \;|\; 6 Strikes}
-\textit{Ancestral Blade Master (15\%)}
-\begin{itemize}
+\grimclass{Sword Saint \;|\; 6 Strikes}{Ancestral Blade Master (15\%)}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Ancestral Guidance (Passive): +2 attack with swords; speak with spirits.
 \item Oni's Fury (1/encounter): 3 rounds; +3 attack, +2 damage; take 1 Strike/round.
 \item Perfect Cut (2/encounter): Ignore armor/shields; +1 Strike; Bleeding Wound.
 \end{itemize}
+}
 
-\subsection{Druid \;|\; 5 Strikes}
-\textit{Beast-Touched (10\%)}
-\begin{itemize}
+\grimclass{Druid \;|\; 5 Strikes}{Beast-Touched (10\%)}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Primal Shape (1/encounter): Were-beast form 1 hour; +4 Might, +1 damage.
 \item Nature's Wrath (2/encounter): 20-foot area; thorns/ice/wind effects.
 \item Feral Instincts (Passive): +3 wilderness Insight; track anything.
 \end{itemize}
+}
 
-\subsection{Pugilist \;|\; 5 Strikes}
-\textit{Street Scrapper}
-\begin{itemize}
+\grimclass{Pugilist \;|\; 5 Strikes}{Street Scrapper}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Makeshift Master (Passive): Improvised weapons +1 Strike; unarmed 1 Strike.
 \item Haymaker (2/encounter): Unarmed +2 Strikes, stun; cannot use vs armor.
 \item Dirty Tactics (2/encounter): Sand/debris blind, low blow prone, headbutt stun.
 \end{itemize}
-\end{multicols}
+}
+
+\end{rpgtwocol}
 \bloodrule
 \newpage
 %==================================================
@@ -1062,79 +1084,67 @@ At zero strikes, roll 1d12 on the Horrible Wounds table by damage type. Death is
 
 % COMMON WEAPON TAGS
 \subsection{Common Weapon Tags}
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{commoncolor}{\textbf{Accurate:}} \textcolor{commoncolor}{+1 Attack.}
-\item \textcolor{commoncolor}{\textbf{Balanced:}} \textcolor{commoncolor}{+1 Defense.}
-\item \textcolor{commoncolor}{\textbf{Light:}} \textcolor{commoncolor}{Weight -1 slot (min 1).}
-\item \textcolor{commoncolor}{\textbf{Quick-Draw:}} \textcolor{commoncolor}{Draw as free action.}
-\item \textcolor{commoncolor}{\textbf{Throwing:}} \textcolor{commoncolor}{Range 6 squares when thrown.}
-\item \textcolor{commoncolor}{\textbf{Parrying:}} \textcolor{commoncolor}{+1 Defense vs melee.}
-\item \textcolor{commoncolor}{\textbf{Concealed:}} \textcolor{commoncolor}{Advantage to hide weapon.}
-\item \textcolor{commoncolor}{\textbf{Crude:}} \textcolor{commoncolor}{Half cost, -1 Attack.}
-\end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{commoncolor}{\textbf{Sturdy:}} \textcolor{commoncolor}{Advantage vs breaking.}
-\item \textcolor{commoncolor}{\textbf{Well-Made:}} \textcolor{commoncolor}{+10\% selling price.}
-\item \textcolor{commoncolor}{\textbf{Notched:}} \textcolor{commoncolor}{+1 damage vs one creature type.}
-\item \textcolor{commoncolor}{\textbf{Weather-Sealed:}} \textcolor{commoncolor}{No penalties in rain/cold.}
-\item \textcolor{commoncolor}{\textbf{Weighted Pommel:}} \textcolor{commoncolor}{+1 to disarm attempts.}
-\item \textcolor{commoncolor}{\textbf{Sharp:}} \textcolor{commoncolor}{Reroll 1s on damage.}
-\item \textcolor{commoncolor}{\textbf{Worn Grip:}} \textcolor{commoncolor}{Advantage vs being disarmed.}
-\item \textcolor{commoncolor}{\textbf{Field-Repaired:}} \textcolor{commoncolor}{Fixed with basic tools.}
-\end{itemize}
-\end{minipage}
 
-\vspace{0.5cm}
+\begin{rpgtwocol}
+\begin{description}[style=nextline, leftmargin=0pt, itemsep=4pt]
+\item[\textcolor{commoncolor}{\textbf{Accurate}}] \textcolor{commoncolor}{+1 Attack.}
+\item[\textcolor{commoncolor}{\textbf{Balanced}}] \textcolor{commoncolor}{+1 Defense.}
+\item[\textcolor{commoncolor}{\textbf{Light}}] \textcolor{commoncolor}{Weight -1 slot (min 1).}
+\item[\textcolor{commoncolor}{\textbf{Quick-Draw}}] \textcolor{commoncolor}{Draw as free action.}
+\item[\textcolor{commoncolor}{\textbf{Throwing}}] \textcolor{commoncolor}{Range 6 squares when thrown.}
+\item[\textcolor{commoncolor}{\textbf{Parrying}}] \textcolor{commoncolor}{+1 Defense vs melee.}
+\item[\textcolor{commoncolor}{\textbf{Concealed}}] \textcolor{commoncolor}{Advantage to hide weapon.}
+\item[\textcolor{commoncolor}{\textbf{Crude}}] \textcolor{commoncolor}{Half cost, -1 Attack.}
+\item[\textcolor{commoncolor}{\textbf{Sturdy}}] \textcolor{commoncolor}{Advantage vs breaking.}
+\item[\textcolor{commoncolor}{\textbf{Well-Made}}] \textcolor{commoncolor}{+10\% selling price.}
+\item[\textcolor{commoncolor}{\textbf{Notched}}] \textcolor{commoncolor}{+1 damage vs one creature type.}
+\item[\textcolor{commoncolor}{\textbf{Weather-Sealed}}] \textcolor{commoncolor}{No penalties in rain/cold.}
+\item[\textcolor{commoncolor}{\textbf{Weighted Pommel}}] \textcolor{commoncolor}{+1 to disarm attempts.}
+\item[\textcolor{commoncolor}{\textbf{Sharp}}] \textcolor{commoncolor}{Reroll 1s on damage.}
+\item[\textcolor{commoncolor}{\textbf{Worn Grip}}] \textcolor{commoncolor}{Advantage vs being disarmed.}
+\item[\textcolor{commoncolor}{\textbf{Field-Repaired}}] \textcolor{commoncolor}{Fixed with basic tools.}
+\end{description}
+\end{rpgtwocol}
 
 % UNCOMMON WEAPON TAGS
 \subsection{Uncommon Weapon Tags}
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{uncommoncolor}{\textbf{Bashing:}} \textcolor{uncommoncolor}{Ignore shields and helmets.}
-\item \textcolor{uncommoncolor}{\textbf{Finesse:}} \textcolor{uncommoncolor}{Use Finesse for attack.}
-\item \textcolor{uncommoncolor}{\textbf{Heavy:}} \textcolor{uncommoncolor}{-2 Attack, +1 Strike damage.}
-\item \textcolor{uncommoncolor}{\textbf{Reach:}} \textcolor{uncommoncolor}{Attack enemies 2 squares away.}
-\item \textcolor{uncommoncolor}{\textbf{Defensive:}} \textcolor{uncommoncolor}{+2 Defense, cannot attack.}
-\item \textcolor{uncommoncolor}{\textbf{Serrated:}} \textcolor{uncommoncolor}{Crit: BLEEDING WOUND.}
-\item \textcolor{uncommoncolor}{\textbf{Barbed:}} \textcolor{uncommoncolor}{Enemy takes 1 Strike on fumble.}
-\item \textcolor{uncommoncolor}{\textbf{Versatile:}} \textcolor{uncommoncolor}{Two-handed: +1 Strike.}
-\item \textcolor{uncommoncolor}{\textbf{Vicious:}} \textcolor{uncommoncolor}{+1 Strike vs wounded enemies.}
-\item \textcolor{uncommoncolor}{\textbf{Entangling:}} \textcolor{uncommoncolor}{Crit: target HOBBLED.}
-\item \textcolor{uncommoncolor}{\textbf{Sundering:}} \textcolor{uncommoncolor}{Max damage destroys gear.}
-\item \textcolor{uncommoncolor}{\textbf{Flanking:}} \textcolor{uncommoncolor}{+1 Attack vs surrounded foes.}
-\item \textcolor{uncommoncolor}{\textbf{Knockback:}} \textcolor{uncommoncolor}{Max damage pushes 1 square.}
-\item \textcolor{uncommoncolor}{\textbf{Piercing:}} \textcolor{uncommoncolor}{Ignore 1 point of armor DR.}
-\item \textcolor{uncommoncolor}{\textbf{Cold Iron:}} \textcolor{uncommoncolor}{+1 Strike vs supernatural.}
-\item \textcolor{uncommoncolor}{\textbf{Spiked:}} \textcolor{uncommoncolor}{1 damage to grapplers.}
-\end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{uncommoncolor}{\textbf{Momentum:}} \textcolor{uncommoncolor}{+1 Strike if moved this turn.}
-\item \textcolor{uncommoncolor}{\textbf{Intimidating:}} \textcolor{uncommoncolor}{+2 Presence for threats.}
-\item \textcolor{uncommoncolor}{\textbf{Brittle:}} \textcolor{uncommoncolor}{+1 Strike, breaks on nat 1-2.}
-\item \textcolor{uncommoncolor}{\textbf{Weighted:}} \textcolor{uncommoncolor}{+1 Strike, -1 Finesse to hit.}
-\item \textcolor{uncommoncolor}{\textbf{Smoke-Wreathed:}} \textcolor{uncommoncolor}{Hit: 1 sq obscuring cloud.}
-\item \textcolor{uncommoncolor}{\textbf{Rust-Touched:}} \textcolor{uncommoncolor}{Damages metal armor DR.}
-\item \textcolor{uncommoncolor}{\textbf{Chain-Weapon:}} \textcolor{uncommoncolor}{2-square reach, entangles.}
-\item \textcolor{uncommoncolor}{\textbf{Jagged:}} \textcolor{uncommoncolor}{All hits cause 1 bleeding.}
-\item \textcolor{uncommoncolor}{\textbf{Crippling:}} \textcolor{uncommoncolor}{Max damage: movement halved.}
-\item \textcolor{uncommoncolor}{\textbf{Masterwork:}} \textcolor{uncommoncolor}{+1 Attack, double cost.}
-\item \textcolor{uncommoncolor}{\textbf{Dueling:}} \textcolor{uncommoncolor}{+2 Defense vs single foe.}
-\item \textcolor{uncommoncolor}{\textbf{Savage:}} \textcolor{uncommoncolor}{Crits on 19-20 vs unarmored.}
-\item \textcolor{uncommoncolor}{\textbf{Bone-Carved:}} \textcolor{uncommoncolor}{+1 vs undead, horrifies living.}
-\item \textcolor{uncommoncolor}{\textbf{Hunting:}} \textcolor{uncommoncolor}{Track wounded enemies.}
-\item \textcolor{uncommoncolor}{\textbf{Throwing-Return:}} \textcolor{uncommoncolor}{Returns to hand when thrown.}
-\item \textcolor{uncommoncolor}{\textbf{War-Forged:}} \textcolor{uncommoncolor}{Advantage in large battles.}
-\end{itemize}
-\end{minipage}
 
-\vspace{0.5cm}
+\begin{rpgtwocol}
+\begin{description}[style=nextline, leftmargin=0pt, itemsep=4pt]
+\item[\textcolor{uncommoncolor}{\textbf{Bashing}}] \textcolor{uncommoncolor}{Ignore shields and helmets.}
+\item[\textcolor{uncommoncolor}{\textbf{Finesse}}] \textcolor{uncommoncolor}{Use Finesse for attack.}
+\item[\textcolor{uncommoncolor}{\textbf{Heavy}}] \textcolor{uncommoncolor}{-2 Attack, +1 Strike damage.}
+\item[\textcolor{uncommoncolor}{\textbf{Reach}}] \textcolor{uncommoncolor}{Attack enemies 2 squares away.}
+\item[\textcolor{uncommoncolor}{\textbf{Defensive}}] \textcolor{uncommoncolor}{+2 Defense, cannot attack.}
+\item[\textcolor{uncommoncolor}{\textbf{Serrated}}] \textcolor{uncommoncolor}{Crit: BLEEDING WOUND.}
+\item[\textcolor{uncommoncolor}{\textbf{Barbed}}] \textcolor{uncommoncolor}{Enemy takes 1 Strike on fumble.}
+\item[\textcolor{uncommoncolor}{\textbf{Versatile}}] \textcolor{uncommoncolor}{Two-handed: +1 Strike.}
+\item[\textcolor{uncommoncolor}{\textbf{Vicious}}] \textcolor{uncommoncolor}{+1 Strike vs wounded enemies.}
+\item[\textcolor{uncommoncolor}{\textbf{Entangling}}] \textcolor{uncommoncolor}{Crit: target HOBBLED.}
+\item[\textcolor{uncommoncolor}{\textbf{Sundering}}] \textcolor{uncommoncolor}{Max damage destroys gear.}
+\item[\textcolor{uncommoncolor}{\textbf{Flanking}}] \textcolor{uncommoncolor}{+1 Attack vs surrounded foes.}
+\item[\textcolor{uncommoncolor}{\textbf{Knockback}}] \textcolor{uncommoncolor}{Max damage pushes 1 square.}
+\item[\textcolor{uncommoncolor}{\textbf{Piercing}}] \textcolor{uncommoncolor}{Ignore 1 point of armor DR.}
+\item[\textcolor{uncommoncolor}{\textbf{Cold Iron}}] \textcolor{uncommoncolor}{+1 Strike vs supernatural.}
+\item[\textcolor{uncommoncolor}{\textbf{Spiked}}] \textcolor{uncommoncolor}{1 damage to grapplers.}
+\item[\textcolor{uncommoncolor}{\textbf{Momentum}}] \textcolor{uncommoncolor}{+1 Strike if moved this turn.}
+\item[\textcolor{uncommoncolor}{\textbf{Intimidating}}] \textcolor{uncommoncolor}{+2 Presence for threats.}
+\item[\textcolor{uncommoncolor}{\textbf{Brittle}}] \textcolor{uncommoncolor}{+1 Strike, breaks on nat 1-2.}
+\item[\textcolor{uncommoncolor}{\textbf{Weighted}}] \textcolor{uncommoncolor}{+1 Strike, -1 Finesse to hit.}
+\item[\textcolor{uncommoncolor}{\textbf{Smoke-Wreathed}}] \textcolor{uncommoncolor}{Hit: 1 sq obscuring cloud.}
+\item[\textcolor{uncommoncolor}{\textbf{Rust-Touched}}] \textcolor{uncommoncolor}{Damages metal armor DR.}
+\item[\textcolor{uncommoncolor}{\textbf{Chain-Weapon}}] \textcolor{uncommoncolor}{2-square reach, entangles.}
+\item[\textcolor{uncommoncolor}{\textbf{Jagged}}] \textcolor{uncommoncolor}{All hits cause 1 bleeding.}
+\item[\textcolor{uncommoncolor}{\textbf{Crippling}}] \textcolor{uncommoncolor}{Max damage: movement halved.}
+\item[\textcolor{uncommoncolor}{\textbf{Masterwork}}] \textcolor{uncommoncolor}{+1 Attack, double cost.}
+\item[\textcolor{uncommoncolor}{\textbf{Dueling}}] \textcolor{uncommoncolor}{+2 Defense vs single foe.}
+\item[\textcolor{uncommoncolor}{\textbf{Savage}}] \textcolor{uncommoncolor}{Crits on 19-20 vs unarmored.}
+\item[\textcolor{uncommoncolor}{\textbf{Bone-Carved}}] \textcolor{uncommoncolor}{+1 vs undead, horrifies living.}
+\item[\textcolor{uncommoncolor}{\textbf{Hunting}}] \textcolor{uncommoncolor}{Track wounded enemies.}
+\item[\textcolor{uncommoncolor}{\textbf{Throwing-Return}}] \textcolor{uncommoncolor}{Returns to hand when thrown.}
+\item[\textcolor{uncommoncolor}{\textbf{War-Forged}}] \textcolor{uncommoncolor}{Advantage in large battles.}
+\end{description}
+\end{rpgtwocol}
 
 % RARE WEAPON TAGS
 \subsection{Rare Weapon Tags}
@@ -1449,9 +1459,7 @@ If the final light dies, advance to DL 6 at once. The Dread acts before the firs
 \subsection{Bestiary of the Dread}
 \textit{The creatures that crawl from shadow when darkness claims the world}
 
-\subsubsection{Shade-Latcher}
-\textit{The weight on your back when your pack is wrong.}
-
+\begin{monsterstatblock}{Shade-Latcher}{The weight on your back when your pack is wrong.}
 \textbf{Strikes:} 3 \quad \textbf{Defense:} 15
 
 \textbf{Attack:} Claw Rake 1 Strike and Morale Broken.
@@ -1459,10 +1467,9 @@ If the final light dies, advance to DL 6 at once. The Dread acts before the firs
 \textbf{Special:} Latched victims have disadvantage on all saves. Removing it requires a Finesse save DC 14 or suffer 1 Strike.
 
 \textbf{Weakness:} Vanishes in direct sunlight or DL 0 magical light.
+\end{monsterstatblock}
 
-\subsubsection{Maw-in-Shadow}
-\textit{A ring of wet teeth where no mouth should be.}
-
+\begin{monsterstatblock}{Maw-in-Shadow}{A ring of wet teeth where no mouth should be.}
 \textbf{Strikes:} 5 \quad \textbf{Defense:} 13
 
 \textbf{Attack:} Bite 2 Strikes and Bleeding Wound DC 14 to stop.
@@ -1470,6 +1477,7 @@ If the final light dies, advance to DL 6 at once. The Dread acts before the firs
 \textbf{Special:} Attacks drag the target 5 feet on a critical.
 
 \textbf{Weakness:} Takes +2 Strikes from fire.
+\end{monsterstatblock}
 
 \subsubsection{The Hollow Choir}
 \textit{They sing with stolen voices and every verse walks you closer.}
