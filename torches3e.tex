@@ -891,169 +891,181 @@ At zero strikes, roll 1d12 on the Horrible Wounds table by damage type. Death is
 \section{Grim Sorts}
 \bloodrule
 
-\begin{multicols}{2}
-\subsection{Mercenary \;|\; 6 Strikes}
-\textit{Professional Soldier}
-\begin{itemize}
+\begin{rpgtwocol}
+
+% Create professional class presentation
+\newcommand{\grimclass}[3]{%
+  \subsection{#1}
+  \textit{#2}
+  \vspace{2pt}
+  \begin{summarybox}[title={}]
+  \small
+  #3
+  \end{summarybox}
+  \vspace{4pt}
+}
+
+\grimclass{Mercenary \;|\; 6 Strikes}{Professional Soldier}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Contract Killer (2/encounter): Mark target, +1 Strike for encounter.
 \item Combat Veteran (2/encounter): Reroll attack, accept second result.
 \item Mercenary's Edge (2/encounter): Heal 2 Strikes on critical hit.
 \end{itemize}
+}
 
-\subsection{Knave \;|\; 4 Strikes}
-\textit{Cunning Rogue}
-\begin{itemize}
+\grimclass{Knave \;|\; 4 Strikes}{Cunning Rogue}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Dirty Fighting (2/encounter): Target disadvantage next round.
 \item Lucky Dodge (1/encounter): Turn hit into miss.
 \item Knife in the Dark (3/encounter): +2 Strikes if target hasn't acted.
 \end{itemize}
+}
 
-\subsection{Wytch Hunter \;|\; 5 Strikes}
-\textit{Scourge of the Arcane}
-\begin{itemize}
+\grimclass{Wytch Hunter \;|\; 5 Strikes}{Scourge of the Arcane}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Sanctified Weapons (Passive): Blessed; +1 Strike to spellcasters.
 \item Wytch Sight (3/encounter): See illusions, detect auras 12 sq for 1 round.
 \item Supernatural Resistance (Passive): +2 saves vs magical effects.
 \end{itemize}
+}
 
-\subsection{Prelate \;|\; 4 Strikes}
-\textit{Sawbones and silent gods}
-\begin{itemize}
+\grimclass{Prelate \;|\; 4 Strikes}{Sawbones and silent gods}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Medicinal Preparation (Passive): 2 doses/day.
 \item Herbal Remedy (2/encounter): Cure Poisoned, Bleeding, or Exhausted.
 \item Field Surgery (2/encounter): Heal ally 3 Strikes, stunned next round.
 \end{itemize}
+}
 
-\subsection{Marauder \;|\; 5 Strikes}
-\textit{Brutal Raider}
-\begin{itemize}
+\grimclass{Marauder \;|\; 5 Strikes}{Brutal Raider}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Berserker Rage (1/encounter): 4 rounds; +2 attacks; immune fear/stun.
 \item Hate-Fueled (Passive): +1 Strike vs enemies who wounded you.
 \item Crushing Blow (3/encounter): Next attack ignores armor/shields.
 \end{itemize}
+}
 
-\vspace{5mm}
-
-\subsection{Ranger \;|\; 5 Strikes}
-\textit{Master Tracker}
-\begin{itemize}
+\grimclass{Ranger \;|\; 5 Strikes}{Master Tracker}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Expert Shot (3/encounter): Ranged ignores cover; +1 Strike.
 \item Ranger's Shot (1/encounter): Skip move/attack 1 round; next attack +3 Strikes.
 \item Tracker's Sense (Passive): Follow week-old tracks; know creature details.
 \end{itemize}
+}
 
-\subsection{Crusader \;|\; 6 Strikes}
-\textit{Holy Warrior}
-\begin{itemize}
+\grimclass{Crusader \;|\; 6 Strikes}{Holy Warrior}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Empyrean Aura (Passive): Undead/demons in 2 sq take 1 Strike at turn start.
 \item Divine Weapon (2/encounter): Next attack +2 Strikes; blessed.
 \item Divine Healing (2/encounter): Heal 1 Strike via prayer.
 \end{itemize}
+}
 
-\subsection{Pyromancer \;|\; 4 Strikes}
-\textit{Fire Wielder}
-\begin{itemize}
+\grimclass{Pyromancer \;|\; 4 Strikes}{Fire Wielder}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Anointed Oil Bomb (2/encounter): Oil explodes 2 Strikes in 4 sq.
 \item Flame Divination (Passive): Read omens in fire; sense lies.
 \item Righteous Immolation (1/encounter): 3 rounds; immune cold; +2 Strike.
 \end{itemize}
-\subsection{Corpse Shepherd | 5 Strikes}
-\textit{Commander of the restless dead.}
-\begin{itemize}
-\item \textbf{Whisper to Bones (Passive):} Speak with corpses dead less than 7 days; one question per corpse.
-\item \textbf{Deadman's March (2/encounter):} Animate 1d4 skeletons for encounter; 1 Strike each, +2 attack.
-\item \textbf{Grave's Embrace (1/encounter):} Touch attack; Endurance DC 14 or CHILLED 3 rounds.
-\end{itemize}
+}
 
-\subsection{Mirthless Fool | 4 Strikes}
-\textit{Dark jester of gallows humor.}
-\begin{itemize}
-\item \textbf{Bitter Jest (3/encounter):} Mock enemy; they attack you next or take disadvantage on actions.
-\item \textbf{Fool's Luck (1/encounter):} Force any d20 reroll; accept second result even if worse.
-\item \textbf{Last Laugh (Passive):} When reduced to 1 Strike, enemies in 3 sq make Resolve DC 12 or STUNNED.
+\grimclass{Corpse Shepherd \;|\; 5 Strikes}{Commander of the restless dead}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
+\item Whisper to Bones (Passive): Speak with corpses dead less than 7 days; one question per corpse.
+\item Deadman's March (2/encounter): Animate 1d4 skeletons for encounter; 1 Strike each, +2 attack.
+\item Grave's Embrace (1/encounter): Touch attack; Endurance DC 14 or CHILLED 3 rounds.
 \end{itemize}
-\columnbreak
+}
 
-\subsection{Alchemist \;|\; 4 Strikes}
-\textit{Master of Transmutation}
-\begin{itemize}
+\grimclass{Mirthless Fool \;|\; 4 Strikes}{Dark jester of gallows humor}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
+\item Bitter Jest (3/encounter): Mock enemy; they attack you next or take disadvantage on actions.
+\item Fool's Luck (1/encounter): Force any d20 reroll; accept second result even if worse.
+\item Last Laugh (Passive): When reduced to 1 Strike, enemies in 3 sq make Resolve DC 12 or STUNNED.
+\end{itemize}
+}
+
+\grimclass{Alchemist \;|\; 4 Strikes}{Master of Transmutation}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Acid Vial (2/encounter): Acid 1 Strike; 1 next round; ignores armor.
 \item Mutagen (1/encounter): +5 ability score 10 min; lose 2 Strikes.
 \item Alchemical Mastery (Passive): Create 1d4 concoctions daily.
 \end{itemize}
+}
 
-\subsection{Wolfgroom \;|\; 5 Strikes}
-\textit{Beast Master}
-\begin{itemize}
+\grimclass{Wolfgroom \;|\; 5 Strikes}{Beast Master}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Go for the Throat (Passive): You and companion +1 attack vs same target.
 \item Companion's Sacrifice (1/encounter): Companion takes attack's damage.
 \item Drag Down (2/encounter): Wolf drags foe; next attack advantage.
 \end{itemize}
+}
 
-\subsection{Blackguard \;|\; 6 Strikes}
-\textit{Intimidation \& Brutality}
-\begin{itemize}
+\grimclass{Blackguard \;|\; 6 Strikes}{Intimidation \& Brutality}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Ruthless Assault (1/encounter): Two attacks vs target; +2 Strikes if both hit.
 \item Cruel Efficiency (Passive): +1 Strike to wounded/frightened/helpless.
 \item Intimidating Reputation (Passive): +3 Presence to intimidate.
 \end{itemize}
+}
 
-\subsection{Skald \;|\; 5 Strikes}
-\textit{Warrior Poet}
-\begin{itemize}
+\grimclass{Skald \;|\; 5 Strikes}{Warrior Poet}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Court Intrigue (Passive): Advantage in social with nobility.
 \item Warrior's Challenge (2/encounter): Enemy focuses you 2 rounds.
 \item Hero's Last Stand (1/encounter): At 1 Strike, allies +2 attack/Defense.
 \end{itemize}
+}
 
-\subsection{Wytch \;|\; 3 Strikes}
-\textit{Arcane Practitioner (15\%)}
-\begin{itemize}
+\grimclass{Wytch \;|\; 3 Strikes}{Arcane Practitioner (15\%)}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Harvest the Dead (Passive): Cut spell-inscribed flesh for Black Book.
 \item Black Book Ritual (3/encounter): Chant 1 round; cast with advantage.
 \item Flesh-Bound Tome (Passive): Indestructible spellbook; horrifies viewers.
 \end{itemize}
+}
 
-\subsection{Iron Peddler \;|\; 4 Strikes}
-\textit{Nails, knives, armor—then uses them.}
-\begin{itemize}
+\grimclass{Iron Peddler \;|\; 4 Strikes}{Nails, knives, armor—then uses them}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Merchant's Cunning (Passive): Talk past guard/toll once/session.
 \item Hidden Iron (2/encounter): Throw concealed blade for 1 Strike.
 \item Spiked Surprise (1/encounter): Caltrops in 1 sq; Finesse DC 12.
 \end{itemize}
+}
 
-\subsection{Pit-Fighter \;|\; 5 Strikes}
-\textit{Blood-soaked pit veteran.}
-\begin{itemize}
+\grimclass{Pit-Fighter \;|\; 5 Strikes}{Blood-soaked pit veteran}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Arena Reflexes (Passive): Advantage Finesse vs grapples/disarms.
 \item Low Cut (2/encounter): Halve target's movement 1 round on hit.
 \item Show the Crowd (1/encounter): +1 attack rolls after kill. (Max +5)
 \end{itemize}
+}
 
-\subsection{Sword Saint \;|\; 6 Strikes}
-\textit{Ancestral Blade Master (15\%)}
-\begin{itemize}
+\grimclass{Sword Saint \;|\; 6 Strikes}{Ancestral Blade Master (15\%)}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Ancestral Guidance (Passive): +2 attack with swords; speak with spirits.
 \item Oni's Fury (1/encounter): 3 rounds; +3 attack, +2 damage; take 1 Strike/round.
 \item Perfect Cut (2/encounter): Ignore armor/shields; +1 Strike; Bleeding Wound.
 \end{itemize}
+}
 
-\subsection{Druid \;|\; 5 Strikes}
-\textit{Beast-Touched (10\%)}
-\begin{itemize}
+\grimclass{Druid \;|\; 5 Strikes}{Beast-Touched (10\%)}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Primal Shape (1/encounter): Were-beast form 1 hour; +4 Might, +1 damage.
 \item Nature's Wrath (2/encounter): 20-foot area; thorns/ice/wind effects.
 \item Feral Instincts (Passive): +3 wilderness Insight; track anything.
 \end{itemize}
+}
 
-\subsection{Pugilist \;|\; 5 Strikes}
-\textit{Street Scrapper}
-\begin{itemize}
+\grimclass{Pugilist \;|\; 5 Strikes}{Street Scrapper}{
+\begin{itemize}[leftmargin=8pt, itemsep=2pt]
 \item Makeshift Master (Passive): Improvised weapons +1 Strike; unarmed 1 Strike.
 \item Haymaker (2/encounter): Unarmed +2 Strikes, stun; cannot use vs armor.
 \item Dirty Tactics (2/encounter): Sand/debris blind, low blow prone, headbutt stun.
 \end{itemize}
-\end{multicols}
+}
+
+\end{rpgtwocol}
 \bloodrule
 \newpage
 %==================================================
