@@ -83,6 +83,9 @@
             <div class="sheet-stat-box-label">Inventory</div>
             <div class="sheet-stat-box-value">
                 <span name="attr_inventory_current">0</span>/<span name="attr_inventory_max">10</span>
+                <div style="font-size: 0.8em; color: rgba(169, 169, 169, 0.7);">
+                    Armor: <span name="attr_armor_slots_used">0</span> slots
+                </div>
             </div>
         </div>
         
@@ -210,16 +213,32 @@
                 
                 <label for="attr_armor_type">Armor:</label>
                 <select name="attr_armor_type" id="attr_armor_type">
-                    <option value="0">None</option>
-                    <option value="1">Light Armor</option>
-                    <option value="2">Medium Armor</option>
-                    <option value="3">Heavy Armor</option>
+                    <option value="0">None (0 DEF, 0/6 DR, 0 slots) - 0g</option>
+                    <optgroup label="Light Armor">
+                        <option value="padded">Padded Armor (+3 DEF, 1/6 DR, 1 slot) - 8g</option>
+                        <option value="leather">Leather Armor (+4 DEF, 1/6 DR, 1 slot) - 12g</option>
+                        <option value="studded">Studded Leather (+5 DEF, 1/6 DR, 1 slot) - 18g</option>
+                    </optgroup>
+                    <optgroup label="Medium Armor">
+                        <option value="chain_shirt">Chain Shirt (+1 DEF, 2/6 DR, 2 slots) - 25g</option>
+                        <option value="scale_mail">Scale Mail (+2 DEF, 2/6 DR, 2 slots) - 35g</option>
+                        <option value="chain_mail">Chain Mail (+3 DEF, 2/6 DR, 2 slots) - 45g</option>
+                    </optgroup>
+                    <optgroup label="Heavy Armor">
+                        <option value="banded_mail">Banded Mail (+1 DEF, 3/6 DR, 3 slots) - 60g</option>
+                        <option value="plate_mail">Plate Mail (+2 DEF, 3/6 DR, 3 slots) - 100g</option>
+                        <option value="full_plate">Full Plate (+3 DEF, 3/6 DR, 3 slots) - 200g</option>
+                    </optgroup>
                 </select>
                 
-                <label>
-                    <input type="checkbox" name="attr_shield" value="1" style="box-shadow:none; width:auto;">
-                    Shield (+1 DR)
-                </label>
+                <label for="attr_shield_type">Shield:</label>
+                <select name="attr_shield_type" id="attr_shield_type">
+                    <option value="0">None (0 DR) - 0g</option>
+                    <option value="buckler">Buckler (+1 DR, Small, Light) - 5g</option>
+                    <option value="round">Round Shield (+1 DR, Medium) - 8g</option>
+                    <option value="heater">Heater Shield (+1 DR, +1 DEF, Large) - 12g</option>
+                    <option value="tower">Tower Shield (+2 DR, Massive, Unwieldy) - 20g</option>
+                </select>
                 
                 <label>
                     <input type="checkbox" name="attr_helmet" value="1" style="box-shadow:none; width:auto;">
@@ -475,10 +494,35 @@
 
     // ARMOR DATA
     const armorData = { 
-        "0": { def: 0, dr: 0 }, 
-        "1": { def: 4, dr: 1 }, 
-        "2": { def: 2, dr: 2 }, 
-        "3": { def: -2, dr: 3 } 
+        // Backward compatibility with old system
+        "0": { def: 0, dr: 0, slots: 0, cost: 0, name: "None" }, 
+        "1": { def: 4, dr: 1, slots: 1, cost: 12, name: "Light Armor" }, 
+        "2": { def: 2, dr: 2, slots: 2, cost: 35, name: "Medium Armor" }, 
+        "3": { def: -2, dr: 3, slots: 3, cost: 100, name: "Heavy Armor" },
+        
+        // Light Armor
+        "padded": { def: 3, dr: 1, slots: 1, cost: 8, name: "Padded Armor" },
+        "leather": { def: 4, dr: 1, slots: 1, cost: 12, name: "Leather Armor" },
+        "studded": { def: 5, dr: 1, slots: 1, cost: 18, name: "Studded Leather" },
+        
+        // Medium Armor
+        "chain_shirt": { def: 1, dr: 2, slots: 2, cost: 25, name: "Chain Shirt" },
+        "scale_mail": { def: 2, dr: 2, slots: 2, cost: 35, name: "Scale Mail" },
+        "chain_mail": { def: 3, dr: 2, slots: 2, cost: 45, name: "Chain Mail" },
+        
+        // Heavy Armor
+        "banded_mail": { def: 1, dr: 3, slots: 3, cost: 60, name: "Banded Mail" },
+        "plate_mail": { def: 2, dr: 3, slots: 3, cost: 100, name: "Plate Mail" },
+        "full_plate": { def: 3, dr: 3, slots: 3, cost: 200, name: "Full Plate" }
+    };
+
+    // SHIELD DATA
+    const shieldData = {
+        "0": { def: 0, dr: 0, cost: 0, name: "None", properties: "" },
+        "buckler": { def: 0, dr: 1, cost: 5, name: "Buckler", properties: "Small, Light" },
+        "round": { def: 0, dr: 1, cost: 8, name: "Round Shield", properties: "Medium" },
+        "heater": { def: 1, dr: 1, cost: 12, name: "Heater Shield", properties: "Large" },
+        "tower": { def: 0, dr: 2, cost: 20, name: "Tower Shield", properties: "Massive, Unwieldy" }
     };
 
     // TAB SYSTEM
@@ -530,29 +574,34 @@
 
     // CALCULATIONS
     const calculateSheet = () => {
-        getAttrs(["finesse", "endurance", "armor_type", "shield", "helmet"], v => {
+        getAttrs(["finesse", "endurance", "armor_type", "shield_type", "helmet"], v => {
             const finesse = parseInt(v.finesse) || 0;
             const endurance = parseInt(v.endurance) || 0;
             const armorType = v.armor_type || "0";
-            const shield = parseInt(v.shield) || 0;
+            const shieldType = v.shield_type || "0";
             const helmet = parseInt(v.helmet) || 0;
 
-            const armorDef = armorData[armorType].def;
+            const armorDef = armorData[armorType] ? armorData[armorType].def : 0;
+            const shieldDef = shieldData[shieldType] ? shieldData[shieldType].def : 0;
             const helmetDef = helmet ? 1 : 0;
-            const defense = 5 + finesse + armorDef + helmetDef;
+            const defense = 5 + finesse + armorDef + shieldDef + helmetDef;
 
-            const armorDr = armorData[armorType].dr;
-            const shieldDr = shield ? 1 : 0;
+            const armorDr = armorData[armorType] ? armorData[armorType].dr : 0;
+            const shieldDr = shieldData[shieldType] ? shieldData[shieldType].dr : 0;
             const dr_chance = armorDr + shieldDr;
             const dr_chance_display = `${dr_chance}/6`;
             
             const inventory_max = 10 + endurance;
+            
+            // Calculate armor slots used
+            const armorSlots = armorData[armorType] ? armorData[armorType].slots : 0;
 
             setAttrs({
                 defense: defense,
                 dr_chance: dr_chance,
                 dr_chance_display: dr_chance_display,
-                inventory_max: inventory_max
+                inventory_max: inventory_max,
+                armor_slots_used: armorSlots
             });
         });
     };
@@ -699,7 +748,7 @@
     };
 
     // EVENT LISTENERS - Completely isolated from ability sections
-    const attributesToWatch = ["finesse", "endurance", "armor_type", "shield", "helmet"].map(attr => `change:${attr}`).join(" ");
+    const attributesToWatch = ["finesse", "endurance", "armor_type", "shield_type", "helmet"].map(attr => `change:${attr}`).join(" ");
     on(attributesToWatch, calculateSheet);
     on("change:class_name", (eventinfo) => handleClassChange(eventinfo.newValue));
     on("change:custom_strikes_max", () => {
@@ -961,8 +1010,23 @@
         });
     });
     
+    // BACKWARD COMPATIBILITY MIGRATION
+    const migrateOldShieldSystem = () => {
+        getAttrs(["shield", "shield_type"], v => {
+            // If old shield checkbox is checked but no new shield_type is set
+            if (parseInt(v.shield) === 1 && (!v.shield_type || v.shield_type === "0")) {
+                // Migrate to round shield as default
+                setAttrs({ 
+                    shield_type: "round",
+                    shield: 0  // Clear old checkbox
+                });
+            }
+        });
+    };
+
     // SHEET INITIALIZATION
     on("sheet:opened", () => {
+        migrateOldShieldSystem();
         calculateSheet();
         updateInventory();
         updateStrikeDots();
