@@ -34,6 +34,9 @@
 \usepackage{needspace}
 \usepackage{wrapfig}
 \usepackage{xcolor,booktabs,array}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
 \usepackage{makeidx}
 \makeindex
 
@@ -569,12 +572,435 @@ On a natural 1: (1) Lose 1 Presence; (2) Roll 1d100 on the Magical Mishap Table.
 100   & God strips divine connection; NPC. \\
 \bottomrule
 \end{compacttabular}
+%==================================================
+\newpage
 
+% Perfectly Aligned Spell Compendium with Clean Column Breaks
+% Required packages:
+% \usepackage{multicol}
+% \usepackage{xcolor}
+% \usepackage{array}
+% \usepackage{graphicx}
+
+% Your color definitions (add to preamble):
+% \definecolor{ink}{HTML}{EAE6DE}
+% \definecolor{bone}{HTML}{B6B0A4}
+% \definecolor{blood}{HTML}{5A2323}
+% \definecolor{iron}{HTML}{7C7C7C}
+% \definecolor{ironsoft}{HTML}{5B5B5B}
+% \definecolor{soot}{HTML}{0A0A0A}
+% \definecolor{gold}{HTML}{9B7A3D}
+% \definecolor{smoke}{HTML}{121213}
+% \definecolor{ash}{HTML}{151515}
+% \definecolor{barred}{HTML}{1A1A1A}
+
+% Compact spell entry command
+\newcommand{\spell}[6]{%
+\noindent{\color{gold}\textbf{#1}} \hfill {\color{bone}\footnotesize\textsc{#2}}\\
+{\color{ink}\small\textit{#3}}\\
+{\color{iron}\tiny\textbf{TIER #4} \textbullet\ \textbf{CAST DC#5} \textbullet\ \textbf{RESIST DC#6}}
+\vspace{3pt}
+}
+
+% School section headers
+\newcommand{\spellschool}[1]{%
+\vspace{2pt}
+\noindent{\color{blood}\rule{\columnwidth}{1pt}}\\
+\noindent{\color{gold}\large\textbf{#1 SPELLS}}\\
+{\color{blood}\rule{\columnwidth}{0.5pt}}
+\vspace{2pt}
+}
+
+% Image placeholder command
+\newcommand{\artplaceholder}[1]{%
+\vspace{4pt}
+\begin{center}
+{\color{ironsoft}\rule{0.8\columnwidth}{0.3pt}}\\
+\vspace{2pt}
+{\color{bone}\small\textit{#1}}\\
+\vspace{2pt}
+{\color{ironsoft}\rule{0.8\columnwidth}{0.3pt}}
+\end{center}
+\vspace{4pt}
+}
+
+\begin{multicols}{2}
+\setlength{\columnsep}{18pt}
+\setlength{\columnseprule}{0.3pt}
+\renewcommand{\columnseprulecolor}{\color{ironsoft}}
+\raggedcolumns
+
+% COLUMN 1 - ELDRITCH SPELLS
+\spellschool{ELDRITCH}
+
+\spell{Whispering Mind}{Eldritch}{Your voice seeps into a target's mind as the sound of their mother or father's voice; they suffer Disadvantage on Resolve checks for 1 minute.}{1}{10}{15}
+
+\spell{Rat King's Pact}{Eldritch}{Your words command vermin; one swarm within sight obeys a single command for 1 round.}{1}{10}{14}
+
+\spell{Plague of Eyes}{Eldritch}{Small eyes sprout on a surface or object; they see and report to you for 1 hour.}{1}{10}{14}
+
+\spell{Hex of Rust}{Eldritch}{Corrodes metal; target's weapon loses 1 Strike damage for 1 minute.}{1}{10}{14}
+
+\spell{Leper's Hex}{Eldritch}{Target's skin rots; -2 Defense for 1 minute.}{1}{10}{14}
+
+\spell{Fleshweave}{Eldritch}{Stitch wounds with shadowy threads; heals 2 Strikes but target gains a Cursed Soul passive for 1 day.}{2}{12}{14}
+
+\spell{Gutterjaw}{Eldritch}{Your jaw distends and bites; 1 Strike ignoring DR; causes Bleeding Wound.}{2}{12}{14}
+
+\spell{Void Leash}{Eldritch}{Attach tether of void-stuff to creature; if they move more than 4 sq away, take 1 Strike.}{2}{12}{14}
+
+\spell{Black Tongue}{Eldritch}{Your tongue becomes barbed; melee hit deals 1 Strike and causes Poisoned condition.}{2}{12}{14}
+
+\spell{Needle of Shadows}{Eldritch}{Thin shadow-lance deals 1 Strike ignoring DR.}{2}{12}{14}
+
+\spell{Viscera Puppet}{Eldritch}{Control a recently dead foe as a grotesque puppet for 1d4 rounds; each round requires Concentration.}{3}{14}{15}
+
+\spell{Howling Maw}{Eldritch}{Conjure a shadow-wolf's maw beneath target; 2 Strikes damage, target pulled prone.}{3}{14}{16}
+
+\spell{Venomous Promise}{Eldritch}{Your words deliver psychic venom; target takes 1 Strike per round for 3 rounds unless Resolve save.}{3}{14}{16}
+
+\spell{Thirsting Shade}{Eldritch}{Shade drains 1 Strike/round from target for 3 rounds; Magick save negates each round.}{3}{14}{16}
+
+\spell{Wither Limb}{Eldritch}{Target limb shrivels; loses use for 1d4 rounds unless Endurance save.}{3}{14}{16}
+
+\spell{Black Maw}{Eldritch}{Void manifests as a jaw in the air; devours an object or limb; 3 Strikes damage and permanent disfigurement if not saved.}{4}{16}{17}
+
+\spell{Sloughskin}{Eldritch}{Shed your skin to avoid death; negate one attack but suffer 2 Strikes.}{4}{16}{17}
+
+\spell{Shadow Birth}{Eldritch}{Pull a small shadow-creature from your ribcage; it attacks for 1 Strike each round for 3 rounds.}{4}{16}{17}
+
+\spell{Oblivion Veil}{Eldritch}{Target is unseen and unheard for 2 rounds; they cannot attack without ending the effect.}{4}{16}{17}
+
+\spell{Shadow Hydra}{Eldritch}{Three shadowy heads bite separate targets; 1 Strike each.}{4}{16}{17}
+
+\spell{Womb of Stars}{Eldritch}{Open a rift overhead; target area suffers meteor-shards for 3 Strikes; Magick save for half.}{5}{18}{19}
+
+\spell{Veil-Eater}{Eldritch}{Consume magical barrier or ward in sight; caster heals 2 Strikes per ward destroyed.}{5}{18}{19}
+
+\spell{Nether Devourer}{Eldritch}{Conjure a void-beast maw to bite target; 4 Strikes damage; Magick save halves.}{5}{18}{19}
+
+\spell{Black Star}{Eldritch}{Create a singularity in 4 sq radius; pulls all creatures 2 sq inward and deals 2 Strikes.}{5}{18}{19}
+
+\spell{Black Crown}{Eldritch}{Curse target with phantom crown; they suffer disadvantage and -2 Defense for 1 minute.}{5}{18}{19}
+
+\artplaceholder{Void Tendrils Reach From Beyond}
+
+\columnbreak
+
+% COLUMN 2 - ARCANE SPELLS
+\spellschool{ARCANE}
+
+\spell{Blood Sigil}{Arcane}{Draw a sigil in your own blood; allies within 4 sq gain +1 Strike on their next attack but you take 1 Strike damage.}{1}{10}{14}
+
+\spell{Inkblot Hex}{Arcane}{Target's skin oozes black ink; blinded for 1 round unless Finesse save DC 14.}{1}{10}{14}
+
+\spell{Grave Dredge}{Arcane}{Raise skeletal arms from earth to grab at ankles; Finesse save DC 14 or lose movement for 1 round.}{1}{10}{14}
+
+\spell{Mirror Leech}{Arcane}{From a reflective surface, drain 1 Strike from target and heal it yourself.}{1}{10}{14}
+
+\spell{Astral Mark}{Arcane}{Mark visible only to you; +2 to attacks against target for 1 hour.}{1}{10}{14}
+
+\spell{Mireglass Gaze}{Arcane}{Target sees their own drowning corpse in reflections; Resolve save or be Stunned for 1 round.}{2}{12}{14}
+
+\spell{Glass Curse}{Arcane}{Target's bones become brittle as glass for 1 minute; next hit against them deals +1 Strike.}{2}{12}{14}
+
+\spell{Frost Sigil}{Arcane}{Mark freezes over; next hit against target deals +1 Strike and causes Frostbite.}{2}{12}{14}
+
+\spell{Wax and Wane}{Arcane}{Target ages or grows younger by 1d20 years for 1 hour; no save.}{2}{12}{14}
+
+\spell{Runes of Woe}{Arcane}{Inscribed runes explode when read; 1 Strike in 2 sq radius.}{2}{12}{14}
+
+\spell{Sun-Bleached Curse}{Arcane}{Victim's skin cracks and burns as if under desert sun; takes 1 Strike/round for 3 rounds unless Endurance save DC 16.}{3}{14}{16}
+
+\spell{Star-Drinker's Oath}{Arcane}{Absorb starlight into your flesh; regain 2 Strikes but suffer disadvantage in sunlight for 1 day.}{3}{14}{15}
+
+\spell{Moon's Prison}{Arcane}{Target bound by silver moonlight; cannot attack caster for 2 rounds unless Resolve save.}{3}{14}{15}
+
+\spell{Iron Script}{Arcane}{Write runes in the air; they explode for 2 Strikes in 2 sq radius.}{3}{14}{15}
+
+\spell{Time's Scar}{Arcane}{Target skips their next turn unless Resolve save.}{3}{14}{15}
+
+\spell{Ashen Spire}{Arcane}{Obsidian spire erupts from ground impaling all in 2 sq; 2 Strikes each; destroyed armor and shields remain embedded.}{4}{16}{17}
+
+\spell{Catacomb Gate}{Arcane}{Portal opens to an underground tomb; can store up to 2 creatures for 1 minute.}{4}{16}{17}
+
+\spell{Fractured Reality}{Arcane}{Shatter the air; all in 3 sq radius take 2 Strikes and are Stunned unless Resolve save.}{4}{16}{17}
+
+\spell{Spellblight}{Arcane}{Suppress one magical effect in 6 sq; lasts 1d4 rounds.}{4}{16}{17}
+
+\spell{Shatter Sigil}{Arcane}{Destroy one magical glyph or ward in sight; small explosion deals 1 Strike in 2 sq.}{4}{16}{17}
+
+\spell{God Binder's Chain}{Arcane}{Manifests searing chains that restrain and burn for 2 Strikes/round; requires Concentration.}{5}{18}{18}
+
+\spell{Arc of the Void}{Arcane}{Dark lightning arcs between 3 targets; 2 Strikes each; Resolve save halves damage.}{5}{18}{19}
+
+\spell{Soul Reversal}{Arcane}{Swap current Strikes total with another creature; unwilling target gets Resolve save.}{5}{18}{19}
+
+\spell{Eye of Aith'na}{Arcane}{Blinding light beam; 3 Strikes and Blind condition for 1 round unless Resolve save.}{5}{18}{19}
+
+\spell{Arcane Cataclysm}{Arcane}{Massive blast in 6 sq; 4 Strikes, knocks creatures prone.}{5}{18}{19}
+
+\artplaceholder{Ancient Sigils Carved in Stone}
+
+\columnbreak
+
+% COLUMN 3 - SPIRIT SPELLS
+\spellschool{SPIRIT}
+
+\spell{Corpse Lantern}{Spirit}{A dead body within 6 sq emits pale green light for 10 minutes; light counts as torch but unnerves all living creatures in its radius.}{1}{10}{13}
+
+\spell{Charnel Wind}{Spirit}{A wind carrying the stench of graves fills 6 sq; enemies suffer Disadvantage on Presence saves.}{1}{10}{13}
+
+\spell{Boglight Curse}{Spirit}{Conjure floating corpse-lights; enemies following them are led into a hazard or ambush.}{1}{10}{13}
+
+\spell{Grave's Breath}{Spirit}{Cold gust from the grave chills a 3 sq cone; enemies take 1 Strike unless Endurance save succeeds.}{1}{10}{13}
+
+\spell{Rot Bloom}{Spirit}{Poisonous fungi erupt in 2 sq; enemies take 1 Strike and Poisoned unless Endurance save.}{1}{10}{13}
+
+\spell{Vermin Benediction}{Spirit}{Swarm of rats or insects obeys simple commands for 3 rounds; disperses after dealing 1 Strike collectively.}{2}{11}{13}
+
+\spell{Funeral Breath}{Spirit}{Cold mist erupts from your mouth; all enemies in a 3 sq cone take 1 Strike and suffer Frostbite.}{2}{12}{15}
+
+\spell{Hollow Feast}{Spirit}{Consume raw meat or offal to heal 1d4 Strikes; 50\% chance to be Poisoned.}{2}{12}{15}
+
+\spell{Mourner's Chant}{Spirit}{Funeral wail breaks morale; enemies in 6 sq must make Resolve save or suffer Morale Broken.}{2}{12}{15}
+
+\spell{Ghostlight}{Spirit}{Create hovering lantern-light that follows target for 1 hour; reveals invisible creatures.}{2}{12}{15}
+
+\spell{Chant of the Hollow Host}{Spirit}{Chorus of spectral voices bolsters allies; all allies in 6 sq gain Advantage on next attack; Wytches must roll for Mishap.}{3}{14}{15}
+
+\spell{Carrion Feast}{Spirit}{Undead in 4 sq feed on a corpse; for 3 rounds they ignore all others.}{3}{14}{15}
+
+\spell{Deathwatch}{Spirit}{Learn exact number of Strikes remaining for all creatures within sight.}{3}{14}{15}
+
+\spell{Ancestor's Lament}{Spirit}{Summon visions of the dead; target is Stunned for 1 round unless Resolve save.}{3}{14}{15}
+
+\spell{Ancestor's Fury}{Spirit}{Summon spirit-warrior to fight for you; 1 Strike per round for 3 rounds.}{3}{14}{15}
+
+\spell{Exile to Ringwell}{Spirit}{Target vanishes into Ringwell for 1 minute; returns maddened (Resolve save DC 17 or suffers Madness).}{4}{15}{17}
+
+\spell{Bone Orchard}{Spirit}{Skeletal hands erupt in 4 sq radius; restrain and deal 1 Strike/round for 3 rounds unless Finesse save DC 17.}{4}{16}{17}
+
+\spell{Crypt's Maw}{Spirit}{Ground opens into gaping crypt; swallows one medium target; they return prone and take 2 Strikes.}{4}{16}{17}
+
+\spell{Cathedral of Bone}{Spirit}{Builds bony structure in 3 sq radius; allies inside gain +2 Defense.}{4}{16}{17}
+
+\spell{Tomb's Grasp}{Spirit}{Corpse hands drag foe prone; they take 2 Strikes unless Finesse save.}{4}{16}{17}
+
+\spell{Ancestor's Reckoning}{Spirit}{Spirits of kin drag foe into spectral realm for 1 round; return with Bleeding Wound and Morale Broken.}{5}{17}{18}
+
+\spell{Torrent of Skulls}{Spirit}{Barrage of spectral skulls in 6 sq radius; each deals 1 Strike to a different target.}{5}{18}{19}
+
+\spell{March of Skulls}{Spirit}{Call an army of skulls to trample foes; 3 Strikes each to all enemies in 4 sq radius.}{5}{18}{19}
+
+\spell{Wail of the Lost}{Spirit}{All enemies in 8 sq must Resolve save or drop weapons and flee 2d4 sq.}{5}{18}{19}
+
+\spell{Gravewind Tempest}{Spirit}{Hurricane of grave dust in 6 sq; 2 Strikes each, Blind 1 round unless Endurance save.}{5}{18}{19}
+
+\artplaceholder{Spectral Figures Dance in Moonlight}
+
+\columnbreak
+
+% COLUMN 4 - CROWN SPELLS  
+\spellschool{CROWN}
+
+\spell{Chain of the Forgotten}{Crown}{Ethereal chain lashes out, restraining one creature for 1 round; Magick save ends early.}{1}{11}{14}
+
+\spell{Silver Tongue's Lie}{Crown}{Convince a target of one blatant falsehood for 1 minute unless Resolve save succeeds.}{1}{11}{14}
+
+\spell{Servant of the Crown}{Crown}{Manifest a tiny shadow-servant; delivers a single object or message within 8 sq before fading.}{1}{11}{14}
+
+\spell{False Coronation}{Crown}{Convince crowd of your false kingship; +2 Presence for 1 hour in that crowd.}{1}{11}{14}
+
+\spell{Nail of the Crown}{Crown}{Manifest a black iron spike that pierces incorporeal foes; deals 1 Strike and imposes Bleeding Wound if they fail Magick save.}{2}{12}{15}
+
+\spell{Obsidian Halo}{Crown}{Crown of black glass shards floats above head; any melee attacker takes 1 Strike.}{2}{13}{15}
+
+\spell{Black Diadem}{Crown}{Wearer gains +2 Presence but suffers -1 Magick until diadem removed.}{2}{13}{15}
+
+\spell{Shadow Coronation}{Crown}{Anoints target with false royalty; allies gain +1 Strike against them for 1 minute.}{2}{13}{15}
+
+\spell{Obsidian Laurels}{Crown}{Wearer gains +1 Magick but takes +1 Strike from all attacks while crowned.}{2}{13}{15}
+
+\spell{Slender's Grasp}{Crown}{Shadowy hands erupt from darkness to immobilize target (Finesse save DC 16 or no movement for 2 rounds).}{3}{14}{16}
+
+\spell{Thousand Eyes of the Crown}{Crown}{Summon spectral eyes; see all invisible and hidden foes in 10 sq for 1 minute.}{3}{15}{16}
+
+\spell{King in Rags' Favor}{Crown}{One target treats you as rightful monarch; lasts 1 minute unless they are attacked by you or allies.}{3}{15}{16}
+
+\spell{Slender's Herald}{Crown}{Spawn an eyeless herald that screams; enemies in 4 sq take 1 Strike and suffer disadvantage for 1 round.}{3}{15}{16}
+
+\spell{Mask of Authority}{Crown}{You gain +3 Presence for 1 minute; enemies who fail Resolve save cannot attack you.}{3}{15}{16}
+
+\spell{Throne of Thorns}{Crown}{Target is impaled by spectral thorns; immobilized and suffers 2 Strikes; Magick save halves damage but not immobilization.}{4}{16}{17}
+
+\spell{Voice of the Crown}{Crown}{Your command cannot be ignored; target must obey 1 action immediately (Resolve save negates).}{4}{17}{18}
+
+\spell{Regicide's Will}{Crown}{Name one creature as 'false king'; all allies gain +1 Strike against them for 1 minute.}{4}{17}{18}
+
+\spell{King's Wrath}{Crown}{Enemies in sight must kneel; Resolve save to resist; kneeling creatures are at disadvantage.}{4}{17}{18}
+
+\spell{Imperial Edict}{Crown}{Command all enemies in 6 sq to drop weapons unless Resolve save.}{4}{17}{18}
+
+\spell{Crown's Decree}{Crown}{Slender Crown's will compels target to obey a single sentence command instantly unless Resolve DC 18 succeeds.}{5}{18}{18}
+
+\spell{Coronation of Ash}{Crown}{Target's head crowns in burning ash; they take 3 Strikes and are Morale Broken.}{5}{19}{20}
+
+\spell{Imperial Coronation}{Crown}{All enemies in sight see you as their ruler; Resolve save to act against you for 1 minute.}{5}{19}{20}
+
+\spell{Eternal Crown}{Crown}{Target is cursed with visions of endless coronation; suffers disadvantage on all rolls for 1 minute.}{5}{19}{20}
+
+\spell{Eclipse Throne}{Crown}{Darkness covers battlefield; only caster and chosen can see; all others act with Disadvantage.}{5}{19}{19}
+
+\spell{Crown of Night}{Crown}{You and allies in 4 sq gain Night Drinker passive for 1 hour.}{5}{19}{20}
+
+\artplaceholder{Obsidian Throne Wreathed in Shadow}
+
+\columnbreak
+
+% COLUMN 5 - RADIANT SPELLS
+\spellschool{RADIANT}
+
+\spell{Stigmata's Kiss}{Radiant}{Open wounds on own palms to heal ally 1 Strike; take 1 Strike yourself.}{1}{12}{14}
+
+\spell{Burning Halo}{Radiant}{A crown of fire encircles your head; allies gain +1 Resolve within 4 sq; lasts 3 rounds.}{1}{12}{14}
+
+\spell{Sun's Blessing}{Radiant}{Ally gains +2 to all saves for 1 round.}{1}{12}{14}
+
+\spell{Kindled Faith}{Radiant}{Ally regains 1 Strike and gains +1 Resolve for 1 round.}{1}{12}{14}
+
+\spell{Scourge Litany}{Radiant}{Flagellate self mid-battle; allies in sight gain +1 Defense for 2 rounds.}{2}{14}{15}
+
+\spell{Sanctuary of Pain}{Radiant}{Allies in 4 sq gain +2 Defense; each time they are hit they take +1 Strike but attacker takes 1 Strike as radiant backlash.}{2}{14}{15}
+
+\spell{Light of Judgement}{Radiant}{Burst of light in 6 sq radius blinds enemies for 1 round unless Resolve save.}{2}{14}{15}
+
+\spell{Lightbearer's Vow}{Radiant}{Ally ignores first Strike of damage this round.}{2}{14}{15}
+
+\spell{Martyr's Stand}{Radiant}{Heal all allies in 4 sq 1 Strike; caster takes all damage meant for them for 1 round.}{3}{15}{16}
+
+\spell{Tear the Veil}{Radiant}{Shred the air with holy power; all invisible/ethereal creatures in 8 sq are revealed and take 1 Strike.}{3}{15}{16}
+
+\spell{Purify the Defiled}{Radiant}{End one condition on ally; target takes 1 Strike of radiant backlash if condition was magical.}{3}{15}{16}
+
+\spell{Heaven's Gate}{Radiant}{Allies in 4 sq heal 2 Strikes; blinded by divine light for 1 round.}{3}{15}{16}
+
+\spell{Halo of Nails}{Radiant}{Shower of glowing nails falls around you; 1 Strike to all enemies in 3 sq; enemies blinded for 1 round (Resolve save negates blind).}{4}{16}{17}
+
+\spell{Beacon of Wrath}{Radiant}{Light pours from your wounds; enemies in 6 sq take 1 Strike each round for 3 rounds.}{4}{16}{17}
+
+\spell{Blinding Halo}{Radiant}{Enemies within 4 sq are blinded for 2 rounds unless Resolve save.}{4}{16}{17}
+
+\spell{Judgement Choir}{Radiant}{Angelic voices cause enemies in 6 sq to make Resolve save or be Stunned 1 round.}{4}{16}{17}
+
+\spell{Sun-Spear Judgement}{Radiant}{Manifest a spear of pure sunlight; deals 3 Strikes and destroys undead instantly on failed save.}{5}{18}{18}
+
+\spell{Final Benediction}{Radiant}{Heal all allies in sight to full Strikes; you drop to 0 Strikes and must roll on Horrible Wounds.}{5}{18}{18}
+
+\spell{Sanctum of Light}{Radiant}{Allies in 8 sq gain +2 Defense, +2 Resolve saves for 3 rounds.}{5}{18}{18}
+
+\spell{Eclipsing Glory}{Radiant}{All enemies in sight are blinded for 1 round and suffer -2 Defense for 3 rounds.}{5}{18}{18}
+
+\artplaceholder{Divine Light Pierces the Darkness}
+
+% FIRE SPELLS
+\spellschool{FIRE}
+
+\spell{Flame Psalm}{Fire}{Recite sacred fire verses; ignite weapon for 1 minute; attacks cause Burning.}{1}{12}{14}
+
+\spell{Cinder Veil}{Fire}{Veil of hot ash surrounds you; first melee attacker each round takes 1 Strike.}{1}{12}{14}
+
+\spell{Ember Wound}{Fire}{Touch attack causes 1 Strike and Burning for 1 round.}{1}{12}{14}
+
+\spell{Salt the Earth}{Fire}{Blessed ash scorches ground; enemies entering 3 sq take 1 Strike.}{1}{12}{14}
+
+\spell{Pillar of Ash}{Fire}{Call down a narrow column of ash; obscures vision in 2 sq and suffocates unprotected targets (Endurance DC 14 or 1 Strike).}{2}{14}{15}
+
+\spell{Scalding Hymn}{Fire}{Song heats weapons in 6 sq; all deal +1 Strike for 2 rounds.}{2}{14}{15}
+
+\spell{Scorched Hymnal}{Fire}{Chant releases heatwave; enemies in 4 sq radius take 1 Strike.}{2}{14}{15}
+
+\spell{Flare of Conviction}{Fire}{Firebolt that deals 1 Strike and ignites flammable gear.}{2}{14}{15}
+
+\spell{Brand of the Pyre}{Fire}{Mark target with holy flame; any ally who strikes them deals +1 Strike; effect lasts 3 rounds.}{3}{15}{16}
+
+\spell{Searing Revelation}{Fire}{A blinding flash forces all enemies in 6 sq to make Resolve save or be Stunned for 1 round.}{3}{15}{16}
+
+\spell{Blistering Rebuke}{Fire}{Flame lashes target; 2 Strikes and Burning for 2 rounds unless Finesse save.}{3}{15}{16}
+
+\spell{Inferno Psalm}{Fire}{Chant engulfs enemies in 6 sq with flames; 2 Strikes each.}{3}{15}{16}
+
+\spell{Infernal Sermon}{Fire}{Fiery visage terrifies foes; all enemies in sight must Resolve save DC 17 or become Morale Broken.}{4}{16}{17}
+
+\spell{Purging Flame}{Fire}{Firestorm in 3 sq radius; 2 Strikes damage, Burning for 2 rounds unless Finesse save.}{4}{16}{17}
+
+\spell{Consuming Fire}{Fire}{Immolation in 3 sq cone; 2 Strikes, Burning for 3 rounds.}{4}{16}{17}
+
+\spell{Dragon's Breath}{Fire}{15-ft cone of divine fire; 3 Strikes and Burning for 2 rounds.}{4}{16}{17}
+
+\spell{Flame of Ainerth}{Fire}{Divine firestorm engulfs 4 sq radius; deals 3 Strikes; Burning condition for 3 rounds.}{5}{18}{18}
+
+\spell{Incandescent Wrath}{Fire}{Weapons in 8 sq erupt in divine fire; all melee hits cause Burning for 3 rounds.}{5}{18}{18}
+
+\spell{Scorch the Heavens}{Fire}{Fiery meteors rain in 6 sq radius; 3 Strikes each; Finesse save halves.}{5}{18}{18}
+
+\spell{Pillar of Flame}{Fire}{Massive flame column in 4 sq radius; 3 Strikes and Burning 3 rounds.}{5}{18}{18}
+
+\columnbreak
+
+% COLUMN 6 - BLOOD SPELLS
+\spellschool{BLOOD}
+
+\spell{Crimson Offering}{Blood}{Spill your own blood for divine favor; +2 Faith saves for 1 encounter but lose 2 Strikes.}{1}{12}{13}
+
+\spell{Leech Prayer}{Blood}{Touch target to heal them 1 Strike and transfer it from your own.}{1}{12}{14}
+
+\spell{Blood Candle}{Blood}{Light your own blood to create torchlight for 1 hour; take 1 Strike.}{1}{12}{13}
+
+\spell{Vampiric Litany}{Blood}{Chant heals you for 1 Strike when any creature in 4 sq dies this round.}{1}{12}{13}
+
+\spell{Exsanguine Benediction}{Blood}{Drain blood from self into dying ally's mouth; they heal 2 Strikes but gain Poisoned condition for 1 day.}{2}{14}{15}
+
+\spell{Chains of Martyrdom}{Blood}{Bind self to an ally; half their incoming Strikes are transferred to you for 1 minute.}{2}{14}{15}
+
+\spell{Vital Sacrifice}{Blood}{Take 3 Strikes to heal ally to full.}{2}{14}{15}
+
+\spell{Trial by Ordeal}{Blood}{Ally gains +3 to next attack; takes 2 Strikes afterward.}{2}{14}{15}
+
+\spell{Blood Anointing}{Blood}{Smear own blood over weapon; next attack ignores DR and deals +2 Strikes.}{3}{15}{16}
+
+\spell{Glory Through Suffering}{Blood}{Take 2 Strikes willingly; next three melee hits you deal gain +1 Strike each.}{3}{15}{16}
+
+\spell{Iron Sanguine}{Blood}{Your blood hardens into armor; gain +3 Defense for 2 rounds; take 1 Strike per round.}{3}{15}{16}
+
+\spell{Exalt in Agony}{Blood}{Take 3 Strikes to give all allies in sight +1 Strike on their next attack.}{3}{15}{16}
+
+\spell{Crimson Resurgence}{Blood}{Slit your arm to call forth a spectral warband; 2d4 phantoms attack enemies dealing 1 Strike each then vanish.}{4}{16}{17}
+
+\spell{Sacred Thirst}{Blood}{Drink enemy's blood to heal 3 Strikes; target must be helpless or slain this round.}{4}{16}{17}
+
+\spell{Heart's Betrayal}{Blood}{Force an enemy to attack its nearest ally for 1 round; Resolve save negates.}{4}{16}{17}
+
+\spell{Throne of Blood}{Blood}{Manifest a throne of gore; allies in 4 sq gain +2 Defense; you take 1 Strike per round seated.}{4}{16}{17}
+
+\spell{Last Drop Covenant}{Blood}{Drain last of your blood into altar or ally; they are restored to full Strikes; you drop to 0 Strikes and must roll on Horrible Wounds.}{5}{18}{18}
+
+\spell{Blood Crown}{Blood}{Form a crown from your blood; gain +2 to all attacks and saves for 3 rounds but take 1 Strike at the start of each turn.}{5}{18}{18}
+
+\spell{Sanguine Legion}{Blood}{Blood sacrifices manifest as phantom warriors; each deals 1 Strike then vanishes.}{5}{18}{18}
+
+\spell{Crimson Ascension}{Blood}{Ascend in blood mist; heal to full Strikes, gain flight for 1 minute, then drop to 0 Strikes.}{5}{18}{18}
+
+\artplaceholder{Crimson Altar Stained with Sacrifice}
+
+\end{multicols}
+%==================================================
+\newpage
 \begin{center}\vspace{2mm}
   \MaybeGraphic[width=0.85\linewidth]{burningnoble.jpg}\\[-1mm]
   {\small\color{iron}Judgement by Fire}
 \end{center}
-%==================================================
+
 \section{Death \& Dying}
 \bloodrule
 
@@ -1049,6 +1475,378 @@ At zero strikes, roll 1d12 on the Horrible Wounds table by damage type. Death is
 \bloodrule
 \newpage
 %==================================================
+\definecolor{packcolor}{HTML}{c1be83}
+
+\section{Equipment \& Gear}
+
+\subsection{Equipment Packs}
+Choose one of the following equipment packs to start your adventure:
+
+\begin{multicols}{2}
+\begin{enumerate}
+    \item \textcolor{packcolor}{\textbf{Sellsword Pack}} \\
+    \textit{Armor:} Chain Shirt (2 slots, +2 DEF, 2/6 DR) \\
+    \textit{Weapon:} Longsword (Reliable) \\
+    \textit{Protection:} Shield (+1 DR chance) \\
+    \textit{Equipment:} 50ft rope, whetstone, bedroll, 3 days rations, waterskin, coin purse \\
+    \textit{Starting Coin:} 25 Golm
+    
+    \item \textcolor{packcolor}{\textbf{Coachman Pack}} \\
+    \textit{Armor:} Padded Armor (1 slot, +4 DEF, 1/6 DR) \\
+    \textit{Weapon:} Club (Sturdy) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Whip, lantern, 2 flasks oil, horse tack, map case, 5 days rations, waterskin, blanket \\
+    \textit{Starting Coin:} 15 Golm
+    
+    \item \textcolor{packcolor}{\textbf{Noble Pack}} \\
+    \textit{Armor:} Padded Armor (1 slot, +4 DEF, 1/6 DR) \\
+    \textit{Weapon:} Rapier (Precise) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Signet ring, fine clothes, perfumed handkerchief, wine flask, 3 days fine rations, silk rope (30ft), jeweled dagger (concealed) \\
+    \textit{Starting Coin:} 100 Golm
+    
+    \item \textcolor{packcolor}{\textbf{Fortune Teller Pack}} \\
+    \textit{Armor:} None \\
+    \textit{Weapon:} Curved Dagger (Quick-Draw) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Tarot deck, crystal ball, incense sticks, colored scarves, small tent, 4 days rations, tea herbs, coin reading bowl \\
+    \textit{Starting Coin:} 20 Golm
+    
+    \item \textcolor{packcolor}{\textbf{Farmer Pack}} \\
+    \textit{Armor:} None \\
+    \textit{Weapon:} Spear (Reliable) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Sickle, hemp rope (40ft), grain sack, chicken (live), 7 days simple rations, waterskin, work gloves, seed pouch \\
+    \textit{Starting Coin:} 8 Golm
+    
+    \item \textcolor{packcolor}{\textbf{Explorer Pack}} \\
+    \textit{Armor:} Padded Armor (1 slot, +4 DEF, 1/6 DR) \\
+    \textit{Weapon:} Hand Axe (Throwable) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Compass, spyglass, climbing gear, 100ft rope, grappling hook, 5 days trail rations, waterskin, tent, flint \& steel \\
+    \textit{Starting Coin:} 30 Golm
+    
+    \columnbreak
+    
+    \item \textcolor{packcolor}{\textbf{Guild Alchemist Pack}} \\
+    \textit{Armor:} Padded Armor (1 slot, +4 DEF, 1/6 DR) \\
+    \textit{Weapon:} Dagger (Lightweight) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Portable alchemy kit, 6 empty vials, mortar \& pestle, 3 days rations, herb pouch, magnifying glass, journal \& ink \\
+    \textit{Starting Coin:} 40 Golm
+    
+    \item \textcolor{packcolor}{\textbf{Guild Artisan Pack}} \\
+    \textit{Armor:} Padded Armor (1 slot, +4 DEF, 1/6 DR) \\
+    \textit{Weapon:} War Hammer (Piercing) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Artisan tools, measuring calipers, material samples, 4 days rations, work apron, trade guild seal, small anvil \\
+    \textit{Starting Coin:} 35 Golm
+    
+    \item \textcolor{packcolor}{\textbf{Bandit Pack}} \\
+    \textit{Armor:} Padded Armor (1 slot, +4 DEF, 1/6 DR) \\
+    \textit{Weapon:} Cutlass (Notched) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Lockpicks, mask, 30ft rope, grappling hook, 3 days stolen rations, waterskin, caltrops, small mirror \\
+    \textit{Starting Coin:} 12 Golm
+    
+    \item \textcolor{packcolor}{\textbf{Beggar Pack}} \\
+    \textit{Armor:} None \\
+    \textit{Weapon:} Quarterstaff (Reliable) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Begging bowl, tattered cloak, 2 days stale rations, cracked waterskin, lucky charm, needle \& thread \\
+    \textit{Starting Coin:} 3 Golm
+    
+    \item \textcolor{packcolor}{\textbf{Bounty Hunter Pack}} \\
+    \textit{Armor:} Chain Shirt (2 slots, +2 DEF, 2/6 DR) \\
+    \textit{Weapon:} Crossbow (Precise) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Manacles, 20 crossbow bolts, tracking gear, wanted posters, 4 days rations, rope (60ft), spyglass \\
+    \textit{Starting Coin:} 45 Golm
+    
+    \item \textcolor{packcolor}{\textbf{Bureaucrat Pack}} \\
+    \textit{Armor:} None \\
+    \textit{Weapon:} Dagger (Lightweight) \\
+    \textit{Protection:} None \\
+    \textit{Equipment:} Official papers, seal \& wax, ink \& quills, ledger book, 3 days rations, coin scales, reading spectacles, official robes \\
+    \textit{Starting Coin:} 50 Golm
+\end{enumerate}
+\end{multicols}
+\bloodrule
+
+\newpage
+
+\subsection{Weapons}
+
+\begin{multicols}{3}
+\small
+\textbf{Arming Sword} (Balanced) \dotfill 185g \\
+\textbf{Bastard Sword} (Heavy) \dotfill 275g \\
+\textbf{Battle Axe} (Brutal) \dotfill 85g \\
+\textbf{Broadsword} (Keen) \dotfill 165g \\
+\textbf{Club} (Sturdy) \dotfill 8g \\
+\textbf{Crossbow} (Precise) \dotfill 120g \\
+\textbf{Curved Dagger} (Quick-Draw) \dotfill 45g \\
+\textbf{Cutlass} (Notched) \dotfill 65g \\
+\textbf{Dagger} (Lightweight) \dotfill 25g \\
+\textbf{Falchion} (Cleaving) \dotfill 95g \\
+\textbf{Flail} (Heavy) \dotfill 75g \\
+\textbf{Great Axe} (Heavy, Cleaving) \dotfill 245g \\
+\textbf{Great Hammer} (Weighted) \dotfill 135g \\
+\textbf{Messer} (Heavy, Versatile) \dotfill 380g \\
+\textbf{Halberd} (Reach) \dotfill 105g \\
+\textbf{Hand Axe} (Throwable) \dotfill 35g \\
+\textbf{Javelin} (Throwable, Lightweight) \dotfill 18g \\
+\textbf{Lance} (Reach, Momentum) \dotfill 55g \\
+\textbf{Long Bow} (Heavy) \dotfill 85g \\
+\textbf{Longsword} (Reliable) \dotfill 200g \\
+\textbf{Mace} (Sturdy) \dotfill 60g \\
+\textbf{Morningstar} (Brutal) \dotfill 80g \\
+\textbf{Pike} (Reach, Leveraged) \dotfill 28g \\
+\textbf{Quarterstaff} (Reliable) \dotfill 5g \\
+\textbf{Rapier} (Precise) \dotfill 180g \\
+\textbf{Sabre} (Keen) \dotfill 155g \\
+\textbf{Scimitar} (Finesse) \dotfill 170g \\
+\textbf{Short Bow} (Swift) \dotfill 65g \\
+\textbf{Short Sword} (Finesse) \dotfill 85g \\
+\textbf{Spear} (Reliable) \dotfill 12g \\
+\textbf{Staff Sling} (Accurate) \dotfill 15g \\
+\textbf{Claymore} (Heavy, Keen) \dotfill 625g \\
+\textbf{War Hammer} (Piercing) \dotfill 95g \\
+\textbf{Whip} (Leveraged) \dotfill 22g \\
+\end{multicols}
+
+\subsection{Armor \& Protection}
+
+\begin{multicols}{2}
+\textbf{Light Armor} \\
+\textit{Padded Armor} (1 slot, +4 DEF, 1/6 DR) \dotfill 150g \\
+\textit{Leather Armor} (1 slot, +5 DEF, 1/6 DR) \dotfill 420g \\
+\textit{Studded Leather} (1 slot, +6 DEF, 1/6 DR) \dotfill 780g \\
+
+\textbf{Medium Armor} \\
+\textit{Chain Shirt} (2 slots, +2 DEF, 2/6 DR) \dotfill 850g \\
+\textit{Scale Mail} (2 slots, +3 DEF, 2/6 DR) \dotfill 1,450g \\
+\textit{Chain Mail} (2 slots, +4 DEF, 2/6 DR) \dotfill 2,200g \\
+
+\textbf{Heavy Armor} \\
+\textit{Banded Mail} (3 slots, -2 DEF, 3/6 DR) \dotfill 2,800g \\
+\textit{Plate Mail} (3 slots, -1 DEF, 3/6 DR) \dotfill 4,200g \\
+\textit{Full Plate} (3 slots, +1 DEF, 3/6 DR) \dotfill 5,000g \\
+
+\textbf{Shields} \\
+\textit{Buckler} (Small, +1 DR chance, Light) \dotfill 85g \\
+\textit{Round Shield} (Medium, +1 DR chance) \dotfill 145g \\
+\textit{Heater Shield} (Large, +1 DR chance, +1 DEF) \dotfill 280g \\
+\textit{Tower Shield} (Massive, +2 DR chance, Unwieldy) \dotfill 485g \\
+\end{multicols}
+
+\subsection{Adventuring Equipment}
+
+\begin{multicols}{3}
+\small
+Backpack \dotfill 8g \\
+Bedroll \dotfill 3g \\
+Belt Pouch \dotfill 2g \\
+Blanket \dotfill 4g \\
+Block \& Tackle \dotfill 25g \\
+Caltrops (bag) \dotfill 12g \\
+Candle (10) \dotfill 3g \\
+Chain (10 ft) \dotfill 65g \\
+Chalk (10 pieces) \dotfill 2g \\
+Climbing Kit \dotfill 85g \\
+Crowbar \dotfill 15g \\
+Fishing Tackle \dotfill 8g \\
+Flask or Tankard \dotfill 3g \\
+Flint \& Steel \dotfill 6g \\
+Grappling Hook \dotfill 18g \\
+Hammer \dotfill 5g \\
+Hourglass \dotfill 180g \\
+Hunting Trap \dotfill 35g \\
+Ink (1 ounce bottle) \dotfill 25g \\
+Ink Pen \dotfill 4g \\
+Iron Spikes (10) \dotfill 8g \\
+Ladder (10-foot) \dotfill 12g \\
+Lamp \dotfill 8g \\
+Lantern, Bullseye \dotfill 45g \\
+Lantern, Hooded \dotfill 28g \\
+Lock \dotfill 55g \\
+Magnifying Glass \dotfill 350g \\
+Manacles \dotfill 75g \\
+Mirror, Steel \dotfill 35g \\
+Oil (flask) \dotfill 6g \\
+Paper (one sheet) \dotfill 4g \\
+Parchment (one sheet) \dotfill 2g \\
+Perfume (vial) \dotfill 45g \\
+Pick, Miner's \dotfill 18g \\
+Piton \dotfill 2g \\
+Pole (10-foot) \dotfill 8g \\
+Pot, Iron \dotfill 12g \\
+Pouch \dotfill 2g \\
+Quiver \dotfill 5g \\
+Ram, Portable \dotfill 35g \\
+Rations (1 day) \dotfill 4g \\
+Rations, Fine (1 day) \dotfill 12g \\
+Rope, Hempen (50 feet) \dotfill 8g \\
+Rope, Silk (50 feet) \dotfill 85g \\
+Sack \dotfill 2g \\
+Scale, Merchant's \dotfill 25g \\
+Sealing Wax \dotfill 3g \\
+Shovel \dotfill 8g \\
+Signal Whistle \dotfill 3g \\
+Signet Ring \dotfill 200g \\
+Soap \dotfill 2g \\
+Spyglass \dotfill 1,200g \\
+Tent, Two-person \dotfill 15g \\
+Thieves' Tools \dotfill 125g \\
+Tinderbox \dotfill 4g \\
+Torch \dotfill 2g \\
+Waterskin \dotfill 6g \\
+Whetstone \dotfill 3g \\
+\end{multicols}
+
+\subsection{Vehicles \& Transportation}
+
+\begin{multicols}{2}
+\textbf{Land Vehicles} \\
+Hand Cart \dotfill 65g \\
+Riding Cart \dotfill 185g \\
+Carriage \dotfill 650g \\
+Noble Carriage \dotfill 2,800g \\
+War Chariot \dotfill 1,450g \\
+Sled \dotfill 45g \\
+Wagon \dotfill 280g \\
+Covered Wagon \dotfill 420g \\
+
+\textbf{Watercraft} \\
+Canoe \dotfill 120g \\
+Coracle \dotfill 85g \\
+Fishing Boat \dotfill 1,800g \\
+Galley \dotfill 85,000g \\
+Keelboat \dotfill 12,000g \\
+Longboat \dotfill 950g \\
+Raft \dotfill 25g \\
+Rowboat \dotfill 380g \\
+\end{multicols}
+
+\subsection{Mounts \& Animals}
+
+\begin{multicols}{2}
+\textbf{Horses \& Mounts} \\
+Draft Horse \dotfill 180g \\
+Mule \dotfill 95g \\
+Noble's Horse \dotfill 800g \\
+Pony \dotfill 125g \\
+Riding Horse \dotfill 220g \\
+War Horse \dotfill 750g \\
+
+\textbf{Tack \& Harness} \\
+Bit \& Bridle \dotfill 8g \\
+Leather Barding \dotfill 185g \\
+Scale Barding \dotfill 3,200g \\
+Chain Barding \dotfill 4,500g \\
+Feed (per day) \dotfill 3g \\
+Pack Saddle \dotfill 25g \\
+Riding Saddle \dotfill 45g \\
+War Saddle \dotfill 85g \\
+Saddlebags \dotfill 18g \\
+Stabling (per day) \dotfill 8g \\
+
+\textbf{Livestock \& Animals} \\
+Bull \dotfill 145g \\
+Cat \dotfill 12g \\
+Chicken \dotfill 8g \\
+Cow \dotfill 85g \\
+Guard Dog \dotfill 65g \\
+Hunting Dog \dotfill 95g \\
+Lap Dog \dotfill 35g \\
+War Dog \dotfill 220g \\
+Donkey \dotfill 55g \\
+Duck \dotfill 6g \\
+Falcon \dotfill 850g \\
+Goat \dotfill 25g \\
+Hawk \dotfill 420g \\
+Ox \dotfill 165g \\
+Pig \dotfill 45g \\
+Raven \dotfill 75g \\
+Sheep \dotfill 35g \\
+\end{multicols}
+
+\subsection{Services \& Followers}
+
+\begin{multicols}{2}
+\textbf{Basic Services} \\
+Coach cab (per mile) \dotfill 2g \\
+Messenger (per mile) \dotfill 2g \\
+Road or gate toll \dotfill 3g \\
+Ship's passage (per mile) \dotfill 4g \\
+Scribe (per document) \dotfill 5g \\
+Translation (per page) \dotfill 8g \\
+Letter of credit \dotfill 15g \\
+Safe passage bribe \dotfill 12g \\
+
+\textbf{Common Followers (per day)} \\
+Torch-bearer \dotfill 1g \\
+Pack-bearer \dotfill 1g \\
+Camp follower \dotfill 1g \\
+Grave digger \dotfill 2g \\
+Rat catcher \dotfill 2g \\
+Night watchman \dotfill 3g \\
+Guide (local) \dotfill 4g \\
+Scout \dotfill 5g \\
+Teamster \dotfill 3g \\
+Cook \dotfill 2g \\
+
+\textbf{Skilled Followers (per day)} \\
+Sellsword \dotfill 8g \\
+Crossbow mercenary \dotfill 12g \\
+Bodyguard \dotfill 15g \\
+Tracker \dotfill 10g \\
+Burglar \dotfill 18g \\
+Cutthroat \dotfill 25g \\
+Hedge witch \dotfill 20g \\
+Bone reader \dotfill 15g \\
+Beast handler \dotfill 12g \\
+Plague doctor \dotfill 35g \\
+
+\columnbreak
+
+\textbf{Specialist Followers (per day)} \\
+Master-at-arms \dotfill 45g \\
+Assassin \dotfill 65g \\
+Alchemist \dotfill 40g \\
+Torturer \dotfill 30g \\
+Spy \dotfill 50g \\
+Witch hunter \dotfill 55g \\
+Battle surgeon \dotfill 60g \\
+Demonologist \dotfill 85g \\
+Death knight \dotfill 120g \\
+Court wizard \dotfill 150g \\
+
+\textbf{Food, Drink \& Lodging} \\
+Ale (mug) \dotfill 2g \\
+Rotgut spirits \dotfill 1g \\
+Wine, watered \dotfill 3g \\
+Wine, fine (bottle) \dotfill 35g \\
+Bread, stale \dotfill 1g \\
+Bread, fresh \dotfill 2g \\
+Gruel (bowl) \dotfill 1g \\
+Meat, salted \dotfill 5g \\
+Meat, fresh \dotfill 8g \\
+Cheese, moldy \dotfill 2g \\
+Cheese, good \dotfill 3g \\
+Feast (per person) \dotfill 35g \\
+\\
+Flophouse (per night) \dotfill 2g \\
+Inn stay (per day) \dotfill 8g \\
+Inn stay, private room \dotfill 15g \\
+Noble's quarters \dotfill 45g \\
+Stable boarding \dotfill 4g \\
+Safe house \dotfill 25g \\
+
+\end{multicols}
+\newpage
+%==================================================
+
 \section{Tools of Death}
 \bloodrule
 
@@ -1060,249 +1858,134 @@ At zero strikes, roll 1d12 on the Horrible Wounds table by damage type. Death is
 \definecolor{legendarycolor}{HTML}{CC2200}
 \definecolor{uniquecolor}{HTML}{A59263}
 
+% WEAPON TAGS - PROPERLY FORMATTED
+\begin{multicols}{2}
+\setlength{\columnseprule}{0.4pt}
+\footnotesize
+
 % COMMON WEAPON TAGS
 \subsection{Common Weapon Tags}
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{commoncolor}{\textbf{Accurate:}} \textcolor{commoncolor}{+1 Attack.}
-\item \textcolor{commoncolor}{\textbf{Balanced:}} \textcolor{commoncolor}{+1 Defense.}
-\item \textcolor{commoncolor}{\textbf{Light:}} \textcolor{commoncolor}{Weight -1 slot (min 1).}
-\item \textcolor{commoncolor}{\textbf{Quick-Draw:}} \textcolor{commoncolor}{Draw as free action.}
-\item \textcolor{commoncolor}{\textbf{Throwing:}} \textcolor{commoncolor}{Range 6 squares when thrown.}
-\item \textcolor{commoncolor}{\textbf{Parrying:}} \textcolor{commoncolor}{+1 Defense vs melee.}
-\item \textcolor{commoncolor}{\textbf{Concealed:}} \textcolor{commoncolor}{Advantage to hide weapon.}
-\item \textcolor{commoncolor}{\textbf{Crude:}} \textcolor{commoncolor}{Half cost, -1 Attack.}
+\begin{itemize}[leftmargin=0.2cm, itemsep=0.02cm, parsep=0pt]
+\item \textcolor{commoncolor}{\textbf{Accurate:}} +1 Attack.
+\item \textcolor{commoncolor}{\textbf{Defensive:}} +1 Defense.
+\item \textcolor{commoncolor}{\textbf{Sharp:}} +1 Strikes damage.
+\item \textcolor{commoncolor}{\textbf{Swift:}} +1 Initiative.
+\item \textcolor{commoncolor}{\textbf{Sturdy:}} +2 to resist sundering/breaking.
+\item \textcolor{commoncolor}{\textbf{Reliable:}} Reroll natural 1s on attacks.
+\item \textcolor{commoncolor}{\textbf{Comfortable:}} +1 Endurance saves while wielded.
+\item \textcolor{commoncolor}{\textbf{Menacing:}} +1 Presence for intimidation.
+\item \textcolor{commoncolor}{\textbf{Lightweight:}} Occupies 1 less inventory slot (min 1).
+\item \textcolor{commoncolor}{\textbf{Resonant:}} +1 Insight to detect ambushes/traps.
+\item \textcolor{commoncolor}{\textbf{Notched:}} +1 Attack vs unarmored targets.
+\item \textcolor{commoncolor}{\textbf{Polished:}} +1 Defense first round of combat.
+\item \textcolor{commoncolor}{\textbf{Leveraged:}} +1 to trip/disarm maneuvers.
+\item \textcolor{commoncolor}{\textbf{Serrated:}} Bleeding lasts +1 round.
+\item \textcolor{commoncolor}{\textbf{Familiar:}} +1 Attack after 3+ encounters.
 \end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{commoncolor}{\textbf{Sturdy:}} \textcolor{commoncolor}{Advantage vs breaking.}
-\item \textcolor{commoncolor}{\textbf{Well-Made:}} \textcolor{commoncolor}{+10\% selling price.}
-\item \textcolor{commoncolor}{\textbf{Notched:}} \textcolor{commoncolor}{+1 damage vs one creature type.}
-\item \textcolor{commoncolor}{\textbf{Weather-Sealed:}} \textcolor{commoncolor}{No penalties in rain/cold.}
-\item \textcolor{commoncolor}{\textbf{Weighted Pommel:}} \textcolor{commoncolor}{+1 to disarm attempts.}
-\item \textcolor{commoncolor}{\textbf{Sharp:}} \textcolor{commoncolor}{Reroll 1s on damage.}
-\item \textcolor{commoncolor}{\textbf{Worn Grip:}} \textcolor{commoncolor}{Advantage vs being disarmed.}
-\item \textcolor{commoncolor}{\textbf{Field-Repaired:}} \textcolor{commoncolor}{Fixed with basic tools.}
-\end{itemize}
-\end{minipage}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 % UNCOMMON WEAPON TAGS
 \subsection{Uncommon Weapon Tags}
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{uncommoncolor}{\textbf{Bashing:}} \textcolor{uncommoncolor}{Ignore shields and helmets.}
-\item \textcolor{uncommoncolor}{\textbf{Finesse:}} \textcolor{uncommoncolor}{Use Finesse for attack.}
-\item \textcolor{uncommoncolor}{\textbf{Heavy:}} \textcolor{uncommoncolor}{-2 Attack, +1 Strike damage.}
-\item \textcolor{uncommoncolor}{\textbf{Reach:}} \textcolor{uncommoncolor}{Attack enemies 2 squares away.}
-\item \textcolor{uncommoncolor}{\textbf{Defensive:}} \textcolor{uncommoncolor}{+2 Defense, cannot attack.}
-\item \textcolor{uncommoncolor}{\textbf{Serrated:}} \textcolor{uncommoncolor}{Crit: BLEEDING WOUND.}
-\item \textcolor{uncommoncolor}{\textbf{Barbed:}} \textcolor{uncommoncolor}{Enemy takes 1 Strike on fumble.}
-\item \textcolor{uncommoncolor}{\textbf{Versatile:}} \textcolor{uncommoncolor}{Two-handed: +1 Strike.}
-\item \textcolor{uncommoncolor}{\textbf{Vicious:}} \textcolor{uncommoncolor}{+1 Strike vs wounded enemies.}
-\item \textcolor{uncommoncolor}{\textbf{Entangling:}} \textcolor{uncommoncolor}{Crit: target HOBBLED.}
-\item \textcolor{uncommoncolor}{\textbf{Sundering:}} \textcolor{uncommoncolor}{Max damage destroys gear.}
-\item \textcolor{uncommoncolor}{\textbf{Flanking:}} \textcolor{uncommoncolor}{+1 Attack vs surrounded foes.}
-\item \textcolor{uncommoncolor}{\textbf{Knockback:}} \textcolor{uncommoncolor}{Max damage pushes 1 square.}
-\item \textcolor{uncommoncolor}{\textbf{Piercing:}} \textcolor{uncommoncolor}{Ignore 1 point of armor DR.}
-\item \textcolor{uncommoncolor}{\textbf{Cold Iron:}} \textcolor{uncommoncolor}{+1 Strike vs supernatural.}
-\item \textcolor{uncommoncolor}{\textbf{Spiked:}} \textcolor{uncommoncolor}{1 damage to grapplers.}
+\begin{itemize}[leftmargin=0.2cm, itemsep=0.02cm, parsep=0pt]
+\item \textcolor{uncommoncolor}{\textbf{Keen:}} Crit range increases by 1 (19-20).
+\item \textcolor{uncommoncolor}{\textbf{Balanced:}} +1 Attack, +1 Defense.
+\item \textcolor{uncommoncolor}{\textbf{Heavy:}} -1 Attack, +2 Strikes damage.
+\item \textcolor{uncommoncolor}{\textbf{Finesse:}} Use Finesse for melee attacks.
+\item \textcolor{uncommoncolor}{\textbf{Reach:}} +1 Defense vs melee (not ranged).
+\item \textcolor{uncommoncolor}{\textbf{Brutal:}} Crit: Endurance DC 12 or Stunned.
+\item \textcolor{uncommoncolor}{\textbf{Piercing:}} Ignores 1 point armor DR.
+\item \textcolor{uncommoncolor}{\textbf{Rending:}} Crit: reduce armor DR by 1.
+\item \textcolor{uncommoncolor}{\textbf{Quick-Draw:}} Draw as free action.
+\item \textcolor{uncommoncolor}{\textbf{Throwable:}} Thrown (Fin+Mig)/2, returns if magical.
+\item \textcolor{uncommoncolor}{\textbf{Versatile:}} Two-handed: +1 Strikes damage.
+\item \textcolor{uncommoncolor}{\textbf{Precise:}} Ignore condition penalties.
+\item \textcolor{uncommoncolor}{\textbf{Cleaving:}} Kill: attack adjacent enemy.
+\item \textcolor{uncommoncolor}{\textbf{Weighted:}} +1 Strike, crit knocks prone.
+\item \textcolor{uncommoncolor}{\textbf{Bloodthirsty:}} +1 vs wounded enemies.
+\item \textcolor{uncommoncolor}{\textbf{Intimidating:}} +2 Presence for threats.
+\item \textcolor{uncommoncolor}{\textbf{Sundering:}} Max damage destroys gear.
+\item \textcolor{uncommoncolor}{\textbf{Momentum:}} +1 Strike if moved this turn.
+\item \textcolor{uncommoncolor}{\textbf{Cold Iron:}} +1 Strike vs supernatural.
+\item \textcolor{uncommoncolor}{\textbf{Dueling:}} +2 Defense vs single foe.
 \end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{uncommoncolor}{\textbf{Momentum:}} \textcolor{uncommoncolor}{+1 Strike if moved this turn.}
-\item \textcolor{uncommoncolor}{\textbf{Intimidating:}} \textcolor{uncommoncolor}{+2 Presence for threats.}
-\item \textcolor{uncommoncolor}{\textbf{Brittle:}} \textcolor{uncommoncolor}{+1 Strike, breaks on nat 1-2.}
-\item \textcolor{uncommoncolor}{\textbf{Weighted:}} \textcolor{uncommoncolor}{+1 Strike, -1 Finesse to hit.}
-\item \textcolor{uncommoncolor}{\textbf{Smoke-Wreathed:}} \textcolor{uncommoncolor}{Hit: 1 sq obscuring cloud.}
-\item \textcolor{uncommoncolor}{\textbf{Rust-Touched:}} \textcolor{uncommoncolor}{Damages metal armor DR.}
-\item \textcolor{uncommoncolor}{\textbf{Chain-Weapon:}} \textcolor{uncommoncolor}{2-square reach, entangles.}
-\item \textcolor{uncommoncolor}{\textbf{Jagged:}} \textcolor{uncommoncolor}{All hits cause 1 bleeding.}
-\item \textcolor{uncommoncolor}{\textbf{Crippling:}} \textcolor{uncommoncolor}{Max damage: movement halved.}
-\item \textcolor{uncommoncolor}{\textbf{Masterwork:}} \textcolor{uncommoncolor}{+1 Attack, double cost.}
-\item \textcolor{uncommoncolor}{\textbf{Dueling:}} \textcolor{uncommoncolor}{+2 Defense vs single foe.}
-\item \textcolor{uncommoncolor}{\textbf{Savage:}} \textcolor{uncommoncolor}{Crits on 19-20 vs unarmored.}
-\item \textcolor{uncommoncolor}{\textbf{Bone-Carved:}} \textcolor{uncommoncolor}{+1 vs undead, horrifies living.}
-\item \textcolor{uncommoncolor}{\textbf{Hunting:}} \textcolor{uncommoncolor}{Track wounded enemies.}
-\item \textcolor{uncommoncolor}{\textbf{Throwing-Return:}} \textcolor{uncommoncolor}{Returns to hand when thrown.}
-\item \textcolor{uncommoncolor}{\textbf{War-Forged:}} \textcolor{uncommoncolor}{Advantage in large battles.}
-\end{itemize}
-\end{minipage}
 
-\vspace{0.5cm}
+\columnbreak
 
 % RARE WEAPON TAGS
 \subsection{Rare Weapon Tags}
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{rarecolor}{\textbf{Keen:}} \textcolor{rarecolor}{Critical range 19-20.}
-\item \textcolor{rarecolor}{\textbf{Bloodthirsty:}} \textcolor{rarecolor}{Heal 1 Strike on kill.}
-\item \textcolor{rarecolor}{\textbf{Consecrated:}} \textcolor{rarecolor}{+2 Strikes vs undead/demons.}
-\item \textcolor{rarecolor}{\textbf{Poisoned:}} \textcolor{rarecolor}{Crit: POISONED condition.}
-\item \textcolor{rarecolor}{\textbf{Screaming:}} \textcolor{rarecolor}{Crit: enemies 3sq Resolve DC 12.}
-\item \textcolor{rarecolor}{\textbf{Vampiric:}} \textcolor{rarecolor}{Heal 1 Strike on crit.}
-\item \textcolor{rarecolor}{\textbf{Spell-Storing:}} \textcolor{rarecolor}{Store 1 spell, release on hit.}
-\item \textcolor{rarecolor}{\textbf{Banishing:}} \textcolor{rarecolor}{Crit vs extraplanar: banish 1 round.}
-\item \textcolor{rarecolor}{\textbf{Terror-Forged:}} \textcolor{rarecolor}{Fear aura 2 squares.}
-\item \textcolor{rarecolor}{\textbf{Ghost-Touched:}} \textcolor{rarecolor}{Hit incorporeal normally.}
-\item \textcolor{rarecolor}{\textbf{Doom-Sight:}} \textcolor{rarecolor}{See enemy's next action.}
-\item \textcolor{rarecolor}{\textbf{Rune-Carved:}} \textcolor{rarecolor}{+2 saves vs magic.}
-\item \textcolor{rarecolor}{\textbf{Flesh-Eater:}} \textcolor{rarecolor}{Heal vs living on crit.}
-\item \textcolor{rarecolor}{\textbf{Ward-Piercing:}} \textcolor{rarecolor}{Ignore magical protections.}
-\item \textcolor{rarecolor}{\textbf{Soul-Sight:}} \textcolor{rarecolor}{See invisible/ethereal.}
-\item \textcolor{rarecolor}{\textbf{Phase-Weapon:}} \textcolor{rarecolor}{1/encounter: ignore armor.}
+\begin{itemize}[leftmargin=0.2cm, itemsep=0.02cm, parsep=0pt]
+\item \textcolor{rarecolor}{\textbf{Vicious:}} Crits deal +2 Strikes (not +1).
+\item \textcolor{rarecolor}{\textbf{Parrying:}} 1/encounter: negate melee attack.
+\item \textcolor{rarecolor}{\textbf{Armor-Bane:}} Double damage vs armor DR.
+\item \textcolor{rarecolor}{\textbf{Ghost-Touched:}} Hit incorporeal normally.
+\item \textcolor{rarecolor}{\textbf{Terror-Forged:}} Fear aura 2 squares.
+\item \textcolor{rarecolor}{\textbf{Spell-Storing:}} Store 1 spell, release on hit.
+\item \textcolor{rarecolor}{\textbf{Banishing:}} Crit vs extraplanar: banish 1 round.
+\item \textcolor{rarecolor}{\textbf{Doom-Sight:}} See enemy's next action.
+\item \textcolor{rarecolor}{\textbf{Rune-Carved:}} +2 saves vs magic.
+\item \textcolor{rarecolor}{\textbf{Ward-Piercing:}} Ignore magical protections.
+\item \textcolor{rarecolor}{\textbf{Soul-Sight:}} See invisible/ethereal.
+\item \textcolor{rarecolor}{\textbf{Madness-Forged:}} +1 Attack, -1 Resolve daily.
+\item \textcolor{rarecolor}{\textbf{Corpse-Caller:}} Kill: body explodes 1 Strike 2sq.
+\item \textcolor{rarecolor}{\textbf{Fear-Drinker:}} Heal when enemy fails fear.
+\item \textcolor{rarecolor}{\textbf{Pain-Vessel:}} Store damage, release on crit.
+\item \textcolor{rarecolor}{\textbf{Shadow-Wreathed:}} Crit: 2sq darkness 1 round.
+\item \textcolor{rarecolor}{\textbf{Spell-Eater:}} Absorb spell: +1 Strike next hit.
+\item \textcolor{rarecolor}{\textbf{Life-Stealer:}} Crit: age target 1d4 years.
+\item \textcolor{rarecolor}{\textbf{Elemental-Heart:}} Choose element: crits add condition.
+\item \textcolor{rarecolor}{\textbf{Nightmare-Fed:}} +2 vs CONFUSED/CRAZED.
+\item \textcolor{rarecolor}{\textbf{Throat-Seeker:}} +3 vs STUNNED/EXHAUSTED.
+\item \textcolor{rarecolor}{\textbf{Plague-Bearer:}} Wounds spread to adjacent.
+\item \textcolor{rarecolor}{\textbf{Witch-Bane:}} Disrupt spellcasting 3sq.
+\item \textcolor{rarecolor}{\textbf{Deafening:}} Crit: End DC 14 or deaf.
+\item \textcolor{rarecolor}{\textbf{Bone-Breaker:}} Crit: HOBBLED permanently.
+\item \textcolor{rarecolor}{\textbf{Memory-Thief:}} Kill: learn one secret.
+\item \textcolor{rarecolor}{\textbf{Soul-Marker:}} Mark hit foes, track anywhere.
+\item \textcolor{rarecolor}{\textbf{Consecrated:}} +2 Strikes vs undead/demons.
+\item \textcolor{rarecolor}{\textbf{Poisoned:}} Crit: POISONED condition.
+\item \textcolor{rarecolor}{\textbf{Screaming:}} Crit: 3sq Resolve DC 12.
+\item \textcolor{rarecolor}{\textbf{Vampiric:}} Heal 1 Strike on crit.
+\item \textcolor{rarecolor}{\textbf{Returning:}} Thrown weapon returns automatically.
 \end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{rarecolor}{\textbf{Madness-Forged:}} \textcolor{rarecolor}{+1 Attack, lose 1 Resolve daily.}
-\item \textcolor{rarecolor}{\textbf{Corpse-Caller:}} \textcolor{rarecolor}{Kill: body explodes 1 Strike 2sq.}
-\item \textcolor{rarecolor}{\textbf{Fear-Drinker:}} \textcolor{rarecolor}{Heal when enemy fails fear.}
-\item \textcolor{rarecolor}{\textbf{Pain-Vessel:}} \textcolor{rarecolor}{Store damage, release on crit.}
-\item \textcolor{rarecolor}{\textbf{Shadow-Wreathed:}} \textcolor{rarecolor}{Crit: 2sq darkness 1 round.}
-\item \textcolor{rarecolor}{\textbf{Spell-Eater:}} \textcolor{rarecolor}{Absorb spell: +1 Strike next hit.}
-\item \textcolor{rarecolor}{\textbf{Life-Stealer:}} \textcolor{rarecolor}{Crit: age target 1d4 years.}
-\item \textcolor{rarecolor}{\textbf{Elemental-Heart:}} \textcolor{rarecolor}{Choose element: crits add condition.}
-\item \textcolor{rarecolor}{\textbf{Nightmare-Fed:}} \textcolor{rarecolor}{+2 vs CONFUSED/CRAZED.}
-\item \textcolor{rarecolor}{\textbf{Throat-Seeker:}} \textcolor{rarecolor}{+3 vs STUNNED/EXHAUSTED.}
-\item \textcolor{rarecolor}{\textbf{Plague-Bearer:}} \textcolor{rarecolor}{Wounds spread to adjacent foes.}
-\item \textcolor{rarecolor}{\textbf{Witch-Bane:}} \textcolor{rarecolor}{Disrupts spellcasting in 3sq.}
-\item \textcolor{rarecolor}{\textbf{Deafening:}} \textcolor{rarecolor}{Crit: Endurance DC 14 or deaf.}
-\item \textcolor{rarecolor}{\textbf{Bone-Breaker:}} \textcolor{rarecolor}{Crit: HOBBLED permanently.}
-\item \textcolor{rarecolor}{\textbf{Memory-Thief:}} \textcolor{rarecolor}{Kill: learn one secret.}
-\item \textcolor{rarecolor}{\textbf{Soul-Marker:}} \textcolor{rarecolor}{Mark hit foes, track anywhere.}
-\end{itemize}
-\end{minipage}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
 % VERY RARE WEAPON TAGS
 \subsection{Very Rare Weapon Tags}
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{veryrarecolor}{\textbf{Executioner:}} \textcolor{veryrarecolor}{Crit: +3 Strikes damage.}
-\item \textcolor{veryrarecolor}{\textbf{Soul-Bound:}} \textcolor{veryrarecolor}{Returns to hand each encounter.}
-\item \textcolor{veryrarecolor}{\textbf{Void-Touched:}} \textcolor{veryrarecolor}{Phase through armor on 18-20.}
-\item \textcolor{veryrarecolor}{\textbf{Time-Worn:}} \textcolor{veryrarecolor}{Crit: age target 2d6 years.}
-\item \textcolor{veryrarecolor}{\textbf{Dimension-Lost:}} \textcolor{veryrarecolor}{Teleport to hand at will.}
-\item \textcolor{veryrarecolor}{\textbf{Reality-Rending:}} \textcolor{veryrarecolor}{Crit: 1-round portal appears.}
-\item \textcolor{veryrarecolor}{\textbf{Mind-Breaking:}} \textcolor{veryrarecolor}{Crit: permanent CRAZED.}
-\item \textcolor{veryrarecolor}{\textbf{Essence-Devouring:}} \textcolor{veryrarecolor}{Kill: reduce max Strikes by 1.}
-\item \textcolor{veryrarecolor}{\textbf{Planar-Gateway:}} \textcolor{veryrarecolor}{Kill: summon extraplanar ally.}
-\item \textcolor{veryrarecolor}{\textbf{Nightmare-Bound:}} \textcolor{veryrarecolor}{Dream of all victims nightly.}
-\item \textcolor{veryrarecolor}{\textbf{Death-Marking:}} \textcolor{veryrarecolor}{Mark foe: next hit deals double.}
-\item \textcolor{veryrarecolor}{\textbf{Temporal-Echo:}} \textcolor{veryrarecolor}{Attack past for +2 Strikes.}
-\item \textcolor{veryrarecolor}{\textbf{Chaos-Touched:}} \textcolor{veryrarecolor}{Random critical effect (d6 table).}
-\item \textcolor{veryrarecolor}{\textbf{Dream-Walker:}} \textcolor{veryrarecolor}{Auto-crit vs sleeping targets.}
-\item \textcolor{veryrarecolor}{\textbf{Sanity-Rending:}} \textcolor{veryrarecolor}{Crit: lose 1d6 Resolve.}
-\item \textcolor{veryrarecolor}{\textbf{Void-Whisper:}} \textcolor{veryrarecolor}{Telepathic link with wielder.}
+\begin{itemize}[leftmargin=0.2cm, itemsep=0.02cm, parsep=0pt]
+\item \textcolor{veryrarecolor}{\textbf{Soul-Drinker:}} Kill: heal 1 Strike (1/encounter).
+\item \textcolor{veryrarecolor}{\textbf{Demon-Bane:}} +2 vs supernatural, glows near them.
+\item \textcolor{veryrarecolor}{\textbf{Phase:}} 1/encounter: ignore all armor/shields.
+\item \textcolor{veryrarecolor}{\textbf{Thundering:}} Crit: 2sq sonic boom, End DC 14.
+\item \textcolor{veryrarecolor}{\textbf{Vampiric:}} 25\% chance heal 1 Strike on hit.
+\item \textcolor{veryrarecolor}{\textbf{Unbreakable:}} Cannot be sundered/destroyed.
+\item \textcolor{veryrarecolor}{\textbf{Returning:}} Thrown returns to hand automatically.
+\item \textcolor{veryrarecolor}{\textbf{Fate-Touched:}} 1/day: nat 1 becomes nat 20.
+\item \textcolor{veryrarecolor}{\textbf{Executioner:}} Crits deal +3 Strikes.
+\item \textcolor{veryrarecolor}{\textbf{Soul-Bound:}} Returns each encounter start.
+\item \textcolor{veryrarecolor}{\textbf{Void-Touched:}} Phase armor on 18-20.
+\item \textcolor{veryrarecolor}{\textbf{Time-Worn:}} Crit: age 2d6 years.
+\item \textcolor{veryrarecolor}{\textbf{Dimension-Lost:}} Teleport to hand at will.
+\item \textcolor{veryrarecolor}{\textbf{Reality-Rending:}} Crit: 1-round portal.
+\item \textcolor{veryrarecolor}{\textbf{Mind-Breaking:}} Crit: permanent CRAZED.
+\item \textcolor{veryrarecolor}{\textbf{Essence-Devouring:}} Kill: -1 max Strikes.
 \end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{veryrarecolor}{\textbf{Reality-Anchor:}} \textcolor{veryrarecolor}{Immune to teleportation effects.}
-\item \textcolor{veryrarecolor}{\textbf{Death-Sworn:}} \textcolor{veryrarecolor}{Cannot be disarmed or stolen.}
-\item \textcolor{veryrarecolor}{\textbf{Entropy-Edge:}} \textcolor{veryrarecolor}{Age materials on contact.}
-\item \textcolor{veryrarecolor}{\textbf{Mind-Linked:}} \textcolor{veryrarecolor}{Share wounds with chosen ally.}
-\item \textcolor{veryrarecolor}{\textbf{Apocalypse-Forged:}} \textcolor{veryrarecolor}{+1 Strike per ally at 1 Strike.}
-\item \textcolor{veryrarecolor}{\textbf{Destiny-Bound:}} \textcolor{veryrarecolor}{Reroll any die 1/encounter.}
-\item \textcolor{veryrarecolor}{\textbf{Star-Metal:}} \textcolor{veryrarecolor}{Glows near dimensional rifts.}
-\item \textcolor{veryrarecolor}{\textbf{Mirror-Cursed:}} \textcolor{veryrarecolor}{Reflect 1 Strike on nat 20.}
-\item \textcolor{veryrarecolor}{\textbf{Bone-Hungry:}} \textcolor{veryrarecolor}{Grows +1 Strike per 5 kills (max +5).}
-\item \textcolor{veryrarecolor}{\textbf{Void-Returned:}} \textcolor{veryrarecolor}{Roll damage twice, take higher.}
-\item \textcolor{veryrarecolor}{\textbf{Soul-Scarred:}} \textcolor{veryrarecolor}{Mark souls: track across planes.}
-\item \textcolor{veryrarecolor}{\textbf{Flame-Cursed:}} \textcolor{veryrarecolor}{Crit: BURNING, spreads to nearby.}
-\item \textcolor{veryrarecolor}{\textbf{Fear-Incarnate:}} \textcolor{veryrarecolor}{Enemies must save or flee.}
-\item \textcolor{veryrarecolor}{\textbf{Ethereal-Phasing:}} \textcolor{veryrarecolor}{Pass through walls 1/day.}
-\item \textcolor{veryrarecolor}{\textbf{Life-Draining:}} \textcolor{veryrarecolor}{Heal 1 Strike on 4+ damage.}
-\item \textcolor{veryrarecolor}{\textbf{Skirmisher:}} \textcolor{veryrarecolor}{Move without opportunity attacks.}
-\end{itemize}
-\end{minipage}
 
-\vspace{0.5cm}
+\vspace{0.3cm}
 
-% LEGENDARY WEAPON TAGS
-\subsection{Legendary Weapon Tags}
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{legendarycolor}{\textbf{Army-Breaker:}} \textcolor{legendarycolor}{+1 Strike per enemy beyond first.}
-\item \textcolor{legendarycolor}{\textbf{Dragon-Bane:}} \textcolor{legendarycolor}{Ignore draconic immunity/resistance.}
-\item \textcolor{legendarycolor}{\textbf{King-Maker:}} \textcolor{legendarycolor}{Kill ruler: inherit their authority.}
-\item \textcolor{legendarycolor}{\textbf{Storm-Caller:}} \textcolor{legendarycolor}{Kill: control weather 1 day.}
-\item \textcolor{legendarycolor}{\textbf{Demon-Binding:}} \textcolor{legendarycolor}{Trap fiend souls, command them.}
-\item \textcolor{legendarycolor}{\textbf{Hero-Forged:}} \textcolor{legendarycolor}{Heroic deeds: permanent +1 Strike.}
-\item \textcolor{legendarycolor}{\textbf{Legend-Carved:}} \textcolor{legendarycolor}{Deeds become regional legends.}
-\item \textcolor{legendarycolor}{\textbf{Battle-Ender:}} \textcolor{legendarycolor}{Kill leader: enemy forces surrender.}
-\item \textcolor{legendarycolor}{\textbf{City-Shaker:}} \textcolor{legendarycolor}{Strikes felt across settlements.}
-\item \textcolor{legendarycolor}{\textbf{Soul-Champion:}} \textcolor{legendarycolor}{Fight in realm of death.}
-\item \textcolor{legendarycolor}{\textbf{Crown-Splitter:}} \textcolor{legendarycolor}{Destroys symbols of power.}
-\item \textcolor{legendarycolor}{\textbf{Oath-Binding:}} \textcolor{legendarycolor}{Kills create mystical vows.}
-\item \textcolor{legendarycolor}{\textbf{Mountain-Mover:}} \textcolor{legendarycolor}{Strike earth to reshape terrain.}
-\item \textcolor{legendarycolor}{\textbf{Phoenix-Heart:}} \textcolor{legendarycolor}{Resurrect wielder 1/month.}
-\item \textcolor{legendarycolor}{\textbf{Tide-Turner:}} \textcolor{legendarycolor}{Reverse battle momentum.}
+% NEGATIVE WEAPON TAGS
+\subsection{Negative Weapon Tags}
+\begin{itemize}[leftmargin=0.2cm, itemsep=0.02cm, parsep=0pt]
+\item \textcolor{commoncolor}{\textbf{Brittle:}} Breaks on natural 1.
+\item \textcolor{commoncolor}{\textbf{Cursed:}} -1 all saves while wielded.
+\item \textcolor{commoncolor}{\textbf{Unwieldy:}} -1 Attack.
+\item \textcolor{commoncolor}{\textbf{Dull:}} -1 Strikes damage (min 1).
+\item \textcolor{commoncolor}{\textbf{Bloodthirsty Curse:}} Nat 1: attack nearest creature.
 \end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{legendarycolor}{\textbf{War-Ender:}} \textcolor{legendarycolor}{Peace treaties form spontaneously.}
-\item \textcolor{legendarycolor}{\textbf{Giant-Feller:}} \textcolor{legendarycolor}{Size provides no protection.}
-\item \textcolor{legendarycolor}{\textbf{Plague-Cleanser:}} \textcolor{legendarycolor}{Kills cure regional diseases.}
-\item \textcolor{legendarycolor}{\textbf{Star-Touched:}} \textcolor{legendarycolor}{Cosmic power under starlight.}
-\item \textcolor{legendarycolor}{\textbf{Beast-Master:}} \textcolor{legendarycolor}{Command animals within 1 mile.}
-\item \textcolor{legendarycolor}{\textbf{Fortress-Breaker:}} \textcolor{legendarycolor}{Shatter castle walls.}
-\item \textcolor{legendarycolor}{\textbf{Ancestor-Called:}} \textcolor{legendarycolor}{Summon heroic spirits.}
-\item \textcolor{legendarycolor}{\textbf{Curse-Breaking:}} \textcolor{legendarycolor}{Kills end ancient curses.}
-\item \textcolor{legendarycolor}{\textbf{Realm-Shaping:}} \textcolor{legendarycolor}{Alter local reality through deeds.}
-\item \textcolor{legendarycolor}{\textbf{Divine-Touched:}} \textcolor{legendarycolor}{Channel godly power.}
-\item \textcolor{legendarycolor}{\textbf{Void-Sealed:}} \textcolor{legendarycolor}{Contain otherworldly threats.}
-\item \textcolor{legendarycolor}{\textbf{Hero-Calling:}} \textcolor{legendarycolor}{Attract legendary companions.}
-\item \textcolor{legendarycolor}{\textbf{Epoch-Marking:}} \textcolor{legendarycolor}{Deeds define new eras.}
-\item \textcolor{legendarycolor}{\textbf{Empire-Founding:}} \textcolor{legendarycolor}{Victories claim vast territories.}
-\item \textcolor{legendarycolor}{\textbf{Immortal-Slaying:}} \textcolor{legendarycolor}{Truly kill deathless beings.}
-\end{itemize}
-\end{minipage}
 
-\vspace{0.5cm}
-
-% UNIQUE WEAPON TAGS
-\subsection{Unique Weapon Tags}
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{uniquecolor}{\textbf{Death's Embrace:}} \textcolor{uniquecolor}{Ignore death once per day.}
-\item \textcolor{uniquecolor}{\textbf{Blood-Bonded:}} \textcolor{uniquecolor}{Share all damage with wielder.}
-\item \textcolor{uniquecolor}{\textbf{Fate-Cursed:}} \textcolor{uniquecolor}{+3 Strikes, mishaps on 1-3.}
-\item \textcolor{uniquecolor}{\textbf{God-Slaying:}} \textcolor{uniquecolor}{Permanently destroy divine beings.}
-\item \textcolor{uniquecolor}{\textbf{World-Ending:}} \textcolor{uniquecolor}{Each kill: +1 all damage forever.}
-\item \textcolor{uniquecolor}{\textbf{Throne-Breaker:}} \textcolor{uniquecolor}{+10 Strikes vs rulers/authority.}
-\item \textcolor{uniquecolor}{\textbf{Fate-Severing:}} \textcolor{uniquecolor}{Alter destiny of killed beings.}
-\item \textcolor{uniquecolor}{\textbf{Creation-Unmaking:}} \textcolor{uniquecolor}{Kills weaken reality itself.}
-\item \textcolor{uniquecolor}{\textbf{Reality-Eater:}} \textcolor{uniquecolor}{Killed species ceases to exist.}
-\item \textcolor{uniquecolor}{\textbf{Paradox-Forged:}} \textcolor{uniquecolor}{Timeline splits: parallel actions.}
-\end{itemize}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\begin{itemize}[leftmargin=0.3cm, itemsep=0.1cm]
-\item \textcolor{uniquecolor}{\textbf{Flesh-Architect:}} \textcolor{uniquecolor}{Reshape corpses into living servants.}
-\item \textcolor{uniquecolor}{\textbf{Memory-Devourer:}} \textcolor{uniquecolor}{World forgets killed beings existed.}
-\item \textcolor{uniquecolor}{\textbf{Soul-Forge:}} \textcolor{uniquecolor}{Craft weapons from harvested souls.}
-\item \textcolor{uniquecolor}{\textbf{Dimension-Splitter:}} \textcolor{uniquecolor}{Kills tear permanent planar rifts.}
-\item \textcolor{uniquecolor}{\textbf{Name-Stealer:}} \textcolor{uniquecolor}{Assume complete identity of killed.}
-\item \textcolor{uniquecolor}{\textbf{Concept-Killer:}} \textcolor{uniquecolor}{Destroy abstract ideas from reality.}
-\item \textcolor{uniquecolor}{\textbf{Death-Reverser:}} \textcolor{uniquecolor}{Every kill resurrects random dead.}
-\item \textcolor{uniquecolor}{\textbf{Sanity-Harvester:}} \textcolor{uniquecolor}{Trade madness to edit reality.}
-\item \textcolor{uniquecolor}{\textbf{Time-Murderer:}} \textcolor{uniquecolor}{Erase target from all timelines.}
-\item \textcolor{uniquecolor}{\textbf{Void-Bearer:}} \textcolor{uniquecolor}{Grows heavier, collapses spacetime.}
-\end{itemize}
-\end{minipage}
+\end{multicols}
+\normalsize
 
 \newpage
 %==================================================
@@ -1529,1816 +2212,319 @@ Reward redundancy. The fool with one torch dies first. The bastard with three li
 If a result would be dull where they stand, move the group or move the horror. The Dread wants them. It will come.
 
 \bloodrule
-
+%==================================================
 \section{Torches in the Dark Bestiary}
 \bloodrule
 
-\subsection{Human Antagonists}
-
-\subsubsection{Thief}
-\textit{A desperate cutpurse from the city's underbelly}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+0, Finesse+3, Endurance+1, Insight+2, Resolve+1, Presence+1, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Backstab (3/3): If target has acted this round, deal +1 Strike
-
-\subsubsection{Bandit}
-\textit{A highway robber driven to violence by hunger}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+2, Finesse+1, Endurance+2, Insight+1, Resolve+1, Presence+1, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Battle Cry (1/1): Nearby allies gain +1 to attack rolls for 1 round
-
-\subsubsection{Slaver}
-\textit{A human trafficker who deals in flesh}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+2, Finesse+2, Endurance+2, Insight+1, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Whip Crack: Target must pass Resolve save or cower in fear
-
-\subsubsection{Brigand}
-\textit{A brutal outlaw hardened by years of violence}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+2, Insight+1, Resolve+1, Presence+0, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Crushing Strike (1/1): Ignore all armor reduction on successful hit
-
-\subsubsection{Cannibal}
-\textit{A deranged human who has developed a taste for flesh}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+3, Finesse+2, Endurance+3, Insight+1, Resolve+1, Presence-1, Faith-1, Magick+0, Luck+1
-
-\textbf{Special:} Frenzy: +2 to attack rolls when below half strikes
-
-\subsubsection{Cultist}
-\textit{A fanatic devoted to dark, forgotten gods}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 10
-
-\textbf{Attributes:} Might+1, Finesse+0, Endurance+1, Insight+2, Resolve+3, Presence+2, Faith+1, Magick+1, Luck-1
-
-\textbf{Special:} Fanatical Devotion: Immune to fear effects
-
-\subsubsection{Assassin}
-\textit{A cold killer who murders for coin}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+2, Finesse+4, Endurance+1, Insight+2, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Poisoned Blade (2/2): Target takes 1 additional strike next round
-
-\subsubsection{Torturer}
-\textit{A cruel interrogator who enjoys inflicting pain}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+2, Finesse+2, Endurance+2, Insight+3, Resolve+3, Presence+1, Faith-1, Magick+0, Luck+0
-
-\textbf{Special:} Pain Tolerance: +2 to Endurance saves against torture
-
-\subsubsection{Mercenary}
-\textit{A battle-scarred sellsword}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+2, Insight+1, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Combat Veteran: +1 to initiative rolls
-
-\subsubsection{Pirate}
-\textit{A sea-faring raider with blood on his hands}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+2, Finesse+3, Endurance+2, Insight+2, Resolve+2, Presence+2, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Sea Legs: Immune to effects that would knock prone on ships
-
-\subsubsection{Marauder}
-\textit{A savage raider who lives for battle and plunder}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+3, Finesse+2, Endurance+3, Insight+1, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Bloodthirsty: +1 to attack rolls against wounded enemies
-
-\subsubsection{Reaver}
-\textit{A merciless warrior who takes no prisoners}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+4, Finesse+3, Endurance+3, Insight+2, Resolve+3, Presence+2, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Relentless: Can attack again after killing an enemy
-
-\subsubsection{Brute}
-\textit{A large, brutish enforcer with little wit}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 10
-
-\textbf{Attributes:} Might+4, Finesse+0, Endurance+3, Insight-1, Resolve+1, Presence+1, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Overwhelming Force: +2 strikes when attacking surprised targets
-
-\subsubsection{Guard}
-\textit{A corrupt town watchman who serves whoever pays}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+2, Finesse+2, Endurance+2, Insight+1, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Stand Your Ground (2/2): Gain +2 Defense until start of next turn
-
-\subsubsection{Zealot}
-\textit{A religious fanatic willing to die for their dark faith}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+2, Finesse+1, Endurance+2, Insight+1, Resolve+4, Presence+2, Faith+3, Magick+0, Luck+1
-
-\textbf{Special:} Divine Fervor: +2 to all Faith saves, immune to fear
-
-\subsubsection{Wytch Hunter}
-\textit{A grim inquisitor who burns the magically gifted}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+2, Insight+3, Resolve+4, Presence+2, Faith+2, Magick+0, Luck+1
-
-\textbf{Special:} Wytch Sight: Can detect magical auras, +2 vs spellcasters
-
-\subsubsection{Executioner}
-\textit{A hooded killer who serves as judge and jury}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+4, Finesse+2, Endurance+3, Insight+1, Resolve+3, Presence+1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Headsman's Axe: Critical hits deal +2 strikes instead of +1
-
-\subsubsection{Ronin}
-\textit{A masterless warrior seeking redemption through combat}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+3, Finesse+4, Endurance+2, Insight+2, Resolve+3, Presence+2, Faith+1, Magick+0, Luck+1
-
-\textbf{Special:} Precise Strike: Critical hits deal +2 strikes instead of +1
-
-\subsubsection{Warlord}
-\textit{A battle-tested leader of men and monsters}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+4, Finesse+3, Endurance+3, Insight+3, Resolve+4, Presence+4, Faith+1, Magick+0, Luck+2
-
-\textbf{Special:} Command Presence: Allies within 30ft gain +1 to morale saves
-
-\subsubsection{Pit Fighter}
-\textit{A scarred gladiator who fights for survival}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+4, Finesse+3, Endurance+4, Insight+2, Resolve+3, Presence+2, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Arena Veteran: +1 to attack rolls when outnumbered
-
-\subsubsection{Wytch}
-\textit{A crone with knowledge of dark magic}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+1, Finesse+2, Endurance+2, Insight+4, Resolve+3, Presence+2, Faith-1, Magick+4, Luck+2
-
-\textbf{Special:} Hex Magic: Curse targets with misfortune
-
-\subsubsection{Warlock}
-\textit{A human bound to dark powers}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+2, Finesse+3, Endurance+2, Insight+3, Resolve+3, Presence+3, Faith-2, Magick+4, Luck+2
-
-\textbf{Special:} Shadow Coil (3/3), Doombrand (2/2), Eldritch Blast
-
-\subsubsection{Necromancer}
-\textit{A master of death magic}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+1, Finesse+4, Endurance+2, Insight+5, Resolve+4, Presence+3, Faith-3, Magick+6, Luck+2
-
-\textbf{Special:} Animate Dead, Death Spells, Control Undead
-
-\subsubsection{Demon Cultist}
-\textit{A human devoted to infernal powers}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+2, Finesse+2, Endurance+2, Insight+2, Resolve+3, Presence+2, Faith-2, Magick+2, Luck+1
-
-\textbf{Special:} Demonic Pact: Summon lesser demon once per day
-
-\subsubsection{Mad Prophet}
-\textit{A divine herald driven to insanity}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+1, Finesse+1, Endurance+2, Insight+3, Resolve+2, Presence+3, Faith+4, Magick+1, Luck-1
-
-\textbf{Special:} Divine Madness: Speak prophecies that alter fate
-
-\subsubsection{Blood Priest}
-\textit{A cleric who serves through sacrifice}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+2, Finesse+2, Endurance+3, Insight+3, Resolve+4, Presence+3, Faith+4, Magick+1, Luck+1
-
-\textbf{Special:} Blood Magic: Sacrifice health for powerful spells
-
-\subsubsection{Dark Paladin}
-\textit{A fallen knight serving evil}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+4, Finesse+4, Endurance+3, Insight+2, Resolve+4, Presence+3, Faith-2, Magick+2, Luck+2
-
-\textbf{Special:} Unholy Smite, Aura of Fear, Dark Healing
-
-\subsubsection{Slave Master}
-\textit{A cruel overseer of human chattel}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+2, Insight+2, Resolve+3, Presence+3, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Break Will: Target must pass Resolve save or lose next action
-
-\subsubsection{Inquisitor}
-\textit{A religious zealot who purges heretics}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+3, Insight+3, Resolve+4, Presence+3, Faith+3, Magick+0, Luck+1
-
-\textbf{Special:} Divine Authority: +2 to intimidation, immune to lies
-
-\subsubsection{Berserker}
-\textit{A warrior lost to battle rage}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+5, Finesse+2, Endurance+4, Insight+1, Resolve+2, Presence+2, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Unstoppable Rage: +2 strikes when below half health
-
-\bloodrule
-
-\subsection{Beasts}
-
-\subsubsection{Rat}
-\textit{A diseased rodent from the sewers}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might-1, Finesse+2, Endurance+0, Insight+1, Resolve+1, Presence-2, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Disease Bite: Target must pass Endurance save or contract plague
-
-\subsubsection{Wolf}
-\textit{A lean predator driven by hunger}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+2, Finesse+3, Endurance+2, Insight+2, Resolve+2, Presence+0, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Pack Hunter: +1 to attack if ally attacked same target this round
-
-\subsubsection{Giant Rat}
-\textit{A sewer rat grown to monstrous size}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+1, Finesse+2, Endurance+2, Insight+1, Resolve+1, Presence-1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Gnaw: On critical hit, target's armor loses 1 defense permanently
-
-\subsubsection{Cave Bear}
-\textit{A massive predator that dwells in mountain caves}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+5, Finesse+1, Endurance+4, Insight+2, Resolve+3, Presence+1, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Maul: On critical hit, target must pass Endurance save or be stunned
-
-\subsubsection{Dire Wolf}
-\textit{An oversized wolf with intelligence and malice}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+3, Finesse+2, Endurance+3, Insight+3, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Intimidating Howl: Enemies within 30ft must pass Resolve save or take -1 to attacks
-
-\subsubsection{Saber Cat}
-\textit{A prehistoric feline with massive canine teeth}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+4, Finesse+4, Endurance+3, Insight+3, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Pounce: Deal +2 strikes if moved before attacking
-
-\subsubsection{Giant Spider}
-\textit{A web-spinning predator the size of a horse}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+2, Finesse+3, Endurance+2, Insight+2, Resolve+1, Presence-2, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Web Trap: Target must pass Finesse save or be restrained
-
-\subsubsection{Viper}
-\textit{A serpent with deadly venom}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+1, Finesse+3, Endurance+1, Insight+2, Resolve+1, Presence-2, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Lethal Venom: Target must pass Endurance save or take 2 strikes next round
-
-\subsubsection{Giant Scorpion}
-\textit{A desert arachnid with crushing claws}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+4, Insight+1, Resolve+2, Presence-1, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Poison Sting: Target must pass Endurance save or be paralyzed for 1 round
-
-\subsubsection{Mammoth}
-\textit{A colossal woolly beast from the frozen wastes}
-
-\textbf{Strikes:} 8 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+8, Finesse+1, Endurance+6, Insight+2, Resolve+4, Presence+3, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Trample: Can move through enemies, dealing 2 strikes to each
-
-\subsubsection{Desert Scorpion}
-\textit{A giant arachnid from burning sands}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+3, Insight+2, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Burning Sting: Venom causes internal fire
-
-\subsubsection{Pit Viper}
-\textit{A massive serpent from volcanic depths}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+4, Finesse+3, Endurance+4, Insight+2, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Molten Venom: Poison burns like liquid fire
-
-\subsubsection{Blood Eagle}
-\textit{A raptor that feeds on still-beating hearts}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+3, Finesse+5, Endurance+2, Insight+3, Resolve+2, Presence+2, Faith+0, Magick+0, Luck+3
-
-\textbf{Special:} Heart Ripper: Tear out vital organs in flight
-
-\subsubsection{Storm Crow}
-\textit{A giant corvid that heralds disaster}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 16
-
-\textbf{Attributes:} Might+2, Finesse+6, Endurance+2, Insight+4, Resolve+3, Presence+2, Faith+0, Magick+1, Luck+4
-
-\textbf{Special:} Ill Omen: Enemies suffer -1 to all rolls
-
-\bloodrule
-
-\subsection{Undead}
-
-\subsubsection{Skeleton}
-\textit{Animated bones held together by dark magic}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 10
-
-\textbf{Attributes:} Might+1, Finesse+0, Endurance+0, Insight+0, Resolve+3, Presence-2, Faith+0, Magick+0, Luck-1
-
-\textbf{Special:} Undead Resilience: Immune to fear, poison, and mental effects
-
-\subsubsection{Zombie}
-\textit{A shambling corpse that hungers for flesh}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 8
-
-\textbf{Attributes:} Might+3, Finesse-2, Endurance+4, Insight-2, Resolve+1, Presence-3, Faith+0, Magick+0, Luck-2
-
-\textbf{Special:} Undying: Continue fighting for 1 round after reaching 0 strikes
-
-\subsubsection{Ghoul}
-\textit{A flesh-eating corpse with paralyzing claws}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+2, Finesse+2, Endurance+2, Insight+1, Resolve+2, Presence-1, Faith+0, Magick+0, Luck-1
-
-\textbf{Special:} Paralysis: Target must pass Endurance save or lose next action
-
-\subsubsection{Wight}
-\textit{A powerful undead warrior retaining combat skills}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+4, Finesse+3, Endurance+3, Insight+2, Resolve+4, Presence+1, Faith-1, Magick+1, Luck+0
-
-\textbf{Special:} Energy Drain: Target hit loses 1 from random ability score
-
-\subsubsection{Wraith}
-\textit{An incorporeal spirit filled with hatred}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+1, Finesse+4, Endurance+0, Insight+3, Resolve+4, Presence+2, Faith-2, Magick+3, Luck+1
-
-\textbf{Special:} Life Drain: Heal 1 strike when dealing strikes to living creatures
-
-\subsubsection{Specter}
-\textit{A ghostly apparition that feeds on terror}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+0, Finesse+4, Endurance+0, Insight+2, Resolve+4, Presence+2, Faith-1, Magick+2, Luck+1
-
-\textbf{Special:} Terror: Target must pass Resolve save or flee in panic
-
-\subsubsection{Mummy}
-\textit{An ancient corpse wrapped in cursed bandages}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+3, Finesse+2, Endurance+4, Insight+2, Resolve+4, Presence+1, Faith+2, Magick+2, Luck-1
-
-\textbf{Special:} Curse of Ages: Target hit must pass Faith save or age 1 year
-
-\subsubsection{Banshee}
-\textit{A wailing spirit of vengeance and sorrow}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+1, Finesse+5, Endurance+0, Insight+3, Resolve+5, Presence+3, Faith-2, Magick+4, Luck+2
-
-\textbf{Special:} Wail of Death: All living within 30ft must pass Resolve save or be stunned
-
-\subsubsection{Vampire Spawn}
-\textit{A lesser vampire serving its dark master}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+3, Finesse+4, Endurance+2, Insight+3, Resolve+3, Presence+3, Faith-3, Magick+1, Luck+2
-
-\textbf{Special:} Blood Drain: Heal 1 strike when dealing strikes to living targets
-
-\subsubsection{Lich}
-\textit{An undead sorcerer of terrible power}
-
-\textbf{Strikes:} 8 \quad \textbf{Defense:} 16
-
-\textbf{Attributes:} Might+2, Finesse+6, Endurance+3, Insight+6, Resolve+6, Presence+4, Faith-3, Magick+8, Luck+2
-
-\textbf{Special:} Spellcaster: Can cast Mage abilities, Paralyzing Touch, Death Magic
-
-\subsubsection{Hopping Corpse}
-\textit{A rigid cadaver that moves in stiff, bouncing leaps}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+3, Finesse+1, Endurance+3, Insight+1, Resolve+3, Presence-1, Faith+0, Magick+0, Luck-1
-
-\textbf{Special:} Rigid Form: Immune to precision attacks, moves by hopping only
-
-\subsubsection{Hungry Ghost}
-\textit{A gaunt spirit with an insatiable appetite}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+1, Finesse+2, Endurance+1, Insight+2, Resolve+4, Presence+1, Faith-2, Magick+1, Luck+1
-
-\textbf{Special:} Endless Hunger: Must feed on living essence or grow weaker
-
-\subsubsection{Bone Dancer}
-\textit{A skeletal warrior animated by ancient war drums}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+2, Finesse+3, Endurance+2, Insight+1, Resolve+3, Presence+1, Faith+0, Magick+1, Luck+1
-
-\textbf{Special:} Rhythmic Combat: +1 to attack rolls when multiple bone dancers present
-
-\subsubsection{Paper Talisman}
-\textit{A corpse wrapped in sacred papers that animate it}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 10
-
-\textbf{Attributes:} Might+2, Finesse+0, Endurance+2, Insight+0, Resolve+4, Presence-2, Faith+1, Magick+2, Luck-1
-
-\textbf{Special:} Seal Bound: Destroyed if talisman papers are removed
-
-\subsubsection{Weeping Maiden}
-\textit{A sorrowful female spirit who died in anguish}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+1, Finesse+4, Endurance+1, Insight+3, Resolve+5, Presence+3, Faith-1, Magick+3, Luck+2
-
-\textbf{Special:} Tears of Sorrow: All within 20ft must pass Resolve save or take -1 to actions
-
-\subsubsection{Iron Teeth}
-\textit{A cannibalistic spirit with metal fangs}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+3, Finesse+2, Endurance+2, Insight+2, Resolve+2, Presence+1, Faith-2, Magick+0, Luck+1
-
-\textbf{Special:} Metal Bite: Ignores armor, can chew through metal
-
-\subsubsection{Floating Head}
-\textit{A severed head trailing entrails that flies through the night}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+0, Finesse+5, Endurance+1, Insight+3, Resolve+3, Presence+2, Faith-2, Magick+2, Luck+2
-
-\textbf{Special:} Blood Drain: Must feed on pregnant women or children to survive
-
-\subsubsection{Drowned Sailor}
-\textit{A waterlogged corpse that died at sea}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+2, Finesse+1, Endurance+3, Insight+2, Resolve+2, Presence+1, Faith-1, Magick+1, Luck+0
-
-\textbf{Special:} Sea Curse: Can walk on water, immune to drowning
-
-\subsubsection{Plague Bearer}
-\textit{A diseased corpse that spreads corruption}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 10
-
-\textbf{Attributes:} Might+2, Finesse+1, Endurance+4, Insight+1, Resolve+2, Presence-1, Faith-1, Magick+0, Luck-1
-
-\textbf{Special:} Disease Aura: All within 4 squares must pass Endurance save or become ill
-
-\subsubsection{Ancestor Shade}
-\textit{The restless spirit of a dishonored elder}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+1, Finesse+3, Endurance+2, Insight+4, Resolve+5, Presence+3, Faith+1, Magick+3, Luck+2
-
-\textbf{Special:} Family Curse: +2 strikes against blood relatives
-
-\subsubsection{Vampire Lord}
-\textit{An ancient bloodsucker of noble bearing}
-
-\textbf{Strikes:} 10 \quad \textbf{Defense:} 17
-
-\textbf{Attributes:} Might+6, Finesse+7, Endurance+5, Insight+6, Resolve+6, Presence+7, Faith-4, Magick+4, Luck+4
-
-\textbf{Special:} Dominate (2/2): Target must pass Resolve save or obey one command
-
-\subsubsection{Lich King}
-\textit{A master of death and undeath}
-
-\textbf{Strikes:} 18 \quad \textbf{Defense:} 18
-
-\textbf{Attributes:} Might+4, Finesse+8, Endurance+6, Insight+8, Resolve+8, Presence+6, Faith-5, Magick+10, Luck+3
-
-\textbf{Special:} Death Command (1/1): Instantly kill target with 3 or fewer strikes remaining
-
-\bloodrule
-
-\subsection{Demi-Human}
-
-\subsubsection{Goblin}
-\textit{A small, vicious creature from the deep caves}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+0, Finesse+2, Endurance+1, Insight+1, Resolve+0, Presence-1, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Dirty Fighting: Critical hits on 19-20 against surprised targets
-
-\subsubsection{Orc}
-\textit{A brutish warrior with a taste for violence}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+4, Finesse+1, Endurance+3, Insight+0, Resolve+1, Presence+1, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Berserker Rage: +2 to attack rolls when below half strikes
-
-\subsubsection{Cave Dweller}
-\textit{A pale, blind humanoid adapted to underground life}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+1, Finesse+3, Endurance+2, Insight+4, Resolve+1, Presence-2, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Blindsight: Cannot be surprised, immune to visual effects
-
-\subsubsection{Troll}
-\textit{A massive humanoid with regenerative flesh}
-
-\textbf{Strikes:} 5 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+6, Finesse+1, Endurance+5, Insight+1, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Regeneration: Regain 1 strike per round unless fire strikes taken
-
-\subsubsection{Giant}
-\textit{A colossal humanoid from the ancient world}
-
-\textbf{Strikes:} 10 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+8, Finesse+2, Endurance+7, Insight+2, Resolve+4, Presence+3, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Boulder Throw: Ranged attack for 3 strikes up to 200ft
-
-\subsubsection{Troglodyte}
-\textit{A primitive reptilian humanoid}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+3, Finesse+2, Endurance+3, Insight+1, Resolve+1, Presence-1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Stench: Adjacent enemies must pass Endurance save or take -1 to actions
-
-\subsubsection{Neanderthal}
-\textit{A primitive human cousin with crude weapons}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+3, Finesse+1, Endurance+4, Insight+1, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Stone Tools: Weapons break on natural 1, but deals +1 strike on 20
-
-\subsubsection{Watcher}
-\textit{A tall, gaunt humanoid that serves ancient powers}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+2, Finesse+4, Endurance+2, Insight+5, Resolve+4, Presence+2, Faith-1, Magick+3, Luck+1
-
-\textbf{Special:} All-Seeing Eyes: Cannot be surprised, sees through illusions
-
-\subsubsection{Goblin Scout}
-\textit{A small, vicious cave dweller with yellow eyes}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+0, Finesse+2, Endurance+1, Insight+2, Resolve+1, Presence-1, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Tunnel Fighter: +2 to attacks in cramped spaces
-
-\subsubsection{Orc Raider}
-\textit{A brutish warrior from the badlands}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+4, Finesse+1, Endurance+3, Insight+0, Resolve+1, Presence+1, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Berserker Fury: +2 to attacks when below half strikes
-
-\subsubsection{Serpent-Man}
-\textit{An ancient scaled humanoid from pre-human times}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+2, Finesse+3, Endurance+3, Insight+4, Resolve+3, Presence+2, Faith-1, Magick+3, Luck+1
-
-\textbf{Special:} Ancient Knowledge: Can cast simple spells, hypnotic gaze
-
-\subsubsection{Ape-Man}
-\textit{A primitive humanoid from the deep jungles}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+4, Finesse+2, Endurance+3, Insight+1, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Crushing Grip: Grappled targets take 1 strikes per round
-
-\subsubsection{Frost Giant}
-\textit{A colossal humanoid from the frozen north}
-
-\textbf{Strikes:} 12 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+9, Finesse+3, Endurance+8, Insight+3, Resolve+5, Presence+4, Faith+1, Magick+1, Luck+2
-
-\textbf{Special:} Ice Weapons, Cold Immunity, Boulder Throw
-
-\subsubsection{Fire Giant}
-\textit{A massive humanoid wreathed in flames}
-
-\textbf{Strikes:} 14 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+10, Finesse+4, Endurance+9, Insight+4, Resolve+6, Presence+5, Faith+1, Magick+2, Luck+2
-
-\textbf{Special:} Molten Weapon (2/2): Weapon attacks deal +2 strikes and ignite targets
-
-\subsubsection{Storm Giant}
-\textit{A colossal being that commands the weather}
-
-\textbf{Strikes:} 16 \quad \textbf{Defense:} 16
-
-\textbf{Attributes:} Might+9, Finesse+6, Endurance+8, Insight+6, Resolve+7, Presence+7, Faith+2, Magick+5, Luck+3
-
-\textbf{Special:} Lightning Strike (3/3): Call down bolt for 3 strikes against any target within 40 squares
-
-\subsubsection{Titan}
-\textit{An ancient giant from the dawn of time}
-
-\textbf{Strikes:} 20 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+12, Finesse+5, Endurance+11, Insight+7, Resolve+9, Presence+8, Faith+3, Magick+4, Luck+4
-
-\textbf{Special:} Primordial Strength (1/1): Deal 6 strikes strikes, ignoring all armor and defenses
-
-\bloodrule
-
-\subsection{Demons}
-
-\subsubsection{Lesser Demon}
-\textit{A weak fiend summoned from the abyss}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+2, Finesse+2, Endurance+2, Insight+1, Resolve+2, Presence+1, Faith-2, Magick+2, Luck+1
-
-\textbf{Special:} Hellfire Claws: Deal fire strikes that ignores armor
-
-\subsubsection{Imp}
-\textit{A small, winged demon that delights in cruelty}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might-1, Finesse+4, Endurance+1, Insight+3, Resolve+2, Presence+1, Faith-2, Magick+3, Luck+2
-
-\textbf{Special:} Invisibility: Become invisible until next attack (2/2 per encounter)
-
-\subsubsection{Hell Hound}
-\textit{A fiendish canine wreathed in flames}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+3, Finesse+2, Endurance+3, Insight+2, Resolve+2, Presence+1, Faith-2, Magick+1, Luck+1
-
-\textbf{Special:} Breath Fire: 15ft cone, Endurance save or take 1 additional strike
-
-\subsubsection{Barbed Devil}
-\textit{A fiend covered in razor-sharp spines}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+4, Finesse+4, Endurance+4, Insight+3, Resolve+4, Presence+2, Faith-3, Magick+3, Luck+1
-
-\textbf{Special:} Barbed Hide: Attackers in melee range take 1 strike
-
-\subsubsection{Shadow Demon}
-\textit{A creature of living darkness}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+2, Finesse+5, Endurance+2, Insight+4, Resolve+4, Presence+2, Faith-3, Magick+4, Luck+2
-
-\textbf{Special:} Shadow Step: Teleport between shadows as a free action
-
-\subsubsection{Pit Fiend}
-\textit{A mighty general of the infernal legions}
-
-\textbf{Strikes:} 12 \quad \textbf{Defense:} 17
-
-\textbf{Attributes:} Might+8, Finesse+7, Endurance+7, Insight+6, Resolve+7, Presence+7, Faith-5, Magick+7, Luck+3
-
-\textbf{Special:} Fear Aura, Fire Immunity, Flight, Multiple Attacks
-
-\subsubsection{Chain Devil}
-\textit{A fiend bound in cursed iron links}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+4, Finesse+3, Endurance+4, Insight+2, Resolve+4, Presence+2, Faith-3, Magick+2, Luck+1
-
-\textbf{Special:} Binding Chains: Entangle and crush with animated chains
-
-\subsubsection{Mirror Fiend}
-\textit{A demon that exists only in reflections}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+2, Finesse+5, Endurance+1, Insight+4, Resolve+4, Presence+3, Faith-3, Magick+4, Luck+3
-
-\textbf{Special:} Reflection Prison: Trap souls in mirrors
-
-\subsubsection{Demon Lord}
-\textit{A prince of the abyss}
-
-\textbf{Strikes:} 16 \quad \textbf{Defense:} 18
-
-\textbf{Attributes:} Might+10, Finesse+8, Endurance+8, Insight+7, Resolve+8, Presence+9, Faith-6, Magick+9, Luck+4
-
-\textbf{Special:} Hellgate (1/1): Open portal to summon 3 lesser demons for remainder of encounter
-
-\subsubsection{Archfiend}
-\textit{A general of hell's armies}
-
-\textbf{Strikes:} 20 \quad \textbf{Defense:} 19
-
-\textbf{Attributes:} Might+12, Finesse+9, Endurance+9, Insight+8, Resolve+9, Presence+10, Faith-6, Magick+8, Luck+4
-
-\textbf{Special:} Infernal Decree (1/1): Reshape local reality within 20 squares for 1 encounter
-
-\bloodrule
-
-\subsection{Nightmares}
-
-\subsubsection{Terror Hound}
-\textit{A nightmare beast that stalks the fearful}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+2, Insight+3, Resolve+3, Presence+2, Faith-2, Magick+2, Luck+2
-
-\textbf{Special:} Fear Scent: Can track creatures who have felt fear in last 24 hours
-
-\subsubsection{Dream Stalker}
-\textit{An entity that hunts through sleep}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+1, Finesse+5, Endurance+1, Insight+4, Resolve+4, Presence+3, Faith-2, Magick+4, Luck+3
-
-\textbf{Special:} Sleep Walker: Can only be harmed by sleeping creatures
-
-\subsubsection{Mind Flenser}
-\textit{A horror that feeds on sanity}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+1, Finesse+4, Endurance+1, Insight+5, Resolve+5, Presence+3, Faith-3, Magick+5, Luck+2
-
-\textbf{Special:} Madness Touch: Target must pass Resolve save or gain temporary insanity
-
-\subsubsection{Void Spawn}
-\textit{An aberration from the space between worlds}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+2, Insight+5, Resolve+4, Presence+1, Faith-4, Magick+5, Luck+2
-
-\textbf{Special:} Reality Distortion: Reroll any die within 30ft once per round
-
-\subsubsection{Night Terror}
-\textit{A formless entity of pure fear}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+1, Finesse+4, Endurance+1, Insight+4, Resolve+5, Presence+3, Faith-2, Magick+4, Luck+3
-
-\textbf{Special:} Aura of Dread: All enemies within 8 squares take -1 to all rolls
-
-\subsubsection{Dream Thief}
-\textit{A being that steals memories and nightmares}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+1, Finesse+4, Endurance+1, Insight+5, Resolve+4, Presence+3, Faith-1, Magick+4, Luck+3
-
-\textbf{Special:} Memory Drain: Steal skills and knowledge from targets
-
-\subsubsection{Maze Walker}
-\textit{A being that exists between dimensions}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+1, Finesse+5, Endurance+1, Insight+4, Resolve+4, Presence+3, Faith+0, Magick+4, Luck+3
-
-\textbf{Special:} Dimensional Step: Teleport through folded space
-
-\subsubsection{Mist Walker}
-\textit{A being that exists partially in another realm}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+1, Finesse+5, Endurance+1, Insight+4, Resolve+4, Presence+2, Faith+0, Magick+3, Luck+3
-
-\textbf{Special:} Phase Step: Move between dimensions
-
-\subsubsection{Memory Eater}
-\textit{A parasite that devours experiences and knowledge}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+0, Finesse+3, Endurance+1, Insight+4, Resolve+3, Presence+2, Faith-2, Magick+3, Luck+2
-
-\textbf{Special:} Forget: Erase memories and learned skills
-
-\subsubsection{The Nameless Horror}
-\textit{An unspeakable entity beyond comprehension}
-
-\textbf{Strikes:} 22 \quad \textbf{Defense:} 20
-
-\textbf{Attributes:} Might+10, Finesse+10, Endurance+10, Insight+15, Resolve+15, Presence+5, Faith-10, Magick+15, Luck+6
-
-\textbf{Special:} Reality Corruption (1/1): Change fundamental laws of physics within 30 squares
-
-\bloodrule
-
-\subsection{Elementals}
-
-\subsubsection{Fire Elemental}
-\textit{A being of pure flame and destruction}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+2, Insight+2, Resolve+3, Presence+1, Faith+0, Magick+4, Luck+2
-
-\textbf{Special:} Ignite: Target catches fire and takes 1 strike next round
-
-\subsubsection{Earth Elemental}
-\textit{A massive creature of stone and soil}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+6, Finesse+1, Endurance+5, Insight+1, Resolve+4, Presence+0, Faith+0, Magick+2, Luck+1
-
-\textbf{Special:} Earth Glide: Move through stone as if it were air
-
-\subsubsection{Water Elemental}
-\textit{A flowing mass of animated water}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+3, Finesse+2, Endurance+4, Insight+2, Resolve+3, Presence+0, Faith+0, Magick+3, Luck+1
-
-\textbf{Special:} Drench: Extinguish fires, +2 strikes vs fire-based enemies
-
-\subsubsection{Air Elemental}
-\textit{A whirling vortex of wind and storm}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 16
-
-\textbf{Attributes:} Might+2, Finesse+6, Endurance+2, Insight+2, Resolve+2, Presence+0, Faith+0, Magick+3, Luck+2
-
-\textbf{Special:} Whirlwind: Pull all enemies within 20ft closer by 10ft
-
-\subsubsection{Ice Elemental}
-\textit{A being of frozen water and bitter cold}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+4, Finesse+3, Endurance+3, Insight+2, Resolve+3, Presence+0, Faith+0, Magick+3, Luck+1
-
-\textbf{Special:} Frost Touch: Target must pass Endurance save or move at half speed
-
-\subsubsection{Sandstorm Djinn}
-\textit{A wind spirit from the deep desert}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 16
-
-\textbf{Attributes:} Might+3, Finesse+6, Endurance+3, Insight+4, Resolve+4, Presence+4, Faith+1, Magick+5, Luck+4
-
-\textbf{Special:} Desert Storm: Create blinding sand cyclones
-
-\subsubsection{Molten King}
-\textit{A fire elemental ruler from volcanic realms}
-
-\textbf{Strikes:} 7 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+6, Finesse+5, Endurance+6, Insight+4, Resolve+5, Presence+6, Faith+1, Magick+5, Luck+4
-
-\textbf{Special:} Lava Crown: Rule over all fire and molten rock
-
-\bloodrule
-
-\subsection{Constructs}
-
-\subsubsection{Stone Golem}
-\textit{A guardian carved from living rock}
-
-\textbf{Strikes:} 5 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+6, Finesse+2, Endurance+6, Insight+0, Resolve+4, Presence+0, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Slow: Target's actions take twice as long (Magick save negates)
-
-\subsubsection{Iron Golem}
-\textit{A warrior forged from enchanted metal}
-
-\textbf{Strikes:} 6 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+7, Finesse+3, Endurance+6, Insight+0, Resolve+5, Presence+0, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Poison Gas: 6 squares cone, Endurance save or poisoned for 3 rounds
-
-\subsubsection{Bone Construct}
-\textit{A shambling mass of assembled skeletons}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+4, Finesse+1, Endurance+4, Insight+0, Resolve+3, Presence+0, Faith+0, Magick+0, Luck+0
-
-\textbf{Special:} Reassemble: Regain 1 strike when reduced to 1 strike remaining
-
-\subsubsection{Flesh Golem}
-\textit{A patchwork horror of stitched body parts}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+5, Finesse+1, Endurance+5, Insight-1, Resolve+2, Presence-2, Faith+0, Magick+0, Luck-1
-
-\textbf{Special:} Berserk: When strikesd, must attack nearest creature (friend or foe)
-
-\subsubsection{Animated Armor}
-\textit{An empty suit of armor given malevolent purpose}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+3, Finesse+5, Endurance+2, Insight+0, Resolve+3, Presence+0, Faith+0, Magick+1, Luck+0
-
-\textbf{Special:} False Appearance: Appear as normal armor until it attacks
-
-\subsubsection{Jade Automaton}
-\textit{An ancient construct of green stone and gold}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+4, Finesse+5, Endurance+4, Insight+0, Resolve+5, Presence+0, Faith+0, Magick+2, Luck+0
-
-\textbf{Special:} Jade Skin: Immune to mental effects, regenerates slowly
-
-\subsubsection{Singing Sword}
-\textit{A possessed blade that controls its wielder}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+2, Insight+2, Resolve+3, Presence+2, Faith+0, Magick+2, Luck+2
-
-\textbf{Special:} Soul Prison: Trap consciousness within the blade
-
-\subsubsection{Soul Cage}
-\textit{A living prison that traps spirits}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 10
-
-\textbf{Attributes:} Might+2, Finesse+1, Endurance+4, Insight+2, Resolve+3, Presence+1, Faith-2, Magick+3, Luck+1
-
-\textbf{Special:} Spirit Prison: Trap souls within its body
-
-\subsubsection{Clockwork Spy}
-\textit{A mechanical infiltrator with many faces}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+2, Finesse+4, Endurance+3, Insight+4, Resolve+3, Presence+4, Faith+0, Magick+1, Luck+2
-
-\textbf{Special:} Perfect Disguise: Mimic any humanoid appearance
-
-\subsubsection{Stone Colossus}
-\textit{A walking mountain animated by ancient magic}
-
-\textbf{Strikes:} 10 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+10, Finesse+3, Endurance+10, Insight+4, Resolve+6, Presence+5, Faith+2, Magick+4, Luck+3
-
-\textbf{Special:} Mountain Walk: Shake earth with every step
-
-\bloodrule
-
-\subsection{Fae}
-
-\subsubsection{Dark Fae}
-\textit{A twisted fairy corrupted by shadow}
-
-\textbf{Strikes:} 1 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might-1, Finesse+5, Endurance+1, Insight+3, Resolve+2, Presence+3, Faith-1, Magick+3, Luck+3
-
-\textbf{Special:} Curse: Target suffers -1 to random ability score for 24 hours
-
-\subsubsection{Hag}
-\textit{A wicked crone with powerful magic}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+2, Finesse+3, Endurance+3, Insight+4, Resolve+4, Presence+2, Faith-2, Magick+5, Luck+3
-
-\textbf{Special:} Hex: Target must reroll next successful action
-
-\subsubsection{Redcap}
-\textit{A murderous goblin that dyes its hat with blood}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+2, Insight+2, Resolve+1, Presence+0, Faith-1, Magick+1, Luck+2
-
-\textbf{Special:} Blood Frenzy: +2 to attacks after killing an enemy
-
-\subsubsection{Dullahan}
-\textit{A headless horseman harbinger of death}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+4, Finesse+5, Endurance+3, Insight+3, Resolve+5, Presence+4, Faith-2, Magick+3, Luck+2
-
-\textbf{Special:} Death Sight: Know exact strikes remaining of all enemies
-
-\subsubsection{Bean Sidhe}
-\textit{A wailing spirit that foretells doom}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 16
-
-\textbf{Attributes:} Might+1, Finesse+6, Endurance+1, Insight+4, Resolve+5, Presence+4, Faith-1, Magick+4, Luck+3
-
-\textbf{Special:} Keen: Predict death, all attacks gain +1 strike for 1 round
-
-\subsubsection{Ice Maiden}
-\textit{A woman cursed to spread eternal winter}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+1, Finesse+4, Endurance+2, Insight+3, Resolve+4, Presence+5, Faith+1, Magick+3, Luck+2
-
-\textbf{Special:} Frozen Heart: Drain warmth and emotion
-
-\subsubsection{Fate Spinner}
-\textit{A weaver who tangles the threads of destiny}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+1, Finesse+3, Endurance+2, Insight+5, Resolve+4, Presence+4, Faith+1, Magick+5, Luck+4
-
-\textbf{Special:} Web of Fate: Alter probability and outcomes
-
-\subsubsection{Scarlet Maiden}
-\textit{A beautiful woman who feeds on youth and vitality}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+2, Finesse+5, Endurance+2, Insight+3, Resolve+4, Presence+6, Faith-2, Magick+3, Luck+4
-
-\textbf{Special:} Youth Drain: Age targets and become stronger
-
-\subsubsection{Silver Tongue}
-\textit{A being whose words reshape reality}
-
-\textbf{Strikes:} 2 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+1, Finesse+3, Endurance+2, Insight+4, Resolve+4, Presence+6, Faith+1, Magick+4, Luck+3
-
-\textbf{Special:} Command Reality: Make lies become truth through speech
-
-\subsubsection{Twilight Lord}
-\textit{A noble from the realm between day and night}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+3, Finesse+5, Endurance+3, Insight+5, Resolve+5, Presence+6, Faith+0, Magick+5, Luck+4
-
-\textbf{Special:} Dusk Powers: Control shadows and fading light
-
-\bloodrule
-
-\subsection{Dragons}
-
-\subsubsection{Young Dragon}
-\textit{A cunning wyrm with acid breath}
-
-\textbf{Strikes:} 6 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+5, Finesse+5, Endurance+4, Insight+4, Resolve+4, Presence+3, Faith+1, Magick+3, Luck+2
-
-\textbf{Special:} Acid Breath (3/3): 30ft line, 2 strikes, dissolves equipment
-
-\subsubsection{Wyrm}
-\textit{An ancient serpentine dragon}
-
-\textbf{Strikes:} 8 \quad \textbf{Defense:} 16
-
-\textbf{Attributes:} Might+6, Finesse+6, Endurance+5, Insight+5, Resolve+5, Presence+4, Faith+1, Magick+4, Luck+3
-
-\textbf{Special:} Poison Breath (3/3): 30ft cone, ongoing poison strikes
-
-\subsubsection{Drake}
-\textit{A lesser dragon without wings}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+4, Finesse+3, Endurance+4, Insight+3, Resolve+3, Presence+2, Faith+0, Magick+1, Luck+2
-
-\textbf{Special:} Tail Sweep: Attack all enemies within 10ft behind the drake
-
-\subsubsection{Ancient Wyrm}
-\textit{An elder dragon of immense power}
-
-\textbf{Strikes:} 15 \quad \textbf{Defense:} 18
-
-\textbf{Attributes:} Might+8, Finesse+8, Endurance+7, Insight+7, Resolve+7, Presence+8, Faith+2, Magick+6, Luck+4
-
-\textbf{Special:} Draconic Majesty (1/1): All enemies within 12 squares must pass Resolve save or flee in terror
-
-\subsubsection{Primordial Dragon}
-\textit{The first of all dragonkind}
-
-\textbf{Strikes:} 22 \quad \textbf{Defense:} 20
-
-\textbf{Attributes:} Might+12, Finesse+10, Endurance+10, Insight+9, Resolve+10, Presence+11, Faith+3, Magick+8, Luck+5
-
-\textbf{Special:} World Rend (1/1): Tear reality, dealing 5 strikes to all enemies within 16 squares
-
-\subsubsection{Stellar Dragon}
-\textit{A wyrm born from collapsed stars}
-
-\textbf{Strikes:} 6 \quad \textbf{Defense:} 16
-
-\textbf{Attributes:} Might+5, Finesse+6, Endurance+5, Insight+5, Resolve+5, Presence+5, Faith+1, Magick+5, Luck+4
-
-\textbf{Special:} Stellar Breath: Breathe concentrated starlight
-
-\subsubsection{Void Dragon}
-\textit{A dragon that breathes nothingness itself}
-
-\textbf{Strikes:} 9 \quad \textbf{Defense:} 17
-
-\textbf{Attributes:} Might+7, Finesse+7, Endurance+6, Insight+6, Resolve+6, Presence+5, Faith-4, Magick+6, Luck+4
-
-\textbf{Special:} Null Breath: Erase things from existence
-
-\bloodrule
-
-\subsection{Monsters}
-
-\subsubsection{Cave Horror}
-\textit{A tentacled monstrosity from the deep earth}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+4, Finesse+2, Endurance+5, Insight+3, Resolve+3, Presence+1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Constrict: Grappled targets take 1 strike per round
-
-\subsubsection{Flesh Ripper}
-\textit{A predator with blade-like claws}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+4, Finesse+4, Endurance+3, Insight+2, Resolve+2, Presence+1, Faith+0, Magick+0, Luck+2
-
-\textbf{Special:} Rend: Deal +1 strike if both claws hit same target
-
-\subsubsection{Carrion Crawler}
-\textit{A scavenging beast that feeds on corpses}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+3, Finesse+1, Endurance+4, Insight+2, Resolve+2, Presence-1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Paralytic Tentacles: Target paralyzed on failed Endurance save
-
-\subsubsection{Bone Crusher}
-\textit{A massive beast with powerful jaws}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 12
-
-\textbf{Attributes:} Might+5, Finesse+2, Endurance+5, Insight+2, Resolve+3, Presence+1, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Crushing Bite: Ignores armor on critical hits
-
-\subsubsection{Blood Drinker}
-\textit{A vampire-like beast that drains life}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+3, Finesse+3, Endurance+2, Insight+3, Resolve+3, Presence+2, Faith-1, Magick+1, Luck+2
-
-\textbf{Special:} Drain Life: Heal 1 strike when dealing strikes
-
-\subsubsection{Stone Eater}
-\textit{A creature that devours rock and metal}
-
-\textbf{Strikes:} 3 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+4, Finesse+2, Endurance+5, Insight+1, Resolve+3, Presence+0, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Acid Maw: Destroy weapons and armor on critical hits
-
-\subsubsection{Tunnel Worm}
-\textit{A massive segmented predator}
-
-\textbf{Strikes:} 5 \quad \textbf{Defense:} 10
-
-\textbf{Attributes:} Might+5, Finesse+0, Endurance+6, Insight+1, Resolve+2, Presence+0, Faith+0, Magick+0, Luck+1
-
-\textbf{Special:} Swallow Whole: Engulf targets smaller than itself
-
-\subsubsection{Chaos Beast}
-\textit{A constantly shifting abomination}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 13
-
-\textbf{Attributes:} Might+4, Finesse+3, Endurance+4, Insight+2, Resolve+3, Presence+1, Faith-2, Magick+3, Luck+2
-
-\textbf{Special:} Shape Change: Gain random ability each round
-
-\subsubsection{Void Maw}
-\textit{A creature that devours light and hope}
-
-\textbf{Strikes:} 5 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+4, Finesse+4, Endurance+3, Insight+4, Resolve+5, Presence+2, Faith-3, Magick+4, Luck+1
-
-\textbf{Special:} Darkness Aura: All attacks within 30ft made with disadvantage
-
-\subsubsection{Plague Beast}
-\textit{A diseased monstrosity that spreads corruption}
-
-\textbf{Strikes:} 4 \quad \textbf{Defense:} 11
-
-\textbf{Attributes:} Might+4, Finesse+1, Endurance+5, Insight+2, Resolve+3, Presence+1, Faith-2, Magick+1, Luck+1
-
-\textbf{Special:} Disease Cloud: All within 15ft must pass Endurance or be poisoned
-
-\subsubsection{Coral Titan}
-\textit{A massive reef creature from ocean depths}
-
-\textbf{Strikes:} 6 \quad \textbf{Defense:} 14
-
-\textbf{Attributes:} Might+6, Finesse+4, Endurance+7, Insight+3, Resolve+4, Presence+3, Faith+2, Magick+2, Luck+3
-
-\textbf{Special:} Living Reef: Grow coral armor and weapons
-
-\subsubsection{Abyssal Kraken}
-\textit{A tentacled horror from oceanic trenches}
-
-\textbf{Strikes:} 9 \quad \textbf{Defense:} 16
-
-\textbf{Attributes:} Might+8, Finesse+6, Endurance+8, Insight+5, Resolve+6, Presence+5, Faith-1, Magick+3, Luck+4
-
-\textbf{Special:} Crushing Deep: Pressure attacks ignore armor
-
-\subsubsection{Kraken}
-\textit{An ancient sea monster of colossal size}
-
-\textbf{Strikes:} 18 \quad \textbf{Defense:} 15
-
-\textbf{Attributes:} Might+12, Finesse+5, Endurance+10, Insight+6, Resolve+8, Presence+6, Faith+2, Magick+4, Luck+4
-
-\textbf{Special:} Tentacle Grab, Ink Cloud, Tidal Wave, Ship Destroyer
-
-\subsubsection{World Serpent}
-\textit{The great snake that encircles the earth}
-
-\textbf{Strikes:} 25 \quad \textbf{Defense:} 18
-
-\textbf{Attributes:} Might+15, Finesse+8, Endurance+14, Insight+8, Resolve+12, Presence+9, Faith+2, Magick+6, Luck+6
-
-\textbf{Special:} Constrict Reality (1/1): Target location within 100 squares becomes impossible to reach for 1 hour
-
-\bloodrule
-
-\subsection{Cosmic Horrors}
-
-\subsubsection{Avatar of Endings}
-\textit{The personification of all finality}
-
-\textbf{Strikes:} 21 \quad \textbf{Defense:} 19
-
-\textbf{Attributes:} Might+10, Finesse+9, Endurance+11, Insight+11, Resolve+12, Presence+9, Faith-3, Magick+10, Luck+8
-
-\textbf{Special:} Final Strike (1/1): End any ongoing effect, spell, or ability within 100 squares permanently
-
-\subsubsection{Concept of War}
-\textit{The abstract idea of conflict made manifest}
-
-\textbf{Strikes:} 20 \quad \textbf{Defense:} 17
-
-\textbf{Attributes:} Might+15, Finesse+7, Endurance+12, Insight+8, Resolve+8, Presence+9, Faith-4, Magick+6, Luck+7
-
-\textbf{Special:} Eternal Conflict: Embody all warfare and violence
-
-\subsubsection{The Unnamed God}
-\textit{A deity whose true name destroys minds}
-
-\textbf{Strikes:} 21 \quad \textbf{Defense:} 20
-
-\textbf{Attributes:} Might+12, Finesse+10, Endurance+12, Insight+12, Resolve+12, Presence+11, Faith+12, Magick+12, Luck+10
-
-\textbf{Special:} Unspeakable Name: Cannot be named without madness
-
-\subsubsection{Reality's Fever}
-\textit{The sickness that infects existence itself}
-
-\textbf{Strikes:} 22 \quad \textbf{Defense:} 19
-
-\textbf{Attributes:} Might+11, Finesse+9, Endurance+13, Insight+10, Resolve+11, Presence+8, Faith-6, Magick+11, Luck+8
-
-\textbf{Special:} Existential Disease: Infect reality with unreality
-
-\subsubsection{The Final Equation}
-\textit{Mathematics that solves for nothingness}
-
-\textbf{Strikes:} 23 \quad \textbf{Defense:} 20
-
-\textbf{Attributes:} Might+8, Finesse+10, Endurance+10, Insight+15, Resolve+13, Presence+9, Faith-3, Magick+15, Luck+10
-
-\textbf{Special:} Mathematical Proof: Prove that existence equals zero
-
-\subsubsection{Unnamed Fear}
-\textit{The terror that has no name or form}
-
-\textbf{Strikes:} 20 \quad \textbf{Defense:} 20
-
-\textbf{Attributes:} Might+10, Finesse+10, Endurance+9, Insight+10, Resolve+12, Presence+10, Faith-6, Magick+10, Luck+10
-
-\textbf{Special:} Primal Terror: The fear before all other fears
-
-\subsubsection{Ancient Evil}
-\textit{A primordial force of destruction}
-
-\textbf{Strikes:} 24 \quad \textbf{Defense:} 20
-
-\textbf{Attributes:} Might+15, Finesse+10, Endurance+12, Insight+10, Resolve+12, Presence+8, Faith-8, Magick+12, Luck+5
-
-\textbf{Special:} Unmaking Touch (1/1): Target must pass Endurance save or lose 1 maximum strike permanently
-
-\subsubsection{Elder Thing}
-\textit{An alien entity from before time}
-
-\textbf{Strikes:} 13 \quad \textbf{Defense:} 17
-
-\textbf{Attributes:} Might+6, Finesse+7, Endurance+6, Insight+9, Resolve+8, Presence+5, Faith-5, Magick+8, Luck+4
-
-\textbf{Special:} Mind Rend (2/2): Target must pass Resolve save or lose 2 Insight permanently
-
-\subsubsection{Great Old One}
-\textit{An cosmic entity of immense power}
-
-\textbf{Strikes:} 20 \quad \textbf{Defense:} 19
-
-\textbf{Attributes:} Might+8, Finesse+9, Endurance+8, Insight+12, Resolve+10, Presence+7, Faith-8, Magick+12, Luck+5
-
-\textbf{Special:} Cosmic Whispers (1/1): All within 20 squares must pass Resolve save or gain permanent madness
-
-\subsubsection{The First Dreamer}
-\textit{The mind that dreams all reality}
-
-\textbf{Strikes:} 20 \quad \textbf{Defense:} 18
-
-\textbf{Attributes:} Might+7, Finesse+8, Endurance+9, Insight+15, Resolve+15, Presence+12, Faith+5, Magick+12, Luck+10
-
-\textbf{Special:} Lucid Dream (1/1): Reshape reality within 50 squares to match any vision
-
-\clearpage
-%==================================================
-\definecolor{packcolor}{HTML}{c1be83}
-
-\section{Equipment \& Gear}
-
-\subsection{Equipment Packs}
-Choose one of the following equipment packs to start your adventure:
+% Enhanced Dark Fantasy Bestiary
+% Required packages: multicol, xcolor, array, tcolorbox
+
+% Creature section header
+\newcommand{\beastiarysection}[1]{%
+\vspace{4pt}
+\noindent{\color{blood}\rule{\columnwidth}{1.2pt}}\\
+\noindent{\color{gold}\Large\textbf{#1}}\\
+{\color{blood}\rule{\columnwidth}{0.6pt}}
+\vspace{3pt}
+}
+
+% Enhanced creature stat block
+\newcommand{\creature}[6]{%
+\vspace{2pt}
+\noindent\begin{minipage}{\columnwidth}
+\noindent{\color{gold}\textbf{#1}} \hfill {\color{bone}\small\textsc{#2}}\\
+{\color{ink}\small\textit{#3}}\\
+{\color{iron}\footnotesize\textbf{Strikes} #4 \textbullet\ \textbf{Defense} #5}\\
+{\color{ink}\tiny #6}
+\end{minipage}
+\vspace{3pt}
+}
+
+% Art placeholder command
+\newcommand{\creatureart}[1]{%
+\vspace{6pt}
+\begin{center}
+{\color{ironsoft}\rule{0.85\columnwidth}{0.4pt}}\\
+\vspace{3pt}
+{\color{bone}\footnotesize\textit{#1}}\\
+\vspace{3pt}
+{\color{ironsoft}\rule{0.85\columnwidth}{0.4pt}}
+\end{center}
+\vspace{6pt}
+}
 
 \begin{multicols}{2}
-\begin{enumerate}
-    \item \textcolor{packcolor}{\textbf{Sellsword Pack}} \\
-    \textit{Armor:} Medium Armor (2 slots, +2 DEF, 2/6 DR) \\
-    \textit{Weapon:} Longsword (Balanced, Sharp) \\
-    \textit{Protection:} Shield (+1 DR chance) \\
-    \textit{Equipment:} 50ft rope, whetstone, bedroll, 3 days rations, waterskin, coin purse \\
-    \textit{Starting Coin:} 25 Golm
-    
-    \item \textcolor{packcolor}{\textbf{Coachman Pack}} \\
-    \textit{Armor:} Light Armor (1 slot, +4 DEF, 1/6 DR) \\
-    \textit{Weapon:} Club (Sturdy, Weighted Pommel) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Whip, lantern, 2 flasks oil, horse tack, map case, 5 days rations, waterskin, blanket \\
-    \textit{Starting Coin:} 15 Golm
-    
-    \item \textcolor{packcolor}{\textbf{Noble Pack}} \\
-    \textit{Armor:} Light Armor (1 slot, +4 DEF, 1/6 DR) \\
-    \textit{Weapon:} Rapier (Well-Made, Balanced) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Signet ring, fine clothes, perfumed handkerchief, wine flask, 3 days fine rations, silk rope (30ft), jeweled dagger (concealed) \\
-    \textit{Starting Coin:} 100 Golm
-    
-    \item \textcolor{packcolor}{\textbf{Fortune Teller Pack}} \\
-    \textit{Armor:} None \\
-    \textit{Weapon:} Curved Dagger (Concealed, Sharp) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Tarot deck, crystal ball, incense sticks, colored scarves, small tent, 4 days rations, tea herbs, coin reading bowl \\
-    \textit{Starting Coin:} 20 Golm
-    
-    \item \textcolor{packcolor}{\textbf{Farmer Pack}} \\
-    \textit{Armor:} None \\
-    \textit{Weapon:} Pitchfork (Sturdy, Crude) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Sickle, hemp rope (40ft), grain sack, chicken (live), 7 days simple rations, waterskin, work gloves, seed pouch \\
-    \textit{Starting Coin:} 8 Golm
-    
-    \item \textcolor{packcolor}{\textbf{Explorer Pack}} \\
-    \textit{Armor:} Light Armor (1 slot, +4 DEF, 1/6 DR) \\
-    \textit{Weapon:} Hand Axe (Light, Weather-Sealed) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Compass, spyglass, climbing gear, 100ft rope, grappling hook, 5 days trail rations, waterskin, tent, flint \& steel \\
-    \textit{Starting Coin:} 30 Golm
-    
-    \columnbreak
-    
-    \item \textcolor{packcolor}{\textbf{Guild Alchemist Pack}} \\
-    \textit{Armor:} Light Armor (1 slot, +4 DEF, 1/6 DR) \\
-    \textit{Weapon:} Alchemist's Knife (Accurate, Sharp) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Portable alchemy kit, 6 empty vials, mortar \& pestle, 3 days rations, herb pouch, magnifying glass, journal \& ink \\
-    \textit{Starting Coin:} 40 Golm
-    
-    \item \textcolor{packcolor}{\textbf{Guild Artisan Pack}} \\
-    \textit{Armor:} Light Armor (1 slot, +4 DEF, 1/6 DR) \\
-    \textit{Weapon:} Hammer (Sturdy, Well-Made) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Artisan tools, measuring calipers, material samples, 4 days rations, work apron, trade guild seal, small anvil \\
-    \textit{Starting Coin:} 35 Golm
-    
-    \item \textcolor{packcolor}{\textbf{Bandit Pack}} \\
-    \textit{Armor:} Light Armor (1 slot, +4 DEF, 1/6 DR) \\
-    \textit{Weapon:} Cutlass (Crude, Notched vs Guards) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Lockpicks, mask, 30ft rope, grappling hook, 3 days stolen rations, waterskin, caltrops, small mirror \\
-    \textit{Starting Coin:} 12 Golm
-    
-    \item \textcolor{packcolor}{\textbf{Beggar Pack}} \\
-    \textit{Armor:} None \\
-    \textit{Weapon:} Walking Stick (Crude, Field-Repaired) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Begging bowl, tattered cloak, 2 days stale rations, cracked waterskin, lucky charm, needle \& thread \\
-    \textit{Starting Coin:} 3 Golm
-    
-    \item \textcolor{packcolor}{\textbf{Bounty Hunter Pack}} \\
-    \textit{Armor:} Medium Armor (2 slots, +2 DEF, 2/6 DR) \\
-    \textit{Weapon:} Crossbow (Accurate, Sturdy) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Manacles, 20 crossbow bolts, tracking gear, wanted posters, 4 days rations, rope (60ft), spyglass \\
-    \textit{Starting Coin:} 45 Golm
-    
-    \item \textcolor{packcolor}{\textbf{Bureaucrat Pack}} \\
-    \textit{Armor:} None \\
-    \textit{Weapon:} Letter Opener (Light, Concealed) \\
-    \textit{Protection:} None \\
-    \textit{Equipment:} Official papers, seal \& wax, ink \& quills, ledger book, 3 days rations, coin scales, reading spectacles, official robes \\
-    \textit{Starting Coin:} 50 Golm
-\end{enumerate}
-\end{multicols}
-\bloodrule
+\setlength{\columnsep}{16pt}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{ironsoft}}
+\raggedcolumns
 
-\newpage
+% HUMAN ANTAGONISTS
+\beastiarysection{HUMAN ANTAGONISTS}
 
-\subsection{Weapons}
+\creature{Thief}{Cutpurse}{A desperate cutpurse from the city's underbelly}{1}{13}{Might+0, Finesse+3, Endurance+1, Insight+2, Resolve+1, Presence+1\\
+\textbf{Backstab (3/3):} If target has acted this round, deal +1 Strike}
 
-\begin{multicols}{3}
-\small
-\textbf{Arming Sword} (Balanced) \dotfill 15g \\
-\textbf{Bastard Sword} (Heavy) \dotfill 25g \\
-\textbf{Battle Axe} (Brutal) \dotfill 20g \\
-\textbf{Broadsword} (Sharp) \dotfill 18g \\
-\textbf{Club} (Sturdy) \dotfill 2g \\
-\textbf{Crossbow} (Accurate) \dotfill 30g \\
-\textbf{Curved Dagger} (Concealed) \dotfill 8g \\
-\textbf{Cutlass} (Crude) \dotfill 12g \\
-\textbf{Dagger} (Light) \dotfill 5g \\
-\textbf{Falchion} (Cleaving) \dotfill 16g \\
-\textbf{Flail} (Unwieldy) \dotfill 14g \\
-\textbf{Great Axe} (Devastating) \dotfill 35g \\
-\textbf{Great Hammer} (Crushing) \dotfill 32g \\
-\textbf{Greatsword} (Massive) \dotfill 40g \\
-\textbf{Halberd} (Reach) \dotfill 22g \\
-\textbf{Hand Axe} (Throwable) \dotfill 6g \\
-\textbf{Javelin} (Piercing) \dotfill 3g \\
-\textbf{Lance} (Mounted) \dotfill 18g \\
-\textbf{Long Bow} (Powerful) \dotfill 25g \\
-\textbf{Longsword} (Well-Made) \dotfill 20g \\
-\textbf{Mace} (Blunt) \dotfill 10g \\
-\textbf{Morningstar} (Spiked) \dotfill 15g \\
-\textbf{Pike} (Extended) \dotfill 12g \\
-\textbf{Quarterstaff} (Versatile) \dotfill 1g \\
-\textbf{Rapier} (Precise) \dotfill 22g \\
-\textbf{Sabre} (Slashing) \dotfill 17g \\
-\textbf{Scimitar} (Curved) \dotfill 19g \\
-\textbf{Short Bow} (Quick) \dotfill 15g \\
-\textbf{Short Sword} (Nimble) \dotfill 12g \\
-\textbf{Spear} (Simple) \dotfill 5g \\
-\textbf{Staff Sling} (Ranged) \dotfill 8g \\
-\textbf{Two-Handed Sword} (Impressive) \dotfill 28g \\
-\textbf{War Hammer} (Armour-Piercing) \dotfill 18g \\
-\textbf{Whip} (Flexible) \dotfill 7g \\
-\end{multicols}
+\creature{Bandit}{Highway Robber}{A highway robber driven to violence by hunger}{1}{11}{Might+2, Finesse+1, Endurance+2, Insight+1, Resolve+1, Presence+1\\
+\textbf{Battle Cry (1/1):} Nearby allies gain +1 to attack rolls for 1 round}
 
-\subsection{Armor \& Protection}
+\creature{Slaver}{Human Trafficker}{A human trafficker who deals in flesh}{2}{12}{Might+2, Finesse+2, Endurance+2, Insight+1, Resolve+2, Presence+1\\
+\textbf{Whip Crack:} Target must pass Resolve save or cower in fear}
 
-\begin{multicols}{2}
-\textbf{Light Armor} \\
-\textit{Padded Armor} (1 slot, +3 DEF, 1/6 DR) \dotfill 8g \\
-\textit{Leather Armor} (1 slot, +4 DEF, 1/6 DR) \dotfill 12g \\
-\textit{Studded Leather} (1 slot, +5 DEF, 1/6 DR) \dotfill 18g \\
+\creature{Brigand}{Brutal Outlaw}{A brutal outlaw hardened by years of violence}{2}{13}{Might+3, Finesse+3, Endurance+2, Insight+1, Resolve+1, Presence+0\\
+\textbf{Crushing Strike (1/1):} Ignore all armor reduction on successful hit}
 
-\textbf{Medium Armor} \\
-\textit{Chain Shirt} (2 slots, +1 DEF, 2/6 DR) \dotfill 25g \\
-\textit{Scale Mail} (2 slots, +2 DEF, 2/6 DR) \dotfill 35g \\
-\textit{Chain Mail} (2 slots, +3 DEF, 2/6 DR) \dotfill 45g \\
+\creature{Cannibal}{Flesh Eater}{A deranged human who has developed a taste for flesh}{2}{11}{Might+3, Finesse+2, Endurance+3, Insight+1, Resolve+1, Presence-1\\
+\textbf{Frenzy:} +2 to attack rolls when below half strikes}
 
-\textbf{Heavy Armor} \\
-\textit{Banded Mail} (3 slots, +1 DEF, 3/6 DR) \dotfill 60g \\
-\textit{Plate Mail} (3 slots, +2 DEF, 3/6 DR) \dotfill 100g \\
-\textit{Full Plate} (3 slots, +3 DEF, 3/6 DR) \dotfill 200g \\
+\creature{Cultist}{Dark Fanatic}{A fanatic devoted to dark, forgotten gods}{1}{10}{Might+1, Finesse+0, Endurance+1, Insight+2, Resolve+3, Presence+2\\
+\textbf{Fanatical Devotion:} Immune to fear effects}
 
-\textbf{Shields} \\
-\textit{Buckler} (Small, +1 DR chance, Light) \dotfill 5g \\
-\textit{Round Shield} (Medium, +1 DR chance) \dotfill 8g \\
-\textit{Heater Shield} (Large, +1 DR chance, +1 DEF) \dotfill 12g \\
-\textit{Tower Shield} (Massive, +2 DR chance, Unwieldy) \dotfill 20g \\
-\end{multicols}
+\creature{Assassin}{Cold Killer}{A cold killer who murders for coin}{2}{14}{Might+2, Finesse+4, Endurance+1, Insight+2, Resolve+2, Presence+1\\
+\textbf{Poisoned Blade (2/2):} Target takes 1 additional strike next round}
 
-\subsection{Adventuring Equipment}
+\creature{Torturer}{Cruel Interrogator}{A cruel interrogator who enjoys inflicting pain}{2}{11}{Might+2, Finesse+2, Endurance+2, Insight+3, Resolve+3, Presence+1\\
+\textbf{Pain Tolerance:} +2 to Endurance saves against torture}
 
-\begin{multicols}{3}
-\small
-Backpack \dotfill 2g \\
-Bedroll \dotfill 1g \\
-Belt Pouch \dotfill 1g \\
-Blanket \dotfill 1g \\
-Block \& Tackle \dotfill 5g \\
-Caltrops (bag) \dotfill 2g \\
-Candle (10) \dotfill 1g \\
-Chain (10 ft) \dotfill 15g \\
-Chalk (10 pieces) \dotfill 1g \\
-Climbing Kit \dotfill 25g \\
-Crowbar \dotfill 2g \\
-Fishing Tackle \dotfill 2g \\
-Flask or Tankard \dotfill 1g \\
-Flint \& Steel \dotfill 1g \\
-Grappling Hook \dotfill 2g \\
-Hammer \dotfill 1g \\
-Hourglass \dotfill 25g \\
-Hunting Trap \dotfill 5g \\
-Ink (1 ounce bottle) \dotfill 10g \\
-Ink Pen \dotfill 1g \\
-Iron Spikes (10) \dotfill 1g \\
-Ladder (10-foot) \dotfill 2g \\
-Lamp \dotfill 2g \\
-Lantern, Bullseye \dotfill 10g \\
-Lantern, Hooded \dotfill 5g \\
-Lock \dotfill 10g \\
-Magnifying Glass \dotfill 100g \\
-Manacles \dotfill 15g \\
-Mirror, Steel \dotfill 5g \\
-Oil (flask) \dotfill 1g \\
-Paper (one sheet) \dotfill 2g \\
-Parchment (one sheet) \dotfill 1g \\
-Perfume (vial) \dotfill 5g \\
-Pick, Miner's \dotfill 2g \\
-Piton \dotfill 1g \\
-Pole (10-foot) \dotfill 2g \\
-Pot, Iron \dotfill 2g \\
-Pouch \dotfill 1g \\
-Quiver \dotfill 1g \\
-Ram, Portable \dotfill 4g \\
-Rations (1 day) \dotfill 2g \\
-Rations, Fine (1 day) \dotfill 5g \\
-Rope, Hempen (50 feet) \dotfill 2g \\
-Rope, Silk (50 feet) \dotfill 10g \\
-Sack \dotfill 1g \\
-Scale, Merchant's \dotfill 5g \\
-Sealing Wax \dotfill 1g \\
-Shovel \dotfill 2g \\
-Signal Whistle \dotfill 1g \\
-Signet Ring \dotfill 50g \\
-Soap \dotfill 1g \\
-Spyglass \dotfill 1000g \\
-Tent, Two-person \dotfill 2g \\
-Thieves' Tools \dotfill 25g \\
-Tinderbox \dotfill 1g \\
-Torch \dotfill 1g \\
-Waterskin \dotfill 2g \\
-Whetstone \dotfill 1g \\
-\end{multicols}
+\creature{Mercenary}{Battle-Scarred Sellsword}{A battle-scarred sellsword}{2}{13}{Might+3, Finesse+3, Endurance+2, Insight+1, Resolve+2, Presence+1\\
+\textbf{Combat Veteran:} +1 to initiative rolls}
 
-\subsection{Vehicles \& Transportation}
+\creature{Pirate}{Sea Raider}{A sea-faring raider with blood on his hands}{2}{13}{Might+2, Finesse+3, Endurance+2, Insight+2, Resolve+2, Presence+2\\
+\textbf{Sea Legs:} Immune to effects that would knock prone on ships}
 
-\begin{multicols}{2}
-\textbf{Land Vehicles} \\
-Hand Cart \dotfill 15g \\
-Riding Cart \dotfill 35g \\
-Carriage \dotfill 100g \\
-Noble Carriage \dotfill 500g \\
-War Chariot \dotfill 250g \\
-Sled \dotfill 20g \\
-Wagon \dotfill 50g \\
-Covered Wagon \dotfill 75g \\
+\creatureart{Rogues Gallery - Scoundrels and Sellswords}
 
-\textbf{Watercraft} \\
-Canoe \dotfill 50g \\
-Coracle \dotfill 30g \\
-Fishing Boat \dotfill 500g \\
-Galley \dotfill 30,000g \\
-Keelboat \dotfill 3,000g \\
-Longboat \dotfill 200g \\
-Raft \dotfill 10g \\
-Rowboat \dotfill 100g \\
-\end{multicols}
+\creature{Marauder}{Savage Raider}{A savage raider who lives for battle and plunder}{2}{12}{Might+3, Finesse+2, Endurance+3, Insight+1, Resolve+2, Presence+1\\
+\textbf{Bloodthirsty:} +1 to attack rolls against wounded enemies}
 
-\subsection{Mounts \& Animals}
+\creature{Reaver}{Merciless Warrior}{A merciless warrior who takes no prisoners}{3}{13}{Might+4, Finesse+3, Endurance+3, Insight+2, Resolve+3, Presence+2\\
+\textbf{Relentless:} Can attack again after killing an enemy}
 
-\begin{multicols}{2}
-\textbf{Horses \& Mounts} \\
-Draft Horse \dotfill 50g \\
-Mule \dotfill 25g \\
-Noble's Horse \dotfill 500g \\
-Pony \dotfill 30g \\
-Riding Horse \dotfill 75g \\
-War Horse \dotfill 400g \\
+\creature{Brute}{Brutish Enforcer}{A large, brutish enforcer with little wit}{2}{10}{Might+4, Finesse+0, Endurance+3, Insight-1, Resolve+1, Presence+1\\
+\textbf{Overwhelming Force:} +2 strikes when attacking surprised targets}
 
-\textbf{Tack \& Harness} \\
-Bit \& Bridle \dotfill 2g \\
-Leather Barding \dotfill 60g \\
-Scale Barding \dotfill 500g \\
-Chain Barding \dotfill 2,000g \\
-Feed (per day) \dotfill 1g \\
-Pack Saddle \dotfill 5g \\
-Riding Saddle \dotfill 10g \\
-War Saddle \dotfill 20g \\
-Saddlebags \dotfill 4g \\
-Stabling (per day) \dotfill 5g \\
+\creature{Guard}{Corrupt Watchman}{A corrupt town watchman who serves whoever pays}{2}{12}{Might+2, Finesse+2, Endurance+2, Insight+1, Resolve+2, Presence+1\\
+\textbf{Stand Your Ground (2/2):} Gain +2 Defense until start of next turn}
 
-\textbf{Livestock \& Animals} \\
-Bull \dotfill 50g \\
-Cat \dotfill 5g \\
-Chicken \dotfill 2g \\
-Cow \dotfill 30g \\
-Guard Dog \dotfill 25g \\
-Hunting Dog \dotfill 40g \\
-Lap Dog \dotfill 10g \\
-War Dog \dotfill 100g \\
-Donkey \dotfill 20g \\
-Duck \dotfill 3g \\
-Falcon \dotfill 500g \\
-Goat \dotfill 8g \\
-Hawk \dotfill 200g \\
-Ox \dotfill 75g \\
-Pig \dotfill 15g \\
-Raven \dotfill 25g \\
-Sheep \dotfill 12g \\
-\end{multicols}
+\creature{Zealot}{Religious Fanatic}{A religious fanatic willing to die for their dark faith}{2}{11}{Might+2, Finesse+1, Endurance+2, Insight+1, Resolve+4, Presence+2\\
+\textbf{Divine Fervor:} +2 to all Faith saves, immune to fear}
 
-\subsection{Services \& Provisions}
+\creature{Wytch Hunter}{Grim Inquisitor}{A grim inquisitor who burns the magically gifted}{3}{13}{Might+3, Finesse+3, Endurance+2, Insight+3, Resolve+4, Presence+2\\
+\textbf{Wytch Sight:} Can detect magical auras, +2 vs spellcasters}
 
-\begin{multicols}{2}
-\textbf{Services} \\
-Coach cab (per mile) \dotfill 1g \\
-Hireling (per day) \dotfill 2g \\
-Messenger (per mile) \dotfill 1g \\
-Road or gate toll \dotfill 1g \\
-Ship's passage (per mile) \dotfill 1g \\
+\creature{Executioner}{Hooded Killer}{A hooded killer who serves as judge and jury}{3}{12}{Might+4, Finesse+2, Endurance+3, Insight+1, Resolve+3, Presence+1\\
+\textbf{Headsman's Axe:} Critical hits deal +2 strikes instead of +1}
+
+\creature{Ronin}{Masterless Warrior}{A masterless warrior seeking redemption through combat}{3}{14}{Might+3, Finesse+4, Endurance+2, Insight+2, Resolve+3, Presence+2\\
+\textbf{Precise Strike:} Critical hits deal +2 strikes instead of +1}
+
+\creature{Warlord}{Battle-Tested Leader}{A battle-tested leader of men and monsters}{4}{14}{Might+4, Finesse+3, Endurance+3, Insight+3, Resolve+4, Presence+4\\
+\textbf{Command Presence:} Allies within 30ft gain +1 to morale saves}
+
+\creature{Pit Fighter}{Scarred Gladiator}{A scarred gladiator who fights for survival}{3}{13}{Might+4, Finesse+3, Endurance+4, Insight+2, Resolve+3, Presence+2\\
+\textbf{Arena Veteran:} +1 to attack rolls when outnumbered}
+
+\creatureart{Warriors of the Blood-Soaked Sands}
+
+\creature{Wytch}{Dark Crone}{A crone with knowledge of dark magic}{2}{12}{Might+1, Finesse+2, Endurance+2, Insight+4, Resolve+3, Presence+2\\
+\textbf{Hex Magic:} Curse targets with misfortune}
+
+\creature{Warlock}{Shadow-Bound}{A human bound to dark powers}{3}{13}{Might+2, Finesse+3, Endurance+2, Insight+3, Resolve+3, Presence+3\\
+\textbf{Shadow Coil (3/3), Doombrand (2/2), Eldritch Blast}}
+
+\creature{Necromancer}{Death Master}{A master of death magic}{4}{14}{Might+1, Finesse+4, Endurance+2, Insight+5, Resolve+4, Presence+3\\
+\textbf{Animate Dead, Death Spells, Control Undead}}
+
+\creature{Demon Cultist}{Infernal Devotee}{A human devoted to infernal powers}{2}{11}{Might+2, Finesse+2, Endurance+2, Insight+2, Resolve+3, Presence+2\\
+\textbf{Demonic Pact:} Summon lesser demon once per day}
+
+\creature{Mad Prophet}{Insane Herald}{A divine herald driven to insanity}{2}{12}{Might+1, Finesse+1, Endurance+2, Insight+3, Resolve+2, Presence+3\\
+\textbf{Divine Madness:} Speak prophecies that alter fate}
+
+\creature{Blood Priest}{Sacrifice Cleric}{A cleric who serves through sacrifice}{3}{13}{Might+2, Finesse+2, Endurance+3, Insight+3, Resolve+4, Presence+3\\
+\textbf{Blood Magic:} Sacrifice health for powerful spells}
+
+\creature{Dark Paladin}{Fallen Knight}{A fallen knight serving evil}{4}{15}{Might+4, Finesse+4, Endurance+3, Insight+2, Resolve+4, Presence+3\\
+\textbf{Unholy Smite, Aura of Fear, Dark Healing}}
+
+\creature{Berserker}{Rage-Lost Warrior}{A warrior lost to battle rage}{3}{11}{Might+5, Finesse+2, Endurance+4, Insight+1, Resolve+2, Presence+2\\
+\textbf{Unstoppable Rage:} +2 strikes when below half health}
 
 \columnbreak
 
-\textbf{Food, Drink \& Lodging} \\
-Ale (mug) \dotfill 1g \\
-Banquet (per person) \dotfill 10g \\
-Bread, loaf \dotfill 1g \\
-Cheese, hunk \dotfill 1g \\
-Inn stay (per day) \dotfill 5g \\
-Inn stay, wealthy (per day) \dotfill 20g \\
-Meals (per day) \dotfill 3g \\
-Meat, chunk \dotfill 3g \\
-Wine, common (pitcher) \dotfill 2g \\
-Wine, fine (bottle) \dotfill 10g \\
+% BEASTS
+\beastiarysection{BEASTS}
+
+\creature{Rat}{Sewer Rodent}{A diseased rodent from the sewers}{1}{12}{Might-1, Finesse+2, Endurance+0, Insight+1, Resolve+1, Presence-2\\
+\textbf{Disease Bite:} Target must pass Endurance save or contract plague}
+
+\creature{Wolf}{Lean Predator}{A lean predator driven by hunger}{2}{13}{Might+2, Finesse+3, Endurance+2, Insight+2, Resolve+2, Presence+0\\
+\textbf{Pack Hunter:} +1 to attack if ally attacked same target this round}
+
+\creature{Giant Rat}{Monstrous Rodent}{A sewer rat grown to monstrous size}{2}{11}{Might+1, Finesse+2, Endurance+2, Insight+1, Resolve+1, Presence-1\\
+\textbf{Gnaw:} On critical hit, target's armor loses 1 defense permanently}
+
+\creature{Cave Bear}{Mountain Predator}{A massive predator that dwells in mountain caves}{4}{11}{Might+5, Finesse+1, Endurance+4, Insight+2, Resolve+3, Presence+1\\
+\textbf{Maul:} On critical hit, target must pass Endurance save or be stunned}
+
+\creature{Dire Wolf}{Oversized Hunter}{An oversized wolf with intelligence and malice}{3}{12}{Might+3, Finesse+2, Endurance+3, Insight+3, Resolve+2, Presence+1\\
+\textbf{Intimidating Howl:} Enemies within 30ft must pass Resolve save or take -1 to attacks}
+
+\creature{Saber Cat}{Prehistoric Feline}{A prehistoric feline with massive canine teeth}{3}{14}{Might+4, Finesse+4, Endurance+3, Insight+3, Resolve+2, Presence+1\\
+\textbf{Pounce:} Deal +2 strikes if moved before attacking}
+
+\creature{Giant Spider}{Web Spinner}{A web-spinning predator the size of a horse}{2}{12}{Might+2, Finesse+3, Endurance+2, Insight+2, Resolve+1, Presence-2\\
+\textbf{Web Trap:} Target must pass Finesse save or be restrained}
+
+\creature{Viper}{Deadly Serpent}{A serpent with deadly venom}{1}{13}{Might+1, Finesse+3, Endurance+1, Insight+2, Resolve+1, Presence-2\\
+\textbf{Lethal Venom:} Target must pass Endurance save or take 2 strikes next round}
+
+\creature{Giant Scorpion}{Desert Arachnid}{A desert arachnid with crushing claws}{3}{13}{Might+3, Finesse+3, Endurance+4, Insight+1, Resolve+2, Presence-1\\
+\textbf{Poison Sting:} Target must pass Endurance save or be paralyzed for 1 round}
+
+\creature{Mammoth}{Colossal Beast}{A colossal woolly beast from the frozen wastes}{8}{11}{Might+8, Finesse+1, Endurance+6, Insight+2, Resolve+4, Presence+3\\
+\textbf{Trample:} Can move through enemies, dealing 2 strikes to each}
+
+\creatureart{Creatures of Fang and Claw}
+
+\creature{Blood Eagle}{Heart Ripper}{A raptor that feeds on still-beating hearts}{2}{15}{Might+3, Finesse+5, Endurance+2, Insight+3, Resolve+2, Presence+2\\
+\textbf{Heart Ripper:} Tear out vital organs in flight}
+
+\creature{Storm Crow}{Disaster Herald}{A giant corvid that heralds disaster}{2}{16}{Might+2, Finesse+6, Endurance+2, Insight+4, Resolve+3, Presence+2\\
+\textbf{Ill Omen:} Enemies suffer -1 to all rolls}
+
+% UNDEAD
+\beastiarysection{UNDEAD}
+
+\creature{Skeleton}{Animated Bones}{Animated bones held together by dark magic}{1}{10}{Might+1, Finesse+0, Endurance+0, Insight+0, Resolve+3, Presence-2\\
+\textbf{Undead Resilience:} Immune to fear, poison, and mental effects}
+
+\creature{Zombie}{Shambling Corpse}{A shambling corpse that hungers for flesh}{2}{8}{Might+3, Finesse-2, Endurance+4, Insight-2, Resolve+1, Presence-3\\
+\textbf{Undying:} Continue fighting for 1 round after reaching 0 strikes}
+
+\creature{Ghoul}{Flesh Eater}{A flesh-eating corpse with paralyzing claws}{2}{12}{Might+2, Finesse+2, Endurance+2, Insight+1, Resolve+2, Presence-1\\
+\textbf{Paralysis:} Target must pass Endurance save or lose next action}
+
+\creature{Wight}{Undead Warrior}{A powerful undead warrior retaining combat skills}{3}{13}{Might+4, Finesse+3, Endurance+3, Insight+2, Resolve+4, Presence+1\\
+\textbf{Energy Drain:} Target hit loses 1 from random ability score}
+
+\creature{Wraith}{Incorporeal Spirit}{An incorporeal spirit filled with hatred}{2}{14}{Might+1, Finesse+4, Endurance+0, Insight+3, Resolve+4, Presence+2\\
+\textbf{Life Drain:} Heal 1 strike when dealing strikes to living creatures}
+
+\creature{Specter}{Ghostly Apparition}{A ghostly apparition that feeds on terror}{1}{14}{Might+0, Finesse+4, Endurance+0, Insight+2, Resolve+4, Presence+2\\
+\textbf{Terror:} Target must pass Resolve save or flee in panic}
+
+\creature{Mummy}{Ancient Corpse}{An ancient corpse wrapped in cursed bandages}{3}{12}{Might+3, Finesse+2, Endurance+4, Insight+2, Resolve+4, Presence+1\\
+\textbf{Curse of Ages:} Target hit must pass Faith save or age 1 year}
+
+\creature{Banshee}{Wailing Spirit}{A wailing spirit of vengeance and sorrow}{2}{15}{Might+1, Finesse+5, Endurance+0, Insight+3, Resolve+5, Presence+3\\
+\textbf{Wail of Death:} All living within 30ft must pass Resolve save or be stunned}
+
+\creature{Vampire Spawn}{Lesser Vampire}{A lesser vampire serving its dark master}{3}{14}{Might+3, Finesse+4, Endurance+2, Insight+3, Resolve+3, Presence+3\\
+\textbf{Blood Drain:} Heal 1 strike when dealing strikes to living targets}
+
+\creature{Lich}{Undead Sorcerer}{An undead sorcerer of terrible power}{8}{16}{Might+2, Finesse+6, Endurance+3, Insight+6, Resolve+6, Presence+4\\
+\textbf{Spellcaster:} Can cast Mage abilities, Paralyzing Touch, Death Magic}
+
+\creatureart{The Restless Dead Walk Among Us}
+
+\creature{Vampire Lord}{Ancient Bloodsucker}{An ancient bloodsucker of noble bearing}{10}{17}{Might+6, Finesse+7, Endurance+5, Insight+6, Resolve+6, Presence+7\\
+\textbf{Dominate (2/2):} Target must pass Resolve save or obey one command}
+
+\creature{Lich King}{Death Master}{A master of death and undeath}{18}{18}{Might+4, Finesse+8, Endurance+6, Insight+8, Resolve+8, Presence+6\\
+\textbf{Death Command (1/1):} Instantly kill target with 3 or fewer strikes remaining}
+
+% DEMI-HUMAN
+\beastiarysection{DEMI-HUMAN}
+
+\creature{Goblin}{Cave Dweller}{A small, vicious creature from the deep caves}{1}{12}{Might+0, Finesse+2, Endurance+1, Insight+1, Resolve+0, Presence-1\\
+\textbf{Dirty Fighting:} Critical hits on 19-20 against surprised targets}
+
+\creature{Orc}{Brutish Warrior}{A brutish warrior with a taste for violence}{2}{11}{Might+4, Finesse+1, Endurance+3, Insight+0, Resolve+1, Presence+1\\
+\textbf{Berserker Rage:} +2 to attack rolls when below half strikes}
+
+\creature{Cave Dweller}{Pale Humanoid}{A pale, blind humanoid adapted to underground life}{1}{13}{Might+1, Finesse+3, Endurance+2, Insight+4, Resolve+1, Presence-2\\
+\textbf{Blindsight:} Cannot be surprised, immune to visual effects}
+
+\creature{Troll}{Regenerative Giant}{A massive humanoid with regenerative flesh}{5}{11}{Might+6, Finesse+1, Endurance+5, Insight+1, Resolve+2, Presence+1\\
+\textbf{Regeneration:} Regain 1 strike per round unless fire strikes taken}
+
+\creature{Giant}{Colossal Humanoid}{A colossal humanoid from the ancient world}{10}{12}{Might+8, Finesse+2, Endurance+7, Insight+2, Resolve+4, Presence+3\\
+\textbf{Boulder Throw:} Ranged attack for 3 strikes up to 200ft}
+
+\creature{Serpent-Man}{Ancient Scaled}{An ancient scaled humanoid from pre-human times}{3}{13}{Might+2, Finesse+3, Endurance+3, Insight+4, Resolve+3, Presence+2\\
+\textbf{Ancient Knowledge:} Can cast simple spells, hypnotic gaze}
+
+\creature{Frost Giant}{Frozen Colossus}{A colossal humanoid from the frozen north}{12}{13}{Might+9, Finesse+3, Endurance+8, Insight+3, Resolve+5, Presence+4\\
+\textbf{Ice Weapons, Cold Immunity, Boulder Throw}}
+
+\creature{Fire Giant}{Molten Colossus}{A massive humanoid wreathed in flames}{14}{14}{Might+10, Finesse+4, Endurance+9, Insight+4, Resolve+6, Presence+5\\
+\textbf{Molten Weapon (2/2):} Weapon attacks deal +2 strikes and ignite targets}
+
+\creature{Storm Giant}{Weather Lord}{A colossal being that commands the weather}{16}{16}{Might+9, Finesse+6, Endurance+8, Insight+6, Resolve+7, Presence+7\\
+\textbf{Lightning Strike (3/3):} Call down bolt for 3 strikes against any target within 40 squares}
+
+\creature{Titan}{Primordial Giant}{An ancient giant from the dawn of time}{20}{15}{Might+12, Finesse+5, Endurance+11, Insight+7, Resolve+9, Presence+8\\
+\textbf{Primordial Strength (1/1):} Deal 6 strikes, ignoring all armor and defenses}
+
+\creatureart{Ancient Peoples of Stone and Shadow}
+
+% DEMONS
+\beastiarysection{DEMONS}
+
+\creature{Lesser Demon}{Weak Fiend}{A weak fiend summoned from the abyss}{2}{12}{Might+2, Finesse+2, Endurance+2, Insight+1, Resolve+2, Presence+1\\
+\textbf{Hellfire Claws:} Deal fire strikes that ignores armor}
+
+\creature{Imp}{Winged Trickster}{A small, winged demon that delights in cruelty}{1}{14}{Might-1, Finesse+4, Endurance+1, Insight+3, Resolve+2, Presence+1\\
+\textbf{Invisibility:} Become invisible until next attack (2/2 per encounter)}
+
+\creature{Hell Hound}{Fiendish Canine}{A fiendish canine wreathed in flames}{2}{12}{Might+3, Finesse+2, Endurance+3, Insight+2, Resolve+2, Presence+1\\
+\textbf{Breath Fire:} 15ft cone, Endurance save or take 1 additional strike}
+
+\creature{Barbed Devil}{Spine-Covered Fiend}{A fiend covered in razor-sharp spines}{4}{14}{Might+4, Finesse+4, Endurance+4, Insight+3, Resolve+4, Presence+2\\
+\textbf{Barbed Hide:} Attackers in melee range take 1 strike}
+
+\creature{Shadow Demon}{Living Darkness}{A creature of living darkness}{3}{15}{Might+2, Finesse+5, Endurance+2, Insight+4, Resolve+4, Presence+2\\
+\textbf{Shadow Step:} Teleport between shadows as a free action}
+
+\creature{Pit Fiend}{Infernal General}{A mighty general of the infernal legions}{12}{17}{Might+8, Finesse+7, Endurance+7, Insight+6, Resolve+7, Presence+7\\
+\textbf{Fear Aura, Fire Immunity, Flight, Multiple Attacks}}
+
+\creature{Demon Lord}{Prince of Abyss}{A prince of the abyss}{16}{18}{Might+10, Finesse+8, Endurance+8, Insight+7, Resolve+8, Presence+9\\
+\textbf{Hellgate (1/1):} Open portal to summon 3 lesser demons for remainder of encounter}
+
+\creature{Archfiend}{Hell's General}{A general of hell's armies}{20}{19}{Might+12, Finesse+9, Endurance+9, Insight+8, Resolve+9, Presence+10\\
+\textbf{Infernal Decree (1/1):} Reshape local reality within 20 squares for 1 encounter}
+
+\creatureart{Legions of the Burning Abyss}
+
+% COSMIC HORRORS
+\beastiarysection{COSMIC HORRORS}
+
+\creature{Avatar of Endings}{Finality Incarnate}{The personification of all finality}{21}{19}{Might+10, Finesse+9, Endurance+11, Insight+11, Resolve+12, Presence+9\\
+\textbf{Final Strike (1/1):} End any ongoing effect, spell, or ability within 100 squares permanently}
+
+\creature{Concept of War}{Conflict Manifest}{The abstract idea of conflict made manifest}{20}{17}{Might+15, Finesse+7, Endurance+12, Insight+8, Resolve+8, Presence+9\\
+\textbf{Eternal Conflict:} Embody all warfare and violence}
+
+\creature{Unnamed God}{Nameless Deity}{A deity whose true name destroys minds}{21}{20}{Might+12, Finesse+10, Endurance+12, Insight+12, Resolve+12, Presence+11\\
+\textbf{Unspeakable Name:} Cannot be named without madness}
+
+\creature{Ancient Evil}{Primordial Destruction}{A primordial force of destruction}{24}{20}{Might+15, Finesse+10, Endurance+12, Insight+10, Resolve+12, Presence+8\\
+\textbf{Unmaking Touch (1/1):} Target must pass Endurance save or lose 1 maximum strike permanently}
+
+\creature{Great Old One}{Cosmic Entity}{A cosmic entity of immense power}{20}{19}{Might+8, Finesse+9, Endurance+8, Insight+12, Resolve+10, Presence+7\\
+\textbf{Cosmic Whispers (1/1):} All within 20 squares must pass Resolve save or gain permanent madness}
+
+\creature{First Dreamer}{Reality's Mind}{The mind that dreams all reality}{20}{18}{Might+7, Finesse+8, Endurance+9, Insight+15, Resolve+15, Presence+12\\
+\textbf{Lucid Dream (1/1):} Reshape reality within 50 squares to match any vision}
+
+\creatureart{Things That Should Not Be}
+
 \end{multicols}
+
+\vspace{4pt}
+{\color{blood}\rule{\textwidth}{1.2pt}}
+\clearpage
+%==================================================
 \end{document}
