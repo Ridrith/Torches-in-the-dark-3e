@@ -137,6 +137,14 @@ const ENEMIES = {
   bossWytch: {name:"Morvaine the Ash-Tongued",strikes:8,maxStrikes:8,defense:14,might:2,finesse:4,endurance:3,special:"Casts spells each round. Void Shield: first attack each round misses. At half health summons Shadow Birth.",dmgType:"slashing",isBoss:true},
 };
 
+// PARTY MEMBERS
+const PARTY_MEMBERS = {
+  kael: {id:"kael",name:"Kael",strikes:4,maxStrikes:4,defense:13,attackBonus:5,damage:1,special:"Disciplined: attacks the most wounded enemy.",alive:true},
+  dorn: {id:"dorn",name:"Dorn",strikes:5,maxStrikes:5,defense:12,attackBonus:4,damage:1,special:"Juggernaut: cannot be knocked out in first 3 rounds.",alive:true,juggernautActive:true},
+  sable: {id:"sable",name:"Sable",strikes:3,maxStrikes:3,defense:14,attackBonus:6,damage:1,special:"First Strike: +1 damage on first attack of combat.",alive:true,firstStrikeUsed:false},
+  brotherCade: {id:"brotherCade",name:"Brother Cade",strikes:5,maxStrikes:5,defense:11,attackBonus:3,damage:1,special:"Divine Shield: absorbs first hit directed at him each combat.",alive:true,divineShieldActive:true},
+};
+
 // NARRATIVE SCENES
 const SCENES = {
   // ===== PROLOGUE =====
@@ -242,7 +250,7 @@ const SCENES = {
       "\"I'll come with you as far as Squall's End. After that, we'll see. My blade costs 8 Golm a day, but for someone hunting a Wytch?\" She almost smiles. \"Half price.\"",
     ],
     choices:[
-      {text:"\"Welcome aboard.\" (Kael joins as companion)", next:"millhavenReturn", effect:{addCompanion:"kael"}},
+      {text:"\"Welcome aboard.\" (Kael joins as party member)", next:"millhavenReturn", effect:{addPartyMember:{...PARTY_MEMBERS.kael}}},
       {text:"\"I work alone.\"", next:"millhavenReturn"},
       {text:"Ask her what she knows about the road ahead.", next:"kaelInfo"},
     ],
@@ -255,7 +263,7 @@ const SCENES = {
       "\"You could go around—through the Barrows—but that's its own kind of trouble. Old things sleep in those hills. Things that don't like being woken.\"",
     ],
     choices:[
-      {text:"\"I'll take you up on that offer.\" (Kael joins)", next:"millhavenReturn", effect:{addCompanion:"kael"}},
+      {text:"\"I'll take you up on that offer.\" (Kael joins)", next:"millhavenReturn", effect:{addPartyMember:{...PARTY_MEMBERS.kael}}},
       {text:"Thank her and return to the tavern.", next:"millhavenReturn"},
     ],
   },
@@ -733,7 +741,7 @@ export default function TorchesInTheDark() {
   const [armorDef, setArmorDef] = useState(0);
   const [armorDR, setArmorDR] = useState(0);
   const [hasShield, setHasShield] = useState(false);
-  const [companion, setCompanion] = useState(null);
+  const [party, setParty] = useState([]);
   const [quests, setQuests] = useState([]);
   const [sortAbilityUses, setSortAbilityUses] = useState({});
   const [traitUses, setTraitUses] = useState(0);
@@ -810,7 +818,7 @@ export default function TorchesInTheDark() {
       setActiveTrait(null);
       setEquipPack(null);
       setQuests([]);
-      setCompanion(null);
+      setParty([]);
       return;
     }
     if (sceneId === "charCreate") {
@@ -860,7 +868,9 @@ export default function TorchesInTheDark() {
     if (eff.addCoin) setCoin(p => p + eff.addCoin);
     if (eff.halveCoin) setCoin(p => Math.floor(p / 2));
     if (eff.addItem) setInventory(p => [...p, eff.addItem]);
-    if (eff.addCompanion) setCompanion(eff.addCompanion);
+    if (eff.addCompanion) setParty(p => p.length < 3 ? [...p, eff.addCompanion] : p); // Legacy support
+    if (eff.addPartyMember) setParty(p => p.length < 3 ? [...p, eff.addPartyMember] : p);
+    if (eff.removePartyMember) setParty(p => p.filter(m => m.id !== eff.removePartyMember));
     if (eff.addQuest) setQuests(p => [...p, eff.addQuest]);
     if (eff.addWeaponTag) setWeaponTag(p => p + ", " + eff.addWeaponTag);
     if (eff.fullHeal) setStrikes(maxStrikes);
@@ -960,27 +970,72 @@ export default function TorchesInTheDark() {
     
     setCombatLog(prev => [...prev, ...newLog]);
     
-    // Companion attack
-    if (companion === "kael" && enemies.some(e => e.strikes > 0)) {
+    // Party member attacks
+    if (party.length > 0 && enemies.some(e => e.strikes > 0)) {
       setTimeout(() => {
-        const aliveTargets = enemies.filter(e => e.strikes > 0);
-        const kTarget = aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
-        const kRoll = d20();
-        const kTotal = kRoll + 5; // Kael's attack bonus
-        if (kTotal >= kTarget.defense) {
-          const kIdx = enemies.findIndex(e => e.id === kTarget.id);
-          const updatedEnemies = [...enemies];
-          updatedEnemies[kIdx] = { ...updatedEnemies[kIdx], strikes: Math.max(0, updatedEnemies[kIdx].strikes - 1) };
-          setEnemies(updatedEnemies);
-          setCombatLog(prev => [...prev, `Kael attacks ${kTarget.name}: ${kRoll}+5=${kTotal} — HIT! 1 Strike.${updatedEnemies[kIdx].strikes <= 0 ? ` ${kTarget.name} falls!` : ''}`]);
-          if (updatedEnemies.every(e => e.strikes <= 0)) {
-            setCombatLog(prev => [...prev, "", "— VICTORY! —"]);
-            setTimeout(() => endCombat(true), 1200);
-            return;
-          }
-        } else {
-          setCombatLog(prev => [...prev, `Kael attacks ${kTarget.name}: ${kRoll}+5=${kTotal} — Miss.`]);
+        const aliveEnemies = enemies.filter(e => e.strikes > 0);
+        const aliveParty = party.filter(m => m.alive && m.strikes > 0);
+        
+        if (aliveParty.length === 0 || aliveEnemies.length === 0) {
+          setCombatTurn("enemy");
+          setTimeout(() => enemyTurn(), 800);
+          return;
         }
+        
+        let updatedEnemies = [...enemies];
+        let partyLog = [];
+        
+        aliveParty.forEach((member, memberIdx) => {
+          if (updatedEnemies.filter(e => e.strikes > 0).length === 0) return;
+          
+          const aliveTargets = updatedEnemies.filter(e => e.strikes > 0);
+          let target;
+          
+          // Kael's special: target most wounded
+          if (member.id === "kael") {
+            target = aliveTargets.reduce((prev, curr) => 
+              (curr.strikes < prev.strikes) ? curr : prev
+            );
+          } else {
+            // Random target for others
+            target = aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
+          }
+          
+          const roll = d20();
+          const total = roll + member.attackBonus;
+          
+          if (total >= target.defense) {
+            let dmg = member.damage;
+            
+            // Sable's first strike bonus
+            if (member.id === "sable" && !member.firstStrikeUsed) {
+              dmg += 1;
+              partyLog.push(`${member.name} unleashes her First Strike!`);
+              // Mark first strike as used
+              setParty(p => p.map(m => m.id === "sable" ? {...m, firstStrikeUsed: true} : m));
+            }
+            
+            const targetIdx = updatedEnemies.findIndex(e => e.id === target.id);
+            updatedEnemies[targetIdx] = { 
+              ...updatedEnemies[targetIdx], 
+              strikes: Math.max(0, updatedEnemies[targetIdx].strikes - dmg) 
+            };
+            
+            partyLog.push(`${member.name} attacks ${target.name}: ${roll}+${member.attackBonus}=${total} — HIT! ${dmg} Strike${dmg>1?'s':''}.${updatedEnemies[targetIdx].strikes <= 0 ? ` ${target.name} falls!` : ''}`);
+          } else {
+            partyLog.push(`${member.name} attacks ${target.name}: ${roll}+${member.attackBonus}=${total} — Miss.`);
+          }
+        });
+        
+        setEnemies(updatedEnemies);
+        setCombatLog(prev => [...prev, ...partyLog]);
+        
+        if (updatedEnemies.every(e => e.strikes <= 0)) {
+          setCombatLog(prev => [...prev, "", "— VICTORY! —"]);
+          setTimeout(() => endCombat(true), 1200);
+          return;
+        }
+        
         setCombatTurn("enemy");
         setTimeout(() => enemyTurn(), 800);
       }, 600);
@@ -995,51 +1050,91 @@ export default function TorchesInTheDark() {
     const alive = currentEnemies.filter(e => e.strikes > 0);
     if (alive.length === 0) return;
     
-    let totalDmg = 0;
     let newLog = [];
+    const aliveParty = party.filter(m => m.alive && m.strikes > 0);
     
     alive.forEach(enemy => {
       const r = d20();
       const attackBonus = enemy.finesse || enemy.might || 2;
       const total = r + attackBonus;
-      const playerDef = 5 + (abilities.Finesse || 0) + armorDef + (hasShield ? 1 : 0);
       
-      if (total >= playerDef) {
+      // Determine target: 50% player, 50% split among party
+      const targetRoll = Math.random();
+      let targetType = "player";
+      let targetMember = null;
+      let targetDef = 5 + (abilities.Finesse || 0) + armorDef + (hasShield ? 1 : 0);
+      
+      if (aliveParty.length > 0 && targetRoll > 0.5) {
+        // Target random party member
+        targetMember = aliveParty[Math.floor(Math.random() * aliveParty.length)];
+        targetType = "party";
+        targetDef = 5 + targetMember.defense - 10; // Convert their defense to a bonus
+      }
+      
+      if (total >= targetDef) {
         let dmg = 1;
         if (r === 20) dmg = 2;
-        if (enemy.isBoss) dmg += (r >= 18 ? 1 : 0); // Bosses hit harder on high rolls
+        if (enemy.isBoss) dmg += (r >= 18 ? 1 : 0);
         
-        // DR check
-        if (armorDR > 0) {
-          const drRoll = d6();
-          if (drRoll <= armorDR) {
+        if (targetType === "player") {
+          // Attack player - check DR
+          if (armorDR > 0) {
+            const drRoll = d6();
+            if (drRoll <= armorDR) {
+              dmg = Math.max(0, dmg - 1);
+              if (dmg === 0) {
+                newLog.push(`${enemy.name} attacks you: ${r}+${attackBonus}=${total} — Hit, but your armor absorbs it!`);
+                return;
+              }
+            }
+          }
+          
+          const newStrikes = Math.max(0, strikes - dmg);
+          setStrikes(newStrikes);
+          newLog.push(`${enemy.name} attacks you: ${r}+${attackBonus}=${total} vs DEF ${targetDef} — HIT! ${dmg} Strike${dmg>1?'s':''}!${r===20?' CRITICAL!':''}`);
+          
+          if (newStrikes <= 0) {
+            setCombatLog(prev => [...prev, ...newLog, "", "You fall..."]);
+            setTimeout(() => endCombat(false), 1500);
+            return;
+          }
+        } else {
+          // Attack party member
+          // Brother Cade's divine shield
+          if (targetMember.id === "brotherCade" && targetMember.divineShieldActive) {
+            newLog.push(`${enemy.name} attacks ${targetMember.name}: ${r}+${attackBonus}=${total} — Hit blocked by Divine Shield!`);
+            setParty(p => p.map(m => m.id === "brotherCade" ? {...m, divineShieldActive: false} : m));
+            return;
+          }
+          
+          // Dorn's juggernaut passive
+          const combatRound = Math.floor((combatLog.length) / 10); // Rough estimate
+          if (targetMember.id === "dorn" && targetMember.juggernautActive && combatRound < 3) {
             dmg = Math.max(0, dmg - 1);
             if (dmg === 0) {
-              newLog.push(`${enemy.name} attacks: ${r}+${attackBonus}=${total} — Hit, but your armor absorbs it!`);
+              newLog.push(`${enemy.name} attacks ${targetMember.name}: ${r}+${attackBonus}=${total} — Hit absorbed by Juggernaut!`);
               return;
             }
           }
+          
+          const newMemberStrikes = Math.max(0, targetMember.strikes - dmg);
+          setParty(p => p.map(m => {
+            if (m.id === targetMember.id) {
+              const knockedOut = newMemberStrikes <= 0;
+              return {...m, strikes: newMemberStrikes, alive: !knockedOut};
+            }
+            return m;
+          }));
+          
+          newLog.push(`${enemy.name} attacks ${targetMember.name}: ${r}+${attackBonus}=${total} vs DEF ${targetDef} — HIT! ${dmg} Strike${dmg>1?'s':''}!${r===20?' CRITICAL!':''}${newMemberStrikes <= 0 ? ` ${targetMember.name} is knocked out!` : ''}`);
         }
-        
-        totalDmg += dmg;
-        newLog.push(`${enemy.name} attacks: ${r}+${attackBonus}=${total} vs DEF ${playerDef} — HIT! ${dmg} Strike${dmg>1?'s':''}!${r===20?' CRITICAL!':''}`);
       } else {
-        newLog.push(`${enemy.name} attacks: ${r}+${attackBonus}=${total} vs DEF ${playerDef} — Miss.`);
+        const targetName = targetType === "player" ? "you" : targetMember.name;
+        newLog.push(`${enemy.name} attacks ${targetName}: ${r}+${attackBonus}=${total} vs DEF ${targetDef} — Miss.`);
       }
     });
     
     setCombatLog(prev => [...prev, ...newLog]);
-    
-    if (totalDmg > 0) {
-      const newStrikes = Math.max(0, strikes - totalDmg);
-      setStrikes(newStrikes);
-      if (newStrikes <= 0) {
-        setCombatLog(prev => [...prev, "", "You fall..."]);
-        setTimeout(() => endCombat(false), 1500);
-        return;
-      }
-    }
-    
     setCombatTurn("player");
     setPlayerActed(false);
   };
@@ -1047,6 +1142,16 @@ export default function TorchesInTheDark() {
   const endCombat = (victory) => {
     setInCombat(false);
     if (victory) {
+      // Revive knocked out party members with 1 strike
+      setParty(p => p.map(m => ({
+        ...m, 
+        alive: true, 
+        strikes: m.strikes <= 0 ? 1 : m.strikes,
+        firstStrikeUsed: false, // Reset Sable's ability
+        divineShieldActive: m.id === "brotherCade", // Reset Brother Cade's shield
+        juggernautActive: m.id === "dorn" // Reset Dorn's juggernaut
+      })));
+      
       setPhase("playing");
       if (afterCombatScene) {
         setTimeout(() => processScene(afterCombatScene), 500);
@@ -1392,7 +1497,16 @@ export default function TorchesInTheDark() {
               </div>
               <p style={styles.csGear}>⚔ {weapon} ({weaponTag}) | 🛡 {armor} | {hasShield ? '🔰 Shield' : ''}</p>
               <p style={styles.csGear}>Passive: {passiveTrait?.name} | Active: {activeTrait?.name}</p>
-              {companion && <p style={styles.csGear}>Companion: {companion === 'kael' ? 'Kael (Sellsword)' : companion}</p>}
+              {party.length > 0 && (
+                <div>
+                  <p style={styles.csGear}>Party Members:</p>
+                  {party.map(m => (
+                    <p key={m.id} style={{...styles.csGear, color: m.alive ? '#4a9' : '#888'}}>
+                      • {m.name} ({m.strikes}/{m.maxStrikes} Strikes, DEF {m.defense}, +{m.attackBonus} ATK)
+                    </p>
+                  ))}
+                </div>
+              )}
               {quests.length > 0 && <p style={styles.csGear}>Quests: {quests.join(', ')}</p>}
               <p style={styles.csGear}>Pack: {inventory.join(', ')}</p>
             </div>
