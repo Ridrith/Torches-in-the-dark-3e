@@ -137,7 +137,7 @@ const ENEMIES = {
   dockThug: {name:"Dock Thug",strikes:2,maxStrikes:2,defense:11,might:3,finesse:1,endurance:3,special:"Cheap Shot: +1 damage if player hasn't acted",dmgType:"crushing"},
   corruptGuard: {name:"Corrupt Watchman",strikes:2,maxStrikes:2,defense:13,might:2,finesse:2,endurance:3,special:"Shield Wall: +1 DEF per allied guard alive",dmgType:"slashing"},
   hexMarked: {name:"Hex-Marked Thrall",strikes:2,maxStrikes:2,defense:11,might:3,finesse:1,endurance:3,special:"Undying: stays at 1 strike once per combat",dmgType:"slashing"},
-  harborCaptain: {name:"Harbor Captain Rennik",strikes:4,maxStrikes:4,defense:14,might:3,finesse:3,endurance:3,special:"Rally: heals all allies 1 strike once per combat",dmgType:"slashing",isBoss:false},
+  harborCaptain: {name:"Harbor Captain Rennik",strikes:4,maxStrikes:4,defense:14,might:3,finesse:3,endurance:3,special:"Rally: heals all allies 1 strike once per combat",dmgType:"slashing",isBoss:true},
   // BOSSES
   bossGarran: {name:"Garran the Flay-King",strikes:4,maxStrikes:4,defense:14,might:4,finesse:3,endurance:3,special:"Ruthless: +2 Strikes if both attacks hit. Attacks twice.",dmgType:"slashing",isBoss:true},
   bossIronMadam: {name:"The Iron Madam",strikes:5,maxStrikes:5,defense:15,might:3,finesse:4,endurance:4,special:"Slaver's Whip: Resolve DC 14 or stunned. Bodyguard takes first hit.",dmgType:"slashing",isBoss:true},
@@ -1193,6 +1193,7 @@ export default function TorchesInTheDark() {
   const [combatAdvantage, setCombatAdvantage] = useState(false);
   const [afterCombatScene, setAfterCombatScene] = useState(null);
   const [playerActed, setPlayerActed] = useState(false);
+  const [combatRound, setCombatRound] = useState(0);
   
   const logRef = useRef(null);
   
@@ -1302,7 +1303,13 @@ export default function TorchesInTheDark() {
     if (eff.addCoin) setCoin(p => p + eff.addCoin);
     if (eff.halveCoin) setCoin(p => Math.floor(p / 2));
     if (eff.addItem) setInventory(p => [...p, eff.addItem]);
-    if (eff.addCompanion) setParty(p => p.length < 3 ? [...p, eff.addCompanion] : p); // Legacy support
+    if (eff.addCompanion) {
+      // Legacy support: map companion string to party member object
+      const companionObj = PARTY_MEMBERS[eff.addCompanion];
+      if (companionObj && party.length < 3) {
+        setParty(p => [...p, {...companionObj}]);
+      }
+    }
     if (eff.addPartyMember) setParty(p => p.length < 3 ? [...p, eff.addPartyMember] : p);
     if (eff.removePartyMember) setParty(p => p.filter(m => m.id !== eff.removePartyMember));
     if (eff.addQuest) setQuests(p => [...p, eff.addQuest]);
@@ -1325,6 +1332,7 @@ export default function TorchesInTheDark() {
     setInCombat(true);
     setPhase("combat");
     setPlayerActed(false);
+    setCombatRound(1);
     
     // Initiative
     const initRoll = d6();
@@ -1423,22 +1431,22 @@ export default function TorchesInTheDark() {
           if (updatedEnemies.filter(e => e.strikes > 0).length === 0) return;
           
           const aliveTargets = updatedEnemies.filter(e => e.strikes > 0);
-          let target;
+          let targetEnemy;
           
           // Kael's special: target most wounded
           if (member.id === "kael") {
-            target = aliveTargets.reduce((prev, curr) => 
+            targetEnemy = aliveTargets.reduce((prev, curr) => 
               (curr.strikes < prev.strikes) ? curr : prev
             );
           } else {
             // Random target for others
-            target = aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
+            targetEnemy = aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
           }
           
           const roll = d20();
           const total = roll + member.attackBonus;
           
-          if (total >= target.defense) {
+          if (total >= targetEnemy.defense) {
             let dmg = member.damage;
             
             // Sable's first strike bonus
@@ -1449,15 +1457,15 @@ export default function TorchesInTheDark() {
               setParty(p => p.map(m => m.id === "sable" ? {...m, firstStrikeUsed: true} : m));
             }
             
-            const targetIdx = updatedEnemies.findIndex(e => e.id === target.id);
+            const targetIdx = updatedEnemies.findIndex(e => e.id === targetEnemy.id);
             updatedEnemies[targetIdx] = { 
               ...updatedEnemies[targetIdx], 
               strikes: Math.max(0, updatedEnemies[targetIdx].strikes - dmg) 
             };
             
-            partyLog.push(`${member.name} attacks ${target.name}: ${roll}+${member.attackBonus}=${total} — HIT! ${dmg} Strike${dmg>1?'s':''}.${updatedEnemies[targetIdx].strikes <= 0 ? ` ${target.name} falls!` : ''}`);
+            partyLog.push(`${member.name} attacks ${targetEnemy.name}: ${roll}+${member.attackBonus}=${total} — HIT! ${dmg} Strike${dmg>1?'s':''}.${updatedEnemies[targetIdx].strikes <= 0 ? ` ${targetEnemy.name} falls!` : ''}`);
           } else {
-            partyLog.push(`${member.name} attacks ${target.name}: ${roll}+${member.attackBonus}=${total} — Miss.`);
+            partyLog.push(`${member.name} attacks ${targetEnemy.name}: ${roll}+${member.attackBonus}=${total} — Miss.`);
           }
         });
         
@@ -1502,7 +1510,7 @@ export default function TorchesInTheDark() {
         // Target random party member
         targetMember = aliveParty[Math.floor(Math.random() * aliveParty.length)];
         targetType = "party";
-        targetDef = 5 + targetMember.defense - 10; // Convert their defense to a bonus
+        targetDef = targetMember.defense; // Use party member's defense directly
       }
       
       if (total >= targetDef) {
@@ -1542,8 +1550,7 @@ export default function TorchesInTheDark() {
           }
           
           // Dorn's juggernaut passive
-          const combatRound = Math.floor((combatLog.length) / 10); // Rough estimate
-          if (targetMember.id === "dorn" && targetMember.juggernautActive && combatRound < 3) {
+          if (targetMember.id === "dorn" && targetMember.juggernautActive && combatRound <= 3) {
             dmg = Math.max(0, dmg - 1);
             if (dmg === 0) {
               newLog.push(`${enemy.name} attacks ${targetMember.name}: ${r}+${attackBonus}=${total} — Hit absorbed by Juggernaut!`);
@@ -1571,6 +1578,7 @@ export default function TorchesInTheDark() {
     setCombatLog(prev => [...prev, ...newLog]);
     setCombatTurn("player");
     setPlayerActed(false);
+    setCombatRound(prev => prev + 1);
   };
 
   const endCombat = (victory) => {
