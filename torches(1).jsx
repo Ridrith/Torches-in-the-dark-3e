@@ -130,11 +130,31 @@ const ENEMIES = {
   ghoul: {name:"Ghoul",strikes:2,maxStrikes:2,defense:12,might:2,finesse:2,endurance:2,special:"Paralysis: Endurance save or lose action",dmgType:"fang"},
   skeleton: {name:"Skeleton",strikes:1,maxStrikes:1,defense:10,might:1,finesse:0,endurance:0,special:"Immune to fear, poison, mental",dmgType:"slashing"},
   wight: {name:"Wight",strikes:3,maxStrikes:3,defense:13,might:4,finesse:3,endurance:3,special:"Energy Drain: lose 1 random ability",dmgType:"slashing"},
+  // NEW ENEMIES
+  deserter: {name:"Imperial Deserter",strikes:2,maxStrikes:2,defense:12,might:2,finesse:2,endurance:2,special:"Desperate: +1 attack when below half health",dmgType:"slashing"},
+  pitFighter: {name:"Pit-Fighter",strikes:3,maxStrikes:3,defense:13,might:4,finesse:2,endurance:3,special:"Haymaker: crits on 19-20",dmgType:"crushing"},
+  smuggler: {name:"Smuggler",strikes:1,maxStrikes:1,defense:12,might:1,finesse:3,endurance:1,special:"Slippery: first attack against them has disadvantage",dmgType:"puncturing"},
+  dockThug: {name:"Dock Thug",strikes:2,maxStrikes:2,defense:11,might:3,finesse:1,endurance:3,special:"Cheap Shot: +1 damage if player hasn't acted",dmgType:"crushing"},
+  corruptGuard: {name:"Corrupt Watchman",strikes:2,maxStrikes:2,defense:13,might:2,finesse:2,endurance:3,special:"Shield Wall: +1 DEF per allied guard alive",dmgType:"slashing"},
+  hexMarked: {name:"Hex-Marked Thrall",strikes:2,maxStrikes:2,defense:11,might:3,finesse:1,endurance:3,special:"Undying: stays at 1 strike once per combat",dmgType:"slashing"},
+  harborCaptain: {name:"Harbor Captain Rennik",strikes:4,maxStrikes:4,defense:14,might:3,finesse:3,endurance:3,special:"Rally: heals all allies 1 strike once per combat",dmgType:"slashing",isBoss:true},
   // BOSSES
   bossGarran: {name:"Garran the Flay-King",strikes:4,maxStrikes:4,defense:14,might:4,finesse:3,endurance:3,special:"Ruthless: +2 Strikes if both attacks hit. Attacks twice.",dmgType:"slashing",isBoss:true},
   bossIronMadam: {name:"The Iron Madam",strikes:5,maxStrikes:5,defense:15,might:3,finesse:4,endurance:4,special:"Slaver's Whip: Resolve DC 14 or stunned. Bodyguard takes first hit.",dmgType:"slashing",isBoss:true},
   bossBarrowKing: {name:"The Barrow King",strikes:6,maxStrikes:6,defense:13,might:5,finesse:2,endurance:5,special:"Undead: immune fear/poison. Energy Drain on crit. Summons 1d4 skeletons.",dmgType:"crushing",isBoss:true},
   bossWytch: {name:"Morvaine the Ash-Tongued",strikes:8,maxStrikes:8,defense:14,might:2,finesse:4,endurance:3,special:"Casts spells each round. Void Shield: first attack each round misses. At half health summons Shadow Birth.",dmgType:"slashing",isBoss:true},
+  // NEW BOSSES
+  bossVargKnife: {name:"Varg the Knife",strikes:5,maxStrikes:5,defense:15,might:3,finesse:5,endurance:2,special:"Twin Blades: attacks twice. Poison: failed Endurance DC 13 or lose 1 strike next round.",dmgType:"puncturing",isBoss:true},
+  bossOldHolloway: {name:"Old Holloway",strikes:7,maxStrikes:7,defense:12,might:5,finesse:1,endurance:6,special:"Unkillable: regenerates 1 strike per round. Weakness: fire damage prevents regen.",dmgType:"crushing",isBoss:true},
+  bossRedMask: {name:"The Red Mask",strikes:6,maxStrikes:6,defense:14,might:4,finesse:4,endurance:3,special:"Duelist: counterattacks on player miss. Riposte: +2 damage after successful parry.",dmgType:"slashing",isBoss:true},
+};
+
+// PARTY MEMBERS
+const PARTY_MEMBERS = {
+  kael: {id:"kael",name:"Kael",strikes:4,maxStrikes:4,defense:13,attackBonus:5,damage:1,special:"Disciplined: attacks the most wounded enemy.",alive:true},
+  dorn: {id:"dorn",name:"Dorn",strikes:5,maxStrikes:5,defense:12,attackBonus:4,damage:1,special:"Juggernaut: cannot be knocked out in first 3 rounds.",alive:true,juggernautActive:true},
+  sable: {id:"sable",name:"Sable",strikes:3,maxStrikes:3,defense:14,attackBonus:6,damage:1,special:"First Strike: +1 damage on first attack of combat.",alive:true,firstStrikeUsed:false},
+  brotherCade: {id:"brotherCade",name:"Brother Cade",strikes:5,maxStrikes:5,defense:11,attackBonus:3,damage:1,special:"Divine Shield: absorbs first hit directed at him each combat.",alive:true,divineShieldActive:true},
 };
 
 // NARRATIVE SCENES
@@ -242,7 +262,7 @@ const SCENES = {
       "\"I'll come with you as far as Squall's End. After that, we'll see. My blade costs 8 Golm a day, but for someone hunting a Wytch?\" She almost smiles. \"Half price.\"",
     ],
     choices:[
-      {text:"\"Welcome aboard.\" (Kael joins as companion)", next:"millhavenReturn", effect:{addCompanion:"kael"}},
+      {text:"\"Welcome aboard.\" (Kael joins as party member)", next:"millhavenReturn", effect:{addPartyMember:{...PARTY_MEMBERS.kael}}},
       {text:"\"I work alone.\"", next:"millhavenReturn"},
       {text:"Ask her what she knows about the road ahead.", next:"kaelInfo"},
     ],
@@ -255,7 +275,7 @@ const SCENES = {
       "\"You could go around—through the Barrows—but that's its own kind of trouble. Old things sleep in those hills. Things that don't like being woken.\"",
     ],
     choices:[
-      {text:"\"I'll take you up on that offer.\" (Kael joins)", next:"millhavenReturn", effect:{addCompanion:"kael"}},
+      {text:"\"I'll take you up on that offer.\" (Kael joins)", next:"millhavenReturn", effect:{addPartyMember:{...PARTY_MEMBERS.kael}}},
       {text:"Thank her and return to the tavern.", next:"millhavenReturn"},
     ],
   },
@@ -333,6 +353,7 @@ const SCENES = {
       {text:"\"Just a traveler. I'll pay the toll.\"", next:"garranToll"},
       {text:"\"I'm here for Garran. I have a proposition.\"", next:"garranProposition"},
       {text:"Try to sneak past at nightfall. (Finesse check DC 15)", next:"garranSneak"},
+      {text:"Investigate the iron cages at the crossroads.", next:"ironwoodGibbet"},
     ],
   },
 
@@ -537,6 +558,9 @@ const SCENES = {
       {text:"Visit the Bounty Board for information.", next:"bountyBoard"},
       {text:"Find the weapon merchant.", next:"weaponShop"},
       {text:"Rest at the inn. (Full heal, 15 Golm)", next:"restInn"},
+      {text:"Visit the Chapel of Ainerth.", next:"chapelAinerth"},
+      {text:"Check the Broken Anchor for Voss. (If you met him)", next:"vossReturn"},
+      {text:"Descend into the Underdocks.", next:"underdocks"},
       {text:"Head straight for the Wytch Spires. No more delays.", next:"ashwoodRoad"},
     ],
   },
@@ -548,7 +572,7 @@ const SCENES = {
       "Below it, in smaller script: \"Information regarding Morvaine's weaknesses can be obtained from Brother Ashford at the Chapel of Ainerth, Dock Ward.\"",
     ],
     choices:[
-      {text:"Visit Brother Ashford at the chapel.", next:"brotherAshford"},
+      {text:"Visit Brother Ashford at the chapel.", next:"chapelAinerth"},
       {text:"Return to the city.", next:"squallsEnd"},
     ],
   },
@@ -595,6 +619,7 @@ const SCENES = {
     choices:[
       {text:"Push forward. Close the distance.", next:"spireApproach"},
       {text:"Make camp. Rest before the final fight.", next:"ashwoodCamp"},
+      {text:"Investigate smoke rising from the east. Another village?", next:"charredVillage"},
     ],
   },
 
@@ -677,6 +702,416 @@ const SCENES = {
     choices:[{text:"Play Again", next:"restart"}],
   },
 
+  // ===== THE UNDERDOCKS =====
+  underdocks: {
+    text:[
+      "THE UNDERDOCKS",
+      "—",
+      "The smell hits you first—brine and rot and something worse beneath it. The tunnels below Squall's End weren't built by the city. They're older, carved when this coast belonged to something else.",
+      "Now they belong to no one and everyone. Smugglers. Deserters. People with nowhere left to run.",
+      "Water drips from the ceiling. Torchlight wavers against slick stone. Voices echo from deeper in—a card game turning ugly, someone selling something they shouldn't.",
+      "You've descended because the trail led here. Morvaine passed through the Underdocks on her way north. Someone down here saw her. Someone always sees.",
+    ],
+    choices:[
+      {text:"Find the smuggler called Fen. He trades in information.", next:"underdocksSmugglers"},
+      {text:"Check out the Blood Circus fighting pit.", next:"underdocksPit"},
+      {text:"Push deeper into the old tunnels.", next:"underdocksDeep"},
+      {text:"Seek out Varg the Knife's den. (If quest active)", next:"vargLair"},
+      {text:"Return to the surface.", next:"squallsEnd"},
+    ],
+  },
+
+  underdocksSmugglers: {
+    text:[
+      "Fen operates out of a converted cistern. The water's long gone, replaced by crates and barrels of dubious origin. The man himself is lean and wary, with eyes that calculate your worth before you open your mouth.",
+      "\"Morvaine?\" He sets down a flask. \"Yeah, I saw her. Hard to miss. She bought passage on a river barge—headed upriver, not the road. Smart. The Ashwood Road's crawling with Garran's boys and worse.\"",
+      "He leans forward. \"But information ain't free. I got a problem. Harbor Captain Rennik—bent bastard runs the dock watch. He's been squeezing my operation, taking more than his cut. You deal with him, I'll tell you everything I know about the Wytch's route.\"",
+    ],
+    choices:[
+      {text:"Accept the job. (Start quest: The Smuggler's Bargain)", next:"underdocks", effect:{addQuest:"smugglerBargain"}},
+      {text:"(Insight DC 12) Try to read if Fen's telling the truth.", next:"underdocksFenInsight"},
+      {text:"Decline and leave.", next:"underdocks"},
+    ],
+  },
+
+  underdocksFenInsight: {
+    text:["You study Fen's face. The micro-expressions. The way his hand rests too casually near a knife."],
+    check:{ability:"Insight",dc:12},
+    onSuccess:{
+      text:"He's lying—not about Rennik, but about why. This isn't about money. It's personal. Rennik has something on Fen, or someone Fen cares about. The desperation is real, even if the story's half-truth.",
+      next:"underdocks",
+    },
+    onFail:{
+      text:"You can't get a read on him. Could be genuine. Could be setting you up. Hard to say.",
+      next:"underdocks",
+    },
+  },
+
+  underdocksPit: {
+    text:[
+      "The Blood Circus isn't a circus. It's a pit carved into the bedrock, lit by torches and packed with bodies. The fights are bare-knuckle, no rules, first blood or last breath.",
+      "In the ring: a stocky dwarf with fists like hammerstones and a face that's taken every punch the world's got. His opponent, some dockside thug, is already bleeding.",
+      "The dwarf doesn't showboat. He just works. Left hook. Right hook. The thug goes down and stays down.",
+      "The crowd roars. The dwarf—Dorn, they call him—spits blood and waits for the next fight.",
+    ],
+    choices:[
+      {text:"Challenge Dorn. Win, and maybe he'll join you.", next:"underdocksPitFight"},
+      {text:"Talk to Dorn after his fight.", next:"underdocksDornTalk"},
+      {text:"Leave the pit.", next:"underdocks"},
+    ],
+  },
+
+  underdocksPitFight: {
+    text:[
+      "ARENA FIGHT",
+      "—",
+      "You step into the ring. The crowd noise fades to a roar, then a pulse. Dorn cracks his knuckles.",
+      "\"Alright then. Let's see what you've got.\"",
+    ],
+    combat:{enemies:["pitFighter","dockThug"],type:"normal"},
+    choices:[{text:"Catch your breath and talk to Dorn.", next:"underdocksDornRecruit", effect:{addCoin:60}}],
+  },
+
+  underdocksDornTalk: {
+    text:[
+      "Dorn doesn't look up when you approach. He's wrapping his knuckles with fresh cloth, methodical.",
+      "\"You want something, or you just like watching people bleed?\"",
+      "You tell him about Morvaine. About Thornwall. About the hunt.",
+      "He stops wrapping. Looks at you. \"A Wytch, huh? Been a while since I fought something that could actually kill me. Pit fights get old.\"",
+      "He stands. \"You win your next fight in the ring, I'll come with you. Otherwise, you're not worth my time.\"",
+    ],
+    choices:[
+      {text:"Accept the challenge.", next:"underdocksPitFight"},
+      {text:"Leave.", next:"underdocks"},
+    ],
+  },
+
+  underdocksDornRecruit: {
+    text:[
+      "Dorn nods, almost respectful. \"You can take a hit. That's good. Most people hunting Wytches can't.\"",
+      "He gathers his gear—a worn pack, a maul that's seen better days. \"I'm in. But if this gets us killed, I'm haunting you.\"",
+    ],
+    choices:[{text:"Welcome him to the group.", next:"underdocks", effect:{addPartyMember:{...PARTY_MEMBERS.dorn}}}],
+  },
+
+  underdocksDeep: {
+    text:[
+      "The tunnels go deeper than they should. The stonework changes—smoother, older, wrong. Symbols carved into the walls that hurt to look at.",
+      "Hex-marks. Morvaine's signature. She was here, and recently.",
+      "The air tastes like copper and ash. Something pulses in the dark ahead—not sound, not light, but something between.",
+    ],
+    check:{ability:"Resolve",dc:14},
+    onSuccess:{
+      text:"You steady yourself. Push through the psychic pressure. The marks are a warning, or a trap, or both. You press on.",
+      next:"underdocksDeepLoot",
+    },
+    onFail:{
+      text:"The pressure splits your skull. You stumble back, nose bleeding. The dark laughs.",
+      next:"underdocksDeepFail",
+      effect:{loseStrike:1},
+    },
+  },
+
+  underdocksDeepLoot: {
+    text:[
+      "In an alcove, half-buried: ritual components. Wytch-marks burned into bone. And something else—an amulet of blackened bone, still warm.",
+      "It hums faintly. Protective magic, old and ugly, but real.",
+    ],
+    choices:[{text:"Take the Wytch-Bone Amulet and return.", next:"underdocks", effect:{addItem:"Wytch-Bone Amulet (+1 DEF vs magic)"}}],
+  },
+
+  underdocksDeepFail: {
+    text:["You retreat, head pounding. The tunnels here are too dangerous. Maybe later, with better preparation."],
+    choices:[{text:"Return to the main tunnels.", next:"underdocks"}],
+  },
+
+  rennikFight: {
+    text:[
+      "BOSS FIGHT: HARBOR CAPTAIN RENNIK",
+      "—",
+      "Rennik's office reeks of bribe money and old blood. The man himself is broad-shouldered, competent, and utterly corrupt.",
+      "\"Fen sent you? That rat. Fine. Let's make this quick. I got a schedule.\"",
+      "He draws a cutlass, and two of his watchmen flank him, shields up.",
+    ],
+    combat:{enemies:["harborCaptain","corruptGuard","corruptGuard"],type:"boss"},
+    choices:[{text:"Search the office and return to Fen.", next:"rennikAfter", effect:{addCoin:100}}],
+  },
+
+  rennikAfter: {
+    text:[
+      "Fen examines Rennik's ledger with something close to satisfaction. \"Good. He had that coming.\"",
+      "He looks up. \"You want what I know. Fair deal. Morvaine took a barge called the Silt Queen—river route, not the road. She paid the captain in something that wasn't coin. He looked... wrong, after. Like he'd aged ten years in a minute.\"",
+      "\"She's faster than you think. River's quicker than the road. If you're chasing her, you need to move. She's heading for the Wytch Spires, and she's almost there.\"",
+    ],
+    choices:[{text:"Thank Fen and return to the surface.", next:"squallsEnd"}],
+  },
+
+  // ===== THE CHARRED VILLAGE =====
+  charredVillage: {
+    text:[
+      "THE CHARRED VILLAGE OF BRANNOC",
+      "—",
+      "The smoke rises lazy and black. From a distance, you thought it might be cookfires. Up close, you know better.",
+      "Brannoc—or what's left of it—is Thornwall all over again. Twenty buildings reduced to char and bone. Bodies in the street with their chests cracked open like eggs, the life pulled out of them and consumed.",
+      "Morvaine's work. Another village. Another harvest.",
+      "You walk the ruins with your jaw tight and your fists tighter. The smell is familiar now. You hate that.",
+    ],
+    choices:[
+      {text:"Search for survivors.", next:"charredSurvivor"},
+      {text:"Investigate Morvaine's trail.", next:"charredInvestigate"},
+      {text:"Scavenge for supplies among the ruins.", next:"charredAmbush"},
+      {text:"Move on. There's nothing here for you.", next:"ashwoodRoad"},
+    ],
+  },
+
+  charredSurvivor: {
+    text:[
+      "You find her in a cellar, hidden beneath a collapsed farmhouse. A young woman, maybe twenty, with a bow across her lap and eyes that have seen too much.",
+      "She doesn't flinch when you descend. Just watches.",
+      "\"You're hunting her,\" she says. Not a question.",
+      "Her name is Sable. She tracked Morvaine here from a village to the south—another burned husk on the Wytch's trail. She arrived too late. Just like you did at Thornwall.",
+      "\"I'm good with a bow,\" she says. \"Better at tracking. And I want her dead just as much as you do. Maybe more.\"",
+    ],
+    choices:[
+      {text:"Offer her a place in your group.", next:"charredSableJoin", effect:{addPartyMember:{...PARTY_MEMBERS.sable}}},
+      {text:"Tell her to go home. This isn't her fight.", next:"charredSableRefuse"},
+    ],
+  },
+
+  charredSableJoin: {
+    text:[
+      "Sable nods once, sharp. \"Good. Let's move.\"",
+      "She gathers her gear—a well-maintained longbow, a quiver of grey-fletched arrows, and a knife that's seen use. Professional. Controlled. Dangerous.",
+      "You've seen that look before. The look of someone who's decided dying is acceptable if it means the target dies first.",
+    ],
+    choices:[{text:"Leave the ruins together.", next:"ashwoodRoad"}],
+  },
+
+  charredSableRefuse: {
+    text:[
+      "She doesn't argue. Just stands, shoulders her pack, and walks past you up the cellar steps.",
+      "At the threshold, she pauses. \"When you find her, make it hurt.\"",
+      "Then she's gone, swallowed by the smoke.",
+    ],
+    choices:[{text:"Return to your search.", next:"charredVillage"}],
+  },
+
+  charredInvestigate: {
+    text:[
+      "You follow the ash trail east, toward the treeline. She made camp here—recently. The fire pit is still warm.",
+      "Ritual components scattered across a flat stone: bones, dried flowers, something that might have been a heart once. The markings are fresher than the ones in the Underdocks, more elaborate.",
+    ],
+    check:{ability:"Insight",dc:13},
+    onSuccess:{
+      text:"You piece it together. Notes scrawled in old script. Part of the ritual Morvaine's building. The pattern. These aren't random killings—they're mapped. Geometric. Each village is a point in a constellation she's drawing across the land. The Wytch Spires are the center. The climax. You take the notes. They might give you an edge when the time comes.",
+      next:"charredVillage",
+      effect:{addItem:"Ritual Notes (+2 to first attack vs Morvaine)"},
+    },
+    onFail:{
+      text:"The symbols blur together. You can't make sense of it. Just more death and strange magic. You move on.",
+      next:"charredVillage",
+    },
+  },
+
+  charredAmbush: {
+    text:[
+      "As you turn to leave, movement. A whistle. Then voices.",
+      "Imperial deserters—three of them, plus a brigand who looks like he leads. They've moved into the ruins to pick the bones clean.",
+      "\"Fresh meat,\" the brigand says, grinning. \"Drop your coin and maybe we let you walk.\"",
+      "You don't drop your coin.",
+    ],
+    combat:{enemies:["deserter","deserter","deserter","brigand"],type:"normal"},
+    choices:[{text:"Search the bodies and move on.", next:"ashwoodRoad", effect:{addCoin:40,addItem:"Decent Blade"}}],
+  },
+
+  // ===== THE IRONWOOD GIBBET =====
+  ironwoodGibbet: {
+    text:[
+      "THE IRONWOOD GIBBET",
+      "—",
+      "The crossroads is marked by dead trees and deader men. Iron cages dangle from the branches, each one holding the remains of someone who crossed Garran or didn't pay their debts. Most are just bones now.",
+      "But one cage still holds a living man.",
+      "He's middle-aged, well-dressed once. A merchant by the look of his clothes. He watches you approach with the desperate hope of a drowning man.",
+      "\"Please,\" he rasps. \"Three days. No water. Garran's men—they said they'd come back. They haven't. Please.\"",
+    ],
+    choices:[
+      {text:"(Might DC 12) Break the lock and free him.", next:"gibbetFree"},
+      {text:"(If you have lockpicks) Pick the lock.", next:"gibbetFree"},
+      {text:"Leave him. Not your problem.", next:"gibbetLeave"},
+      {text:"Move on quickly.", next:"garranPaid"},
+    ],
+  },
+
+  gibbetFree: {
+    text:[
+      "The lock breaks with a wrench. The merchant—Torvin, he says his name is—collapses to the ground, gasping.",
+      "\"Thank you. Gods. Thank you.\"",
+      "When he can stand, he fumbles in his shirt and produces a small leather purse. Seventy-five Golm. \"It's all I have left, but it's yours.\"",
+      "He also tells you about a cache—goods he buried before Garran's men took him. Quality weapons and gear, hidden three miles south.",
+    ],
+    check:{ability:"Might",dc:12},
+    onSuccess:{
+      text:"You free him easily. He's grateful and gives you the coin and directions.",
+      next:"gibbetCache",
+      effect:{addCoin:75},
+    },
+    onFail:{
+      text:"You free him. He's grateful but weak. He gives you what he can.",
+      next:"garranPaid",
+      effect:{addCoin:75},
+    },
+  },
+
+  gibbetCache: {
+    text:[
+      "You find the cache where Torvin said it would be—a false stone beneath a marker tree. Inside: a finely crafted blade and a pouch of coin.",
+      "Your choice: take the blade (Keen weapon upgrade) or the coin (150 Golm).",
+    ],
+    choices:[
+      {text:"Take the Keen Blade.", next:"garranPaid", effect:{addWeaponTag:"Keen"}},
+      {text:"Take the coin.", next:"garranPaid", effect:{addCoin:150}},
+    ],
+  },
+
+  gibbetLeave: {
+    text:[
+      "You turn away. The merchant's pleas follow you down the road, then fade.",
+      "Later, camped by the roadside, you can't shake the image. The cage. The eyes. The desperate hope dying.",
+    ],
+    check:{ability:"Presence",dc:10},
+    onSuccess:{
+      text:"You steel yourself. You've got bigger problems. The guilt fades, eventually.",
+      next:"garranPaid",
+    },
+    onFail:{
+      text:"The guilt settles in your gut like a stone. You're haunted. The man's face follows you. (-1 to Resolve checks until you rest)",
+      next:"garranPaid",
+      effect:{addQuest:"haunted"},
+    },
+  },
+
+  // ===== VOSS / VARG QUESTLINE =====
+  vossReturn: {
+    text:[
+      "THE BROKEN ANCHOR BASEMENT",
+      "—",
+      "Voss is waiting in the back room, surrounded by books that smell like grave dirt. He doesn't look up when you enter.",
+      "\"You've made progress,\" he says. \"I can smell Morvaine on you. Or maybe that's just death.\"",
+      "He sets down a black quill. \"I have more for you. Information that'll help. But I need a favor first.\"",
+      "His eyes meet yours. \"There's a crime lord in the Underdocks. Varg the Knife. He stole something from me—a lockbox. Small, iron, marked with my seal. Get it back, and I'll tell you what you need to know about the Spires.\"",
+    ],
+    choices:[
+      {text:"Accept the job.", next:"underdocks", effect:{addQuest:"vossLockbox"}},
+      {text:"Refuse. You don't have time.", next:"squallsEnd"},
+    ],
+  },
+
+  vargLair: {
+    text:[
+      "VARG'S DEN",
+      "—",
+      "The deeper tunnels beneath the Underdocks are Varg's territory. The walls are carved with knife marks—his signature. A reminder that this is a killing ground.",
+      "You can smell blood and cheap wine. Voices ahead, laughter with edges.",
+    ],
+    choices:[
+      {text:"(Finesse DC 14) Sneak in quietly.", next:"vargSneak"},
+      {text:"Walk in openly. Violence is simpler.", next:"vargFight"},
+    ],
+  },
+
+  vargSneak: {
+    text:["You move through shadow. Quiet as a held breath."],
+    check:{ability:"Finesse",dc:14},
+    onSuccess:{
+      text:"You slip past Varg's guards. His inner sanctum is undefended. The lockbox sits on a table, almost mocking in its simplicity. You take it and leave. No one the wiser.",
+      next:"vossReward",
+      effect:{addItem:"Voss's Lockbox"},
+    },
+    onFail:{
+      text:"A guard spots you. Whistles. Steel scrapes from sheaths. \"Varg! We got company!\"",
+      next:"vargFight",
+    },
+  },
+
+  vargFight: {
+    text:[
+      "BOSS FIGHT: VARG THE KNIFE",
+      "—",
+      "Varg is lean and quick, with twin blades and a smile like cut glass. His men flank him—smugglers and thugs.",
+      "\"Bold,\" he says. \"Stupid, but bold. I like that. Let's see how you bleed.\"",
+    ],
+    combat:{enemies:["bossVargKnife","smuggler","dockThug"],type:"boss"},
+    choices:[{text:"Search the lair.", next:"vargAfter"}],
+  },
+
+  vargAfter: {
+    text:[
+      "Varg dies on his knives, bleeding out with that same smile.",
+      "You find the lockbox in his quarters, along with a hundred Golm and a poisoned dagger that's worth keeping.",
+    ],
+    choices:[{text:"Take your prizes and return to Voss.", next:"vossReward", effect:{addCoin:100,addItem:"Poisoned Dagger (+1 dmg, Venomous)"}}],
+  },
+
+  vossReward: {
+    text:[
+      "Voss examines the lockbox, satisfied. \"Good. You're efficient. I respect that.\"",
+      "He opens it. Inside: a small book bound in something that isn't leather. He doesn't let you see the pages.",
+      "\"Morvaine's heading for the Wytch Spires. You know that. What you don't know is why. The Spires were built by the God Binder, back when gods walked and witches ruled. There's a fire at the top of the central spire—sacred flame that's burned for a thousand years.\"",
+      "He taps the lockbox. \"The Black Book—your prize from the bridge—can only be destroyed in that flame. Do so, and you'll weaken Morvaine's ritual. Maybe enough to kill her.\"",
+      "He counts out three hundred Golm. \"For your trouble.\"",
+    ],
+    choices:[{text:"Take the coin and the knowledge.", next:"squallsEnd", effect:{addCoin:300}}],
+  },
+
+  // ===== EXPANDED CHAPEL =====
+  chapelAinerth: {
+    text:[
+      "THE CHAPEL OF AINERTH",
+      "—",
+      "The chapel stands in the Dock Ward, a quiet grey building that smells of incense and old prayers. Inside, candlelight flickers against worn stone.",
+      "Brother Ashford is here, as before—an old priest with gentle eyes and a voice like worn velvet. But there's someone else too.",
+      "A man in tarnished crusader armor kneels before the altar. His sword rests across his knees, and his head is bowed. Not in prayer. In shame.",
+      "Brother Ashford notices you. \"Ah. The hunter returns. Have you come for wisdom, or steel?\"",
+    ],
+    choices:[
+      {text:"Ask about Morvaine's weaknesses.", next:"ashfordWytchLore"},
+      {text:"Talk to the crusader.", next:"cadeIntro"},
+      {text:"Leave the chapel.", next:"squallsEnd"},
+    ],
+  },
+
+  cadeIntro: {
+    text:[
+      "The man doesn't look up when you approach. His armor is scratched, dented. Blood has dried in the joints.",
+      "\"Brother Cade,\" Ashford says softly. \"He arrived three days ago. He's... lost.\"",
+      "Cade finally lifts his head. His eyes are hard and empty. \"I led a company against the Ashwood cultists. Fifty men. Blessed weapons. Divine mandate. We were supposed to cleanse the forest.\"",
+      "His jaw tightens. \"We found the cult. They summoned something. I don't know what. Half my men died screaming. The rest ran. I...\" He looks at his hands. \"I prayed. Nothing answered. So I killed it myself. Alone.\"",
+      "\"I'm done with faith. But I'm not done with killing things that need to die.\"",
+    ],
+    choices:[
+      {text:"Offer him a place in your group.", next:"cadeJoin", effect:{addPartyMember:{...PARTY_MEMBERS.brotherCade}}},
+      {text:"Leave him to his grief.", next:"chapelAinerth"},
+    ],
+  },
+
+  cadeJoin: {
+    text:[
+      "Cade stands. The armor clatters. \"Alright. A Wytch, you said? Good. I've got some prayers left. Let's see if they work on her.\"",
+      "He gathers his gear. His sword—a blessed blade, heavy and worn—goes across his back.",
+      "Brother Ashford watches with sad eyes. \"Go with the light, Brother. Even if you no longer see it.\"",
+    ],
+    choices:[{text:"Leave with Cade.", next:"squallsEnd"}],
+  },
+
+  ashfordWytchLore: {
+    text:[
+      "Brother Ashford leads you to a side chapel. Scrolls and old texts are spread across a table.",
+      "\"Morvaine the Ash-Tongued. A soul-eater. She was human once, or so the texts claim. A scholar who sought immortality through forbidden ritual. She found it. Or it found her.\"",
+      "\"Her weakness? Fire, ironically. The same element she's consumed by. But not regular fire—consecrated flame. The kind that burns in the Wytch Spires. Bring her to that fire, and she can be destroyed.\"",
+    ],
+    choices:[{text:"Thank him and return to the chapel.", next:"chapelAinerth"}],
+  },
+
   death: {
     text:[
       "THE DARK TAKES YOU",
@@ -700,6 +1135,13 @@ const SHOP_ITEMS = [
   {name:"Antidote",cost:25,type:"consumable",cures:"poison"},
   {name:"Torch (3 pack)",cost:6,type:"item"},
   {name:"Rope (50ft)",cost:8,type:"item"},
+  // NEW ITEMS
+  {name:"Cold Iron Blade",cost:300,type:"weapon",tag:"Cold Iron (+2 vs supernatural)"},
+  {name:"Brigandine Armor",cost:350,type:"armor",def:3,dr:3,slots:2},
+  {name:"Healing Potion (Greater)",cost:120,type:"consumable",heals:5},
+  {name:"Fire Oil (3 uses)",cost:45,type:"consumable"},
+  {name:"Warding Charm",cost:80,type:"item"},
+  {name:"Lockpicks (Fine)",cost:35,type:"item"},
 ];
 
 // ============================================================
@@ -733,7 +1175,7 @@ export default function TorchesInTheDark() {
   const [armorDef, setArmorDef] = useState(0);
   const [armorDR, setArmorDR] = useState(0);
   const [hasShield, setHasShield] = useState(false);
-  const [companion, setCompanion] = useState(null);
+  const [party, setParty] = useState([]);
   const [quests, setQuests] = useState([]);
   const [sortAbilityUses, setSortAbilityUses] = useState({});
   const [traitUses, setTraitUses] = useState(0);
@@ -751,6 +1193,7 @@ export default function TorchesInTheDark() {
   const [combatAdvantage, setCombatAdvantage] = useState(false);
   const [afterCombatScene, setAfterCombatScene] = useState(null);
   const [playerActed, setPlayerActed] = useState(false);
+  const [combatRound, setCombatRound] = useState(0);
   
   const logRef = useRef(null);
   
@@ -810,7 +1253,7 @@ export default function TorchesInTheDark() {
       setActiveTrait(null);
       setEquipPack(null);
       setQuests([]);
-      setCompanion(null);
+      setParty([]);
       return;
     }
     if (sceneId === "charCreate") {
@@ -860,7 +1303,15 @@ export default function TorchesInTheDark() {
     if (eff.addCoin) setCoin(p => p + eff.addCoin);
     if (eff.halveCoin) setCoin(p => Math.floor(p / 2));
     if (eff.addItem) setInventory(p => [...p, eff.addItem]);
-    if (eff.addCompanion) setCompanion(eff.addCompanion);
+    if (eff.addCompanion) {
+      // Legacy support: map companion string to party member object
+      const companionObj = PARTY_MEMBERS[eff.addCompanion];
+      if (companionObj && party.length < 3) {
+        setParty(p => [...p, {...companionObj}]);
+      }
+    }
+    if (eff.addPartyMember) setParty(p => p.length < 3 ? [...p, eff.addPartyMember] : p);
+    if (eff.removePartyMember) setParty(p => p.filter(m => m.id !== eff.removePartyMember));
     if (eff.addQuest) setQuests(p => [...p, eff.addQuest]);
     if (eff.addWeaponTag) setWeaponTag(p => p + ", " + eff.addWeaponTag);
     if (eff.fullHeal) setStrikes(maxStrikes);
@@ -881,6 +1332,7 @@ export default function TorchesInTheDark() {
     setInCombat(true);
     setPhase("combat");
     setPlayerActed(false);
+    setCombatRound(1);
     
     // Initiative
     const initRoll = d6();
@@ -960,27 +1412,72 @@ export default function TorchesInTheDark() {
     
     setCombatLog(prev => [...prev, ...newLog]);
     
-    // Companion attack
-    if (companion === "kael" && enemies.some(e => e.strikes > 0)) {
+    // Party member attacks
+    if (party.length > 0 && enemies.some(e => e.strikes > 0)) {
       setTimeout(() => {
-        const aliveTargets = enemies.filter(e => e.strikes > 0);
-        const kTarget = aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
-        const kRoll = d20();
-        const kTotal = kRoll + 5; // Kael's attack bonus
-        if (kTotal >= kTarget.defense) {
-          const kIdx = enemies.findIndex(e => e.id === kTarget.id);
-          const updatedEnemies = [...enemies];
-          updatedEnemies[kIdx] = { ...updatedEnemies[kIdx], strikes: Math.max(0, updatedEnemies[kIdx].strikes - 1) };
-          setEnemies(updatedEnemies);
-          setCombatLog(prev => [...prev, `Kael attacks ${kTarget.name}: ${kRoll}+5=${kTotal} — HIT! 1 Strike.${updatedEnemies[kIdx].strikes <= 0 ? ` ${kTarget.name} falls!` : ''}`]);
-          if (updatedEnemies.every(e => e.strikes <= 0)) {
-            setCombatLog(prev => [...prev, "", "— VICTORY! —"]);
-            setTimeout(() => endCombat(true), 1200);
-            return;
-          }
-        } else {
-          setCombatLog(prev => [...prev, `Kael attacks ${kTarget.name}: ${kRoll}+5=${kTotal} — Miss.`]);
+        const aliveEnemies = enemies.filter(e => e.strikes > 0);
+        const aliveParty = party.filter(m => m.alive && m.strikes > 0);
+        
+        if (aliveParty.length === 0 || aliveEnemies.length === 0) {
+          setCombatTurn("enemy");
+          setTimeout(() => enemyTurn(), 800);
+          return;
         }
+        
+        let updatedEnemies = [...enemies];
+        let partyLog = [];
+        
+        aliveParty.forEach((member, memberIdx) => {
+          if (updatedEnemies.filter(e => e.strikes > 0).length === 0) return;
+          
+          const aliveTargets = updatedEnemies.filter(e => e.strikes > 0);
+          let targetEnemy;
+          
+          // Kael's special: target most wounded
+          if (member.id === "kael") {
+            targetEnemy = aliveTargets.reduce((prev, curr) => 
+              (curr.strikes < prev.strikes) ? curr : prev
+            );
+          } else {
+            // Random target for others
+            targetEnemy = aliveTargets[Math.floor(Math.random() * aliveTargets.length)];
+          }
+          
+          const roll = d20();
+          const total = roll + member.attackBonus;
+          
+          if (total >= targetEnemy.defense) {
+            let dmg = member.damage;
+            
+            // Sable's first strike bonus
+            if (member.id === "sable" && !member.firstStrikeUsed) {
+              dmg += 1;
+              partyLog.push(`${member.name} unleashes her First Strike!`);
+              // Mark first strike as used
+              setParty(p => p.map(m => m.id === "sable" ? {...m, firstStrikeUsed: true} : m));
+            }
+            
+            const targetIdx = updatedEnemies.findIndex(e => e.id === targetEnemy.id);
+            updatedEnemies[targetIdx] = { 
+              ...updatedEnemies[targetIdx], 
+              strikes: Math.max(0, updatedEnemies[targetIdx].strikes - dmg) 
+            };
+            
+            partyLog.push(`${member.name} attacks ${targetEnemy.name}: ${roll}+${member.attackBonus}=${total} — HIT! ${dmg} Strike${dmg>1?'s':''}.${updatedEnemies[targetIdx].strikes <= 0 ? ` ${targetEnemy.name} falls!` : ''}`);
+          } else {
+            partyLog.push(`${member.name} attacks ${targetEnemy.name}: ${roll}+${member.attackBonus}=${total} — Miss.`);
+          }
+        });
+        
+        setEnemies(updatedEnemies);
+        setCombatLog(prev => [...prev, ...partyLog]);
+        
+        if (updatedEnemies.every(e => e.strikes <= 0)) {
+          setCombatLog(prev => [...prev, "", "— VICTORY! —"]);
+          setTimeout(() => endCombat(true), 1200);
+          return;
+        }
+        
         setCombatTurn("enemy");
         setTimeout(() => enemyTurn(), 800);
       }, 600);
@@ -995,58 +1492,108 @@ export default function TorchesInTheDark() {
     const alive = currentEnemies.filter(e => e.strikes > 0);
     if (alive.length === 0) return;
     
-    let totalDmg = 0;
     let newLog = [];
+    const aliveParty = party.filter(m => m.alive && m.strikes > 0);
     
     alive.forEach(enemy => {
       const r = d20();
       const attackBonus = enemy.finesse || enemy.might || 2;
       const total = r + attackBonus;
-      const playerDef = 5 + (abilities.Finesse || 0) + armorDef + (hasShield ? 1 : 0);
       
-      if (total >= playerDef) {
+      // Determine target: 50% player, 50% split among party
+      const targetRoll = Math.random();
+      let targetType = "player";
+      let targetMember = null;
+      let targetDef = 5 + (abilities.Finesse || 0) + armorDef + (hasShield ? 1 : 0);
+      
+      if (aliveParty.length > 0 && targetRoll > 0.5) {
+        // Target random party member
+        targetMember = aliveParty[Math.floor(Math.random() * aliveParty.length)];
+        targetType = "party";
+        targetDef = targetMember.defense; // Use party member's defense directly
+      }
+      
+      if (total >= targetDef) {
         let dmg = 1;
         if (r === 20) dmg = 2;
-        if (enemy.isBoss) dmg += (r >= 18 ? 1 : 0); // Bosses hit harder on high rolls
+        if (enemy.isBoss) dmg += (r >= 18 ? 1 : 0);
         
-        // DR check
-        if (armorDR > 0) {
-          const drRoll = d6();
-          if (drRoll <= armorDR) {
+        if (targetType === "player") {
+          // Attack player - check DR
+          if (armorDR > 0) {
+            const drRoll = d6();
+            if (drRoll <= armorDR) {
+              dmg = Math.max(0, dmg - 1);
+              if (dmg === 0) {
+                newLog.push(`${enemy.name} attacks you: ${r}+${attackBonus}=${total} — Hit, but your armor absorbs it!`);
+                return;
+              }
+            }
+          }
+          
+          const newStrikes = Math.max(0, strikes - dmg);
+          setStrikes(newStrikes);
+          newLog.push(`${enemy.name} attacks you: ${r}+${attackBonus}=${total} vs DEF ${targetDef} — HIT! ${dmg} Strike${dmg>1?'s':''}!${r===20?' CRITICAL!':''}`);
+          
+          if (newStrikes <= 0) {
+            setCombatLog(prev => [...prev, ...newLog, "", "You fall..."]);
+            setTimeout(() => endCombat(false), 1500);
+            return;
+          }
+        } else {
+          // Attack party member
+          // Brother Cade's divine shield
+          if (targetMember.id === "brotherCade" && targetMember.divineShieldActive) {
+            newLog.push(`${enemy.name} attacks ${targetMember.name}: ${r}+${attackBonus}=${total} — Hit blocked by Divine Shield!`);
+            setParty(p => p.map(m => m.id === "brotherCade" ? {...m, divineShieldActive: false} : m));
+            return;
+          }
+          
+          // Dorn's juggernaut passive
+          if (targetMember.id === "dorn" && targetMember.juggernautActive && combatRound <= 3) {
             dmg = Math.max(0, dmg - 1);
             if (dmg === 0) {
-              newLog.push(`${enemy.name} attacks: ${r}+${attackBonus}=${total} — Hit, but your armor absorbs it!`);
+              newLog.push(`${enemy.name} attacks ${targetMember.name}: ${r}+${attackBonus}=${total} — Hit absorbed by Juggernaut!`);
               return;
             }
           }
+          
+          const newMemberStrikes = Math.max(0, targetMember.strikes - dmg);
+          setParty(p => p.map(m => {
+            if (m.id === targetMember.id) {
+              const knockedOut = newMemberStrikes <= 0;
+              return {...m, strikes: newMemberStrikes, alive: !knockedOut};
+            }
+            return m;
+          }));
+          
+          newLog.push(`${enemy.name} attacks ${targetMember.name}: ${r}+${attackBonus}=${total} vs DEF ${targetDef} — HIT! ${dmg} Strike${dmg>1?'s':''}!${r===20?' CRITICAL!':''}${newMemberStrikes <= 0 ? ` ${targetMember.name} is knocked out!` : ''}`);
         }
-        
-        totalDmg += dmg;
-        newLog.push(`${enemy.name} attacks: ${r}+${attackBonus}=${total} vs DEF ${playerDef} — HIT! ${dmg} Strike${dmg>1?'s':''}!${r===20?' CRITICAL!':''}`);
       } else {
-        newLog.push(`${enemy.name} attacks: ${r}+${attackBonus}=${total} vs DEF ${playerDef} — Miss.`);
+        const targetName = targetType === "player" ? "you" : targetMember.name;
+        newLog.push(`${enemy.name} attacks ${targetName}: ${r}+${attackBonus}=${total} vs DEF ${targetDef} — Miss.`);
       }
     });
     
     setCombatLog(prev => [...prev, ...newLog]);
-    
-    if (totalDmg > 0) {
-      const newStrikes = Math.max(0, strikes - totalDmg);
-      setStrikes(newStrikes);
-      if (newStrikes <= 0) {
-        setCombatLog(prev => [...prev, "", "You fall..."]);
-        setTimeout(() => endCombat(false), 1500);
-        return;
-      }
-    }
-    
     setCombatTurn("player");
     setPlayerActed(false);
+    setCombatRound(prev => prev + 1);
   };
 
   const endCombat = (victory) => {
     setInCombat(false);
     if (victory) {
+      // Revive knocked out party members with 1 strike
+      setParty(p => p.map(m => ({
+        ...m, 
+        alive: true, 
+        strikes: m.strikes <= 0 ? 1 : m.strikes,
+        firstStrikeUsed: false, // Reset Sable's ability
+        divineShieldActive: m.id === "brotherCade", // Reset Brother Cade's shield
+        juggernautActive: m.id === "dorn" // Reset Dorn's juggernaut
+      })));
+      
       setPhase("playing");
       if (afterCombatScene) {
         setTimeout(() => processScene(afterCombatScene), 500);
@@ -1392,7 +1939,16 @@ export default function TorchesInTheDark() {
               </div>
               <p style={styles.csGear}>⚔ {weapon} ({weaponTag}) | 🛡 {armor} | {hasShield ? '🔰 Shield' : ''}</p>
               <p style={styles.csGear}>Passive: {passiveTrait?.name} | Active: {activeTrait?.name}</p>
-              {companion && <p style={styles.csGear}>Companion: {companion === 'kael' ? 'Kael (Sellsword)' : companion}</p>}
+              {party.length > 0 && (
+                <div>
+                  <p style={styles.csGear}>Party Members:</p>
+                  {party.map(m => (
+                    <p key={m.id} style={{...styles.csGear, color: m.alive ? '#4a9' : '#888'}}>
+                      • {m.name} ({m.strikes}/{m.maxStrikes} Strikes, DEF {m.defense}, +{m.attackBonus} ATK)
+                    </p>
+                  ))}
+                </div>
+              )}
               {quests.length > 0 && <p style={styles.csGear}>Quests: {quests.join(', ')}</p>}
               <p style={styles.csGear}>Pack: {inventory.join(', ')}</p>
             </div>
