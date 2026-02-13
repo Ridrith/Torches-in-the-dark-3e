@@ -130,11 +130,23 @@ const ENEMIES = {
   ghoul: {name:"Ghoul",strikes:2,maxStrikes:2,defense:12,might:2,finesse:2,endurance:2,special:"Paralysis: Endurance save or lose action",dmgType:"fang"},
   skeleton: {name:"Skeleton",strikes:1,maxStrikes:1,defense:10,might:1,finesse:0,endurance:0,special:"Immune to fear, poison, mental",dmgType:"slashing"},
   wight: {name:"Wight",strikes:3,maxStrikes:3,defense:13,might:4,finesse:3,endurance:3,special:"Energy Drain: lose 1 random ability",dmgType:"slashing"},
+  // NEW ENEMIES
+  deserter: {name:"Imperial Deserter",strikes:2,maxStrikes:2,defense:12,might:2,finesse:2,endurance:2,special:"Desperate: +1 attack when below half health",dmgType:"slashing"},
+  pitFighter: {name:"Pit-Fighter",strikes:3,maxStrikes:3,defense:13,might:4,finesse:2,endurance:3,special:"Haymaker: crits on 19-20",dmgType:"crushing"},
+  smuggler: {name:"Smuggler",strikes:1,maxStrikes:1,defense:12,might:1,finesse:3,endurance:1,special:"Slippery: first attack against them has disadvantage",dmgType:"puncturing"},
+  dockThug: {name:"Dock Thug",strikes:2,maxStrikes:2,defense:11,might:3,finesse:1,endurance:3,special:"Cheap Shot: +1 damage if player hasn't acted",dmgType:"crushing"},
+  corruptGuard: {name:"Corrupt Watchman",strikes:2,maxStrikes:2,defense:13,might:2,finesse:2,endurance:3,special:"Shield Wall: +1 DEF per allied guard alive",dmgType:"slashing"},
+  hexMarked: {name:"Hex-Marked Thrall",strikes:2,maxStrikes:2,defense:11,might:3,finesse:1,endurance:3,special:"Undying: stays at 1 strike once per combat",dmgType:"slashing"},
+  harborCaptain: {name:"Harbor Captain Rennik",strikes:4,maxStrikes:4,defense:14,might:3,finesse:3,endurance:3,special:"Rally: heals all allies 1 strike once per combat",dmgType:"slashing",isBoss:false},
   // BOSSES
   bossGarran: {name:"Garran the Flay-King",strikes:4,maxStrikes:4,defense:14,might:4,finesse:3,endurance:3,special:"Ruthless: +2 Strikes if both attacks hit. Attacks twice.",dmgType:"slashing",isBoss:true},
   bossIronMadam: {name:"The Iron Madam",strikes:5,maxStrikes:5,defense:15,might:3,finesse:4,endurance:4,special:"Slaver's Whip: Resolve DC 14 or stunned. Bodyguard takes first hit.",dmgType:"slashing",isBoss:true},
   bossBarrowKing: {name:"The Barrow King",strikes:6,maxStrikes:6,defense:13,might:5,finesse:2,endurance:5,special:"Undead: immune fear/poison. Energy Drain on crit. Summons 1d4 skeletons.",dmgType:"crushing",isBoss:true},
   bossWytch: {name:"Morvaine the Ash-Tongued",strikes:8,maxStrikes:8,defense:14,might:2,finesse:4,endurance:3,special:"Casts spells each round. Void Shield: first attack each round misses. At half health summons Shadow Birth.",dmgType:"slashing",isBoss:true},
+  // NEW BOSSES
+  bossVargKnife: {name:"Varg the Knife",strikes:5,maxStrikes:5,defense:15,might:3,finesse:5,endurance:2,special:"Twin Blades: attacks twice. Poison: failed Endurance DC 13 or lose 1 strike next round.",dmgType:"puncturing",isBoss:true},
+  bossOldHolloway: {name:"Old Holloway",strikes:7,maxStrikes:7,defense:12,might:5,finesse:1,endurance:6,special:"Unkillable: regenerates 1 strike per round. Weakness: fire damage prevents regen.",dmgType:"crushing",isBoss:true},
+  bossRedMask: {name:"The Red Mask",strikes:6,maxStrikes:6,defense:14,might:4,finesse:4,endurance:3,special:"Duelist: counterattacks on player miss. Riposte: +2 damage after successful parry.",dmgType:"slashing",isBoss:true},
 };
 
 // PARTY MEMBERS
@@ -708,6 +720,13 @@ const SHOP_ITEMS = [
   {name:"Antidote",cost:25,type:"consumable",cures:"poison"},
   {name:"Torch (3 pack)",cost:6,type:"item"},
   {name:"Rope (50ft)",cost:8,type:"item"},
+  // NEW ITEMS
+  {name:"Cold Iron Blade",cost:300,type:"weapon",tag:"Cold Iron (+2 vs supernatural)"},
+  {name:"Brigandine Armor",cost:350,type:"armor",def:3,dr:3,slots:2},
+  {name:"Healing Potion (Greater)",cost:120,type:"consumable",heals:5},
+  {name:"Fire Oil (3 uses)",cost:45,type:"consumable"},
+  {name:"Warding Charm",cost:80,type:"item"},
+  {name:"Lockpicks (Fine)",cost:35,type:"item"},
 ];
 
 // ============================================================
