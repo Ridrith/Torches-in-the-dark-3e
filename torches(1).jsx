@@ -353,6 +353,7 @@ const SCENES = {
       {text:"\"Just a traveler. I'll pay the toll.\"", next:"garranToll"},
       {text:"\"I'm here for Garran. I have a proposition.\"", next:"garranProposition"},
       {text:"Try to sneak past at nightfall. (Finesse check DC 15)", next:"garranSneak"},
+      {text:"Investigate the iron cages at the crossroads.", next:"ironwoodGibbet"},
     ],
   },
 
@@ -557,6 +558,8 @@ const SCENES = {
       {text:"Visit the Bounty Board for information.", next:"bountyBoard"},
       {text:"Find the weapon merchant.", next:"weaponShop"},
       {text:"Rest at the inn. (Full heal, 15 Golm)", next:"restInn"},
+      {text:"Visit the Chapel of Ainerth.", next:"chapelAinerth"},
+      {text:"Check the Broken Anchor for Voss. (If you met him)", next:"vossReturn"},
       {text:"Descend into the Underdocks.", next:"underdocks"},
       {text:"Head straight for the Wytch Spires. No more delays.", next:"ashwoodRoad"},
     ],
@@ -569,7 +572,7 @@ const SCENES = {
       "Below it, in smaller script: \"Information regarding Morvaine's weaknesses can be obtained from Brother Ashford at the Chapel of Ainerth, Dock Ward.\"",
     ],
     choices:[
-      {text:"Visit Brother Ashford at the chapel.", next:"brotherAshford"},
+      {text:"Visit Brother Ashford at the chapel.", next:"chapelAinerth"},
       {text:"Return to the city.", next:"squallsEnd"},
     ],
   },
@@ -713,6 +716,7 @@ const SCENES = {
       {text:"Find the smuggler called Fen. He trades in information.", next:"underdocksSmugglers"},
       {text:"Check out the Blood Circus fighting pit.", next:"underdocksPit"},
       {text:"Push deeper into the old tunnels.", next:"underdocksDeep"},
+      {text:"Seek out Varg the Knife's den. (If quest active)", next:"vargLair"},
       {text:"Return to the surface.", next:"squallsEnd"},
     ],
   },
@@ -918,6 +922,194 @@ const SCENES = {
     ],
     combat:{enemies:["deserter","deserter","deserter","brigand"],type:"normal"},
     choices:[{text:"Search the bodies and move on.", next:"ashwoodRoad", effect:{addCoin:40,addItem:"Decent Blade"}}],
+  },
+
+  // ===== THE IRONWOOD GIBBET =====
+  ironwoodGibbet: {
+    text:[
+      "THE IRONWOOD GIBBET",
+      "—",
+      "The crossroads is marked by dead trees and deader men. Iron cages dangle from the branches, each one holding the remains of someone who crossed Garran or didn't pay their debts. Most are just bones now.",
+      "But one cage still holds a living man.",
+      "He's middle-aged, well-dressed once. A merchant by the look of his clothes. He watches you approach with the desperate hope of a drowning man.",
+      "\"Please,\" he rasps. \"Three days. No water. Garran's men—they said they'd come back. They haven't. Please.\"",
+    ],
+    choices:[
+      {text:"(Might DC 12) Break the lock and free him.", next:"gibbetFree"},
+      {text:"(If you have lockpicks) Pick the lock.", next:"gibbetFree"},
+      {text:"Leave him. Not your problem.", next:"gibbetLeave"},
+      {text:"Move on quickly.", next:"garranPaid"},
+    ],
+  },
+
+  gibbetFree: {
+    text:[
+      "The lock breaks with a wrench. The merchant—Torvin, he says his name is—collapses to the ground, gasping.",
+      "\"Thank you. Gods. Thank you.\"",
+      "When he can stand, he fumbles in his shirt and produces a small leather purse. Seventy-five Golm. \"It's all I have left, but it's yours.\"",
+      "He also tells you about a cache—goods he buried before Garran's men took him. Quality weapons and gear, hidden three miles south.",
+    ],
+    check:{ability:"Might",dc:12},
+    onSuccess:{
+      text:"You free him easily. He's grateful and gives you the coin and directions.",
+      next:"gibbetCache",
+      effect:{addCoin:75},
+    },
+    onFail:{
+      text:"You free him. He's grateful but weak. He gives you what he can.",
+      next:"garranPaid",
+      effect:{addCoin:75},
+    },
+  },
+
+  gibbetCache: {
+    text:[
+      "You find the cache where Torvin said it would be—a false stone beneath a marker tree. Inside: a finely crafted blade and a pouch of coin.",
+      "Your choice: take the blade (Keen weapon upgrade) or the coin (150 Golm).",
+    ],
+    choices:[
+      {text:"Take the Keen Blade.", next:"garranPaid", effect:{addWeaponTag:"Keen"}},
+      {text:"Take the coin.", next:"garranPaid", effect:{addCoin:150}},
+    ],
+  },
+
+  gibbetLeave: {
+    text:[
+      "You turn away. The merchant's pleas follow you down the road, then fade.",
+      "Later, camped by the roadside, you can't shake the image. The cage. The eyes. The desperate hope dying.",
+    ],
+    check:{ability:"Presence",dc:10},
+    onSuccess:{
+      text:"You steel yourself. You've got bigger problems. The guilt fades, eventually.",
+      next:"garranPaid",
+    },
+    onFail:{
+      text:"The guilt settles in your gut like a stone. You're haunted. The man's face follows you. (-1 to Resolve checks until you rest)",
+      next:"garranPaid",
+      effect:{addQuest:"haunted"},
+    },
+  },
+
+  // ===== VOSS / VARG QUESTLINE =====
+  vossReturn: {
+    text:[
+      "THE BROKEN ANCHOR BASEMENT",
+      "—",
+      "Voss is waiting in the back room, surrounded by books that smell like grave dirt. He doesn't look up when you enter.",
+      "\"You've made progress,\" he says. \"I can smell Morvaine on you. Or maybe that's just death.\"",
+      "He sets down a black quill. \"I have more for you. Information that'll help. But I need a favor first.\"",
+      "His eyes meet yours. \"There's a crime lord in the Underdocks. Varg the Knife. He stole something from me—a lockbox. Small, iron, marked with my seal. Get it back, and I'll tell you what you need to know about the Spires.\"",
+    ],
+    choices:[
+      {text:"Accept the job.", next:"underdocks", effect:{addQuest:"vossLockbox"}},
+      {text:"Refuse. You don't have time.", next:"squallsEnd"},
+    ],
+  },
+
+  vargLair: {
+    text:[
+      "VARG'S DEN",
+      "—",
+      "The deeper tunnels beneath the Underdocks are Varg's territory. The walls are carved with knife marks—his signature. A reminder that this is a killing ground.",
+      "You can smell blood and cheap wine. Voices ahead, laughter with edges.",
+    ],
+    choices:[
+      {text:"(Finesse DC 14) Sneak in quietly.", next:"vargSneak"},
+      {text:"Walk in openly. Violence is simpler.", next:"vargFight"},
+    ],
+  },
+
+  vargSneak: {
+    text:["You move through shadow. Quiet as a held breath."],
+    check:{ability:"Finesse",dc:14},
+    onSuccess:{
+      text:"You slip past Varg's guards. His inner sanctum is undefended. The lockbox sits on a table, almost mocking in its simplicity. You take it and leave. No one the wiser.",
+      next:"vossReward",
+      effect:{addItem:"Voss's Lockbox"},
+    },
+    onFail:{
+      text:"A guard spots you. Whistles. Steel scrapes from sheaths. \"Varg! We got company!\"",
+      next:"vargFight",
+    },
+  },
+
+  vargFight: {
+    text:[
+      "BOSS FIGHT: VARG THE KNIFE",
+      "—",
+      "Varg is lean and quick, with twin blades and a smile like cut glass. His men flank him—smugglers and thugs.",
+      "\"Bold,\" he says. \"Stupid, but bold. I like that. Let's see how you bleed.\"",
+    ],
+    combat:{enemies:["bossVargKnife","smuggler","dockThug"],type:"boss"},
+    choices:[{text:"Search the lair.", next:"vargAfter"}],
+  },
+
+  vargAfter: {
+    text:[
+      "Varg dies on his knives, bleeding out with that same smile.",
+      "You find the lockbox in his quarters, along with a hundred Golm and a poisoned dagger that's worth keeping.",
+    ],
+    choices:[{text:"Take your prizes and return to Voss.", next:"vossReward", effect:{addCoin:100,addItem:"Poisoned Dagger (+1 dmg, Venomous)"}}],
+  },
+
+  vossReward: {
+    text:[
+      "Voss examines the lockbox, satisfied. \"Good. You're efficient. I respect that.\"",
+      "He opens it. Inside: a small book bound in something that isn't leather. He doesn't let you see the pages.",
+      "\"Morvaine's heading for the Wytch Spires. You know that. What you don't know is why. The Spires were built by the God Binder, back when gods walked and witches ruled. There's a fire at the top of the central spire—sacred flame that's burned for a thousand years.\"",
+      "He taps the lockbox. \"The Black Book—your prize from the bridge—can only be destroyed in that flame. Do so, and you'll weaken Morvaine's ritual. Maybe enough to kill her.\"",
+      "He counts out three hundred Golm. \"For your trouble.\"",
+    ],
+    choices:[{text:"Take the coin and the knowledge.", next:"squallsEnd", effect:{addCoin:300}}],
+  },
+
+  // ===== EXPANDED CHAPEL =====
+  chapelAinerth: {
+    text:[
+      "THE CHAPEL OF AINERTH",
+      "—",
+      "The chapel stands in the Dock Ward, a quiet grey building that smells of incense and old prayers. Inside, candlelight flickers against worn stone.",
+      "Brother Ashford is here, as before—an old priest with gentle eyes and a voice like worn velvet. But there's someone else too.",
+      "A man in tarnished crusader armor kneels before the altar. His sword rests across his knees, and his head is bowed. Not in prayer. In shame.",
+      "Brother Ashford notices you. \"Ah. The hunter returns. Have you come for wisdom, or steel?\"",
+    ],
+    choices:[
+      {text:"Ask about Morvaine's weaknesses.", next:"ashfordWytchLore"},
+      {text:"Talk to the crusader.", next:"cadeIntro"},
+      {text:"Leave the chapel.", next:"squallsEnd"},
+    ],
+  },
+
+  cadeIntro: {
+    text:[
+      "The man doesn't look up when you approach. His armor is scratched, dented. Blood has dried in the joints.",
+      "\"Brother Cade,\" Ashford says softly. \"He arrived three days ago. He's... lost.\"",
+      "Cade finally lifts his head. His eyes are hard and empty. \"I led a company against the Ashwood cultists. Fifty men. Blessed weapons. Divine mandate. We were supposed to cleanse the forest.\"",
+      "His jaw tightens. \"We found the cult. They summoned something. I don't know what. Half my men died screaming. The rest ran. I...\" He looks at his hands. \"I prayed. Nothing answered. So I killed it myself. Alone.\"",
+      "\"I'm done with faith. But I'm not done with killing things that need to die.\"",
+    ],
+    choices:[
+      {text:"Offer him a place in your group.", next:"cadeJoin", effect:{addPartyMember:{...PARTY_MEMBERS.brotherCade}}},
+      {text:"Leave him to his grief.", next:"chapelAinerth"},
+    ],
+  },
+
+  cadeJoin: {
+    text:[
+      "Cade stands. The armor clatters. \"Alright. A Wytch, you said? Good. I've got some prayers left. Let's see if they work on her.\"",
+      "He gathers his gear. His sword—a blessed blade, heavy and worn—goes across his back.",
+      "Brother Ashford watches with sad eyes. \"Go with the light, Brother. Even if you no longer see it.\"",
+    ],
+    choices:[{text:"Leave with Cade.", next:"squallsEnd"}],
+  },
+
+  ashfordWytchLore: {
+    text:[
+      "Brother Ashford leads you to a side chapel. Scrolls and old texts are spread across a table.",
+      "\"Morvaine the Ash-Tongued. A soul-eater. She was human once, or so the texts claim. A scholar who sought immortality through forbidden ritual. She found it. Or it found her.\"",
+      "\"Her weakness? Fire, ironically. The same element she's consumed by. But not regular fire—consecrated flame. The kind that burns in the Wytch Spires. Bring her to that fire, and she can be destroyed.\"",
+    ],
+    choices:[{text:"Thank him and return to the chapel.", next:"chapelAinerth"}],
   },
 
   death: {
