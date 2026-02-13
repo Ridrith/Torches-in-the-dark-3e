@@ -557,6 +557,7 @@ const SCENES = {
       {text:"Visit the Bounty Board for information.", next:"bountyBoard"},
       {text:"Find the weapon merchant.", next:"weaponShop"},
       {text:"Rest at the inn. (Full heal, 15 Golm)", next:"restInn"},
+      {text:"Descend into the Underdocks.", next:"underdocks"},
       {text:"Head straight for the Wytch Spires. No more delays.", next:"ashwoodRoad"},
     ],
   },
@@ -615,6 +616,7 @@ const SCENES = {
     choices:[
       {text:"Push forward. Close the distance.", next:"spireApproach"},
       {text:"Make camp. Rest before the final fight.", next:"ashwoodCamp"},
+      {text:"Investigate smoke rising from the east. Another village?", next:"charredVillage"},
     ],
   },
 
@@ -695,6 +697,227 @@ const SCENES = {
       "— END —",
     ],
     choices:[{text:"Play Again", next:"restart"}],
+  },
+
+  // ===== THE UNDERDOCKS =====
+  underdocks: {
+    text:[
+      "THE UNDERDOCKS",
+      "—",
+      "The smell hits you first—brine and rot and something worse beneath it. The tunnels below Squall's End weren't built by the city. They're older, carved when this coast belonged to something else.",
+      "Now they belong to no one and everyone. Smugglers. Deserters. People with nowhere left to run.",
+      "Water drips from the ceiling. Torchlight wavers against slick stone. Voices echo from deeper in—a card game turning ugly, someone selling something they shouldn't.",
+      "You've descended because the trail led here. Morvaine passed through the Underdocks on her way north. Someone down here saw her. Someone always sees.",
+    ],
+    choices:[
+      {text:"Find the smuggler called Fen. He trades in information.", next:"underdocksSmugglers"},
+      {text:"Check out the Blood Circus fighting pit.", next:"underdocksPit"},
+      {text:"Push deeper into the old tunnels.", next:"underdocksDeep"},
+      {text:"Return to the surface.", next:"squallsEnd"},
+    ],
+  },
+
+  underdocksSmugglers: {
+    text:[
+      "Fen operates out of a converted cistern. The water's long gone, replaced by crates and barrels of dubious origin. The man himself is lean and wary, with eyes that calculate your worth before you open your mouth.",
+      "\"Morvaine?\" He sets down a flask. \"Yeah, I saw her. Hard to miss. She bought passage on a river barge—headed upriver, not the road. Smart. The Ashwood Road's crawling with Garran's boys and worse.\"",
+      "He leans forward. \"But information ain't free. I got a problem. Harbor Captain Rennik—bent bastard runs the dock watch. He's been squeezing my operation, taking more than his cut. You deal with him, I'll tell you everything I know about the Wytch's route.\"",
+    ],
+    choices:[
+      {text:"Accept the job. (Start quest: The Smuggler's Bargain)", next:"underdocks", effect:{addQuest:"smugglerBargain"}},
+      {text:"(Insight DC 12) Try to read if Fen's telling the truth.", next:"underdocksFenInsight"},
+      {text:"Decline and leave.", next:"underdocks"},
+    ],
+  },
+
+  underdocksFenInsight: {
+    text:["You study Fen's face. The micro-expressions. The way his hand rests too casually near a knife."],
+    check:{ability:"Insight",dc:12},
+    onSuccess:{
+      text:"He's lying—not about Rennik, but about why. This isn't about money. It's personal. Rennik has something on Fen, or someone Fen cares about. The desperation is real, even if the story's half-truth.",
+      next:"underdocks",
+    },
+    onFail:{
+      text:"You can't get a read on him. Could be genuine. Could be setting you up. Hard to say.",
+      next:"underdocks",
+    },
+  },
+
+  underdocksPit: {
+    text:[
+      "The Blood Circus isn't a circus. It's a pit carved into the bedrock, lit by torches and packed with bodies. The fights are bare-knuckle, no rules, first blood or last breath.",
+      "In the ring: a stocky dwarf with fists like hammerstones and a face that's taken every punch the world's got. His opponent, some dockside thug, is already bleeding.",
+      "The dwarf doesn't showboat. He just works. Left hook. Right hook. The thug goes down and stays down.",
+      "The crowd roars. The dwarf—Dorn, they call him—spits blood and waits for the next fight.",
+    ],
+    choices:[
+      {text:"Challenge Dorn. Win, and maybe he'll join you.", next:"underdocksPitFight"},
+      {text:"Talk to Dorn after his fight.", next:"underdocksDornTalk"},
+      {text:"Leave the pit.", next:"underdocks"},
+    ],
+  },
+
+  underdocksPitFight: {
+    text:[
+      "ARENA FIGHT",
+      "—",
+      "You step into the ring. The crowd noise fades to a roar, then a pulse. Dorn cracks his knuckles.",
+      "\"Alright then. Let's see what you've got.\"",
+    ],
+    combat:{enemies:["pitFighter","dockThug"],type:"normal"},
+    choices:[{text:"Catch your breath and talk to Dorn.", next:"underdocksDornRecruit", effect:{addCoin:60}}],
+  },
+
+  underdocksDornTalk: {
+    text:[
+      "Dorn doesn't look up when you approach. He's wrapping his knuckles with fresh cloth, methodical.",
+      "\"You want something, or you just like watching people bleed?\"",
+      "You tell him about Morvaine. About Thornwall. About the hunt.",
+      "He stops wrapping. Looks at you. \"A Wytch, huh? Been a while since I fought something that could actually kill me. Pit fights get old.\"",
+      "He stands. \"You win your next fight in the ring, I'll come with you. Otherwise, you're not worth my time.\"",
+    ],
+    choices:[
+      {text:"Accept the challenge.", next:"underdocksPitFight"},
+      {text:"Leave.", next:"underdocks"},
+    ],
+  },
+
+  underdocksDornRecruit: {
+    text:[
+      "Dorn nods, almost respectful. \"You can take a hit. That's good. Most people hunting Wytches can't.\"",
+      "He gathers his gear—a worn pack, a maul that's seen better days. \"I'm in. But if this gets us killed, I'm haunting you.\"",
+    ],
+    choices:[{text:"Welcome him to the group.", next:"underdocks", effect:{addPartyMember:{...PARTY_MEMBERS.dorn}}}],
+  },
+
+  underdocksDeep: {
+    text:[
+      "The tunnels go deeper than they should. The stonework changes—smoother, older, wrong. Symbols carved into the walls that hurt to look at.",
+      "Hex-marks. Morvaine's signature. She was here, and recently.",
+      "The air tastes like copper and ash. Something pulses in the dark ahead—not sound, not light, but something between.",
+    ],
+    check:{ability:"Resolve",dc:14},
+    onSuccess:{
+      text:"You steady yourself. Push through the psychic pressure. The marks are a warning, or a trap, or both. You press on.",
+      next:"underdocksDeepLoot",
+    },
+    onFail:{
+      text:"The pressure splits your skull. You stumble back, nose bleeding. The dark laughs.",
+      next:"underdocksDeepFail",
+      effect:{loseStrike:1},
+    },
+  },
+
+  underdocksDeepLoot: {
+    text:[
+      "In an alcove, half-buried: ritual components. Wytch-marks burned into bone. And something else—an amulet of blackened bone, still warm.",
+      "It hums faintly. Protective magic, old and ugly, but real.",
+    ],
+    choices:[{text:"Take the Wytch-Bone Amulet and return.", next:"underdocks", effect:{addItem:"Wytch-Bone Amulet (+1 DEF vs magic)"}}],
+  },
+
+  underdocksDeepFail: {
+    text:["You retreat, head pounding. The tunnels here are too dangerous. Maybe later, with better preparation."],
+    choices:[{text:"Return to the main tunnels.", next:"underdocks"}],
+  },
+
+  rennikFight: {
+    text:[
+      "BOSS FIGHT: HARBOR CAPTAIN RENNIK",
+      "—",
+      "Rennik's office reeks of bribe money and old blood. The man himself is broad-shouldered, competent, and utterly corrupt.",
+      "\"Fen sent you? That rat. Fine. Let's make this quick. I got a schedule.\"",
+      "He draws a cutlass, and two of his watchmen flank him, shields up.",
+    ],
+    combat:{enemies:["harborCaptain","corruptGuard","corruptGuard"],type:"boss"},
+    choices:[{text:"Search the office and return to Fen.", next:"rennikAfter", effect:{addCoin:100}}],
+  },
+
+  rennikAfter: {
+    text:[
+      "Fen examines Rennik's ledger with something close to satisfaction. \"Good. He had that coming.\"",
+      "He looks up. \"You want what I know. Fair deal. Morvaine took a barge called the Silt Queen—river route, not the road. She paid the captain in something that wasn't coin. He looked... wrong, after. Like he'd aged ten years in a minute.\"",
+      "\"She's faster than you think. River's quicker than the road. If you're chasing her, you need to move. She's heading for the Wytch Spires, and she's almost there.\"",
+    ],
+    choices:[{text:"Thank Fen and return to the surface.", next:"squallsEnd"}],
+  },
+
+  // ===== THE CHARRED VILLAGE =====
+  charredVillage: {
+    text:[
+      "THE CHARRED VILLAGE OF BRANNOC",
+      "—",
+      "The smoke rises lazy and black. From a distance, you thought it might be cookfires. Up close, you know better.",
+      "Brannoc—or what's left of it—is Thornwall all over again. Twenty buildings reduced to char and bone. Bodies in the street with their chests cracked open like eggs, the life pulled out of them and consumed.",
+      "Morvaine's work. Another village. Another harvest.",
+      "You walk the ruins with your jaw tight and your fists tighter. The smell is familiar now. You hate that.",
+    ],
+    choices:[
+      {text:"Search for survivors.", next:"charredSurvivor"},
+      {text:"Investigate Morvaine's trail.", next:"charredInvestigate"},
+      {text:"Scavenge for supplies among the ruins.", next:"charredAmbush"},
+      {text:"Move on. There's nothing here for you.", next:"ashwoodRoad"},
+    ],
+  },
+
+  charredSurvivor: {
+    text:[
+      "You find her in a cellar, hidden beneath a collapsed farmhouse. A young woman, maybe twenty, with a bow across her lap and eyes that have seen too much.",
+      "She doesn't flinch when you descend. Just watches.",
+      "\"You're hunting her,\" she says. Not a question.",
+      "Her name is Sable. She tracked Morvaine here from a village to the south—another burned husk on the Wytch's trail. She arrived too late. Just like you did at Thornwall.",
+      "\"I'm good with a bow,\" she says. \"Better at tracking. And I want her dead just as much as you do. Maybe more.\"",
+    ],
+    choices:[
+      {text:"Offer her a place in your group.", next:"charredSableJoin", effect:{addPartyMember:{...PARTY_MEMBERS.sable}}},
+      {text:"Tell her to go home. This isn't her fight.", next:"charredSableRefuse"},
+    ],
+  },
+
+  charredSableJoin: {
+    text:[
+      "Sable nods once, sharp. \"Good. Let's move.\"",
+      "She gathers her gear—a well-maintained longbow, a quiver of grey-fletched arrows, and a knife that's seen use. Professional. Controlled. Dangerous.",
+      "You've seen that look before. The look of someone who's decided dying is acceptable if it means the target dies first.",
+    ],
+    choices:[{text:"Leave the ruins together.", next:"ashwoodRoad"}],
+  },
+
+  charredSableRefuse: {
+    text:[
+      "She doesn't argue. Just stands, shoulders her pack, and walks past you up the cellar steps.",
+      "At the threshold, she pauses. \"When you find her, make it hurt.\"",
+      "Then she's gone, swallowed by the smoke.",
+    ],
+    choices:[{text:"Return to your search.", next:"charredVillage"}],
+  },
+
+  charredInvestigate: {
+    text:[
+      "You follow the ash trail east, toward the treeline. She made camp here—recently. The fire pit is still warm.",
+      "Ritual components scattered across a flat stone: bones, dried flowers, something that might have been a heart once. The markings are fresher than the ones in the Underdocks, more elaborate.",
+    ],
+    check:{ability:"Insight",dc:13},
+    onSuccess:{
+      text:"You piece it together. Notes scrawled in old script. Part of the ritual Morvaine's building. The pattern. These aren't random killings—they're mapped. Geometric. Each village is a point in a constellation she's drawing across the land. The Wytch Spires are the center. The climax. You take the notes. They might give you an edge when the time comes.",
+      next:"charredVillage",
+      effect:{addItem:"Ritual Notes (+2 to first attack vs Morvaine)"},
+    },
+    onFail:{
+      text:"The symbols blur together. You can't make sense of it. Just more death and strange magic. You move on.",
+      next:"charredVillage",
+    },
+  },
+
+  charredAmbush: {
+    text:[
+      "As you turn to leave, movement. A whistle. Then voices.",
+      "Imperial deserters—three of them, plus a brigand who looks like he leads. They've moved into the ruins to pick the bones clean.",
+      "\"Fresh meat,\" the brigand says, grinning. \"Drop your coin and maybe we let you walk.\"",
+      "You don't drop your coin.",
+    ],
+    combat:{enemies:["deserter","deserter","deserter","brigand"],type:"normal"},
+    choices:[{text:"Search the bodies and move on.", next:"ashwoodRoad", effect:{addCoin:40,addItem:"Decent Blade"}}],
   },
 
   death: {
