@@ -18,7 +18,7 @@
 
     <!-- HEADER SECTION -->
     <div class="sheet-header">
-        <input type="text" name="attr_character_name" placeholder="Character Name" style="font-size: 1.5em; font-weight: 600; text-align: center;">
+        <input type="text" name="attr_character_name" placeholder="Character Name">
         <input type="text" name="attr_grim_sort_race" placeholder="Race">
         <select name="attr_class_name">
             <option value="None" selected>-- Select a Class --</option>
@@ -83,9 +83,7 @@
             <div class="sheet-stat-box-label">Inventory</div>
             <div class="sheet-stat-box-value">
                 <span name="attr_inventory_current">0</span>/<span name="attr_inventory_max">10</span>
-                <div style="font-size: 0.8em; color: rgba(169, 169, 169, 0.7);">
-                    Armor: <span name="attr_armor_slots_used">0</span> slots
-                </div>
+                <div class="sheet-stat-box-sub">Armor: <span name="attr_armor_slots_used">0</span> slots</div>
             </div>
         </div>
         
@@ -198,7 +196,7 @@
                     <input type="number" name="attr_custom_strikes_max" id="attr_custom_strikes_max" value="5" min="1" max="10">
                 </div>
             </div>
-            <h4 style="margin-top: 20px; margin-bottom: 10px; color: rgba(169, 169, 169, 0.8);">Custom Abilities</h4>
+            <h4>Custom Abilities</h4>
             <fieldset class="repeating_customabilities">
                 <input type="text" name="attr_customability_name" placeholder="Ability Name">
                 <textarea name="attr_customability_desc" placeholder="Description..."></textarea>
@@ -263,7 +261,7 @@
     <div class="sheet-tab-content" data-tab="inventory">
         <div class="sheet-grid">
             <!-- Currency Section -->
-            <div class="sheet-section" style="grid-column: 1 / -1;">
+            <div class="sheet-section" >
                 <h3>Currency</h3>
                 <div class="sheet-currency-grid">
                     <div class="sheet-currency-item">
@@ -286,25 +284,25 @@
             </div>
 
             <!-- Weapons Section -->
-            <div class="sheet-section" style="grid-column: 1 / -1;">
+            <div class="sheet-section" >
                 <h3>Weapons</h3>
                 <fieldset class="repeating_weapons">
                     <input type="text" name="attr_weapon_name" placeholder="Weapon Name">
                     <button type="roll" name="roll_attack" value="&{template:titd} {{name=@{character_name}}} {{title=Attacks with @{weapon_name}}} {{result=[[1d20+@{weapon_bonus}]]}} {{desc=@{weapon_desc}}}">
                         Attack
                     </button>
-                    <textarea name="attr_weapon_desc" placeholder="Damage/Effects..." style="grid-column: 1 / -1;"></textarea>
-                    <input type="text" name="attr_weapon_bonus" placeholder="Attack Bonus (e.g. @{might})" style="grid-column: 1 / -1;">
+                    <textarea name="attr_weapon_desc" placeholder="Damage/Effects..." ></textarea>
+                    <input type="text" name="attr_weapon_bonus" placeholder="Attack Bonus (e.g. @{might})" >
                 </fieldset>
             </div>
 
             <!-- Inventory Section -->
-            <div class="sheet-section" style="grid-column: 1 / -1;">
+            <div class="sheet-section" >
                 <h3>Inventory</h3>
                 <fieldset class="repeating_inventory">
                     <input type="text" name="attr_item_name" placeholder="Item Name">
                     <input type="number" name="attr_item_slots" value="1" min="0" title="Inventory Slots">
-                    <textarea name="attr_item_desc" placeholder="Description..." style="grid-column: 1 / -1;"></textarea>
+                    <textarea name="attr_item_desc" placeholder="Description..." ></textarea>
                 </fieldset>
             </div>
         </div>
