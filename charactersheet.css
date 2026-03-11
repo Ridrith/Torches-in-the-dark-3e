@@ -1,111 +1,126 @@
 /*
-    Torches in the Dark - CSS v9.4
-    "The Sorcerer's Ledger" Redesign
-    Fixed fonts for Roll20 compatibility + Strike Dots + Polish Improvements + New Features
+    Torches in the Dark — CSS Redesign v10.0
+    "The Grimoire" — A Dark Fantasy Character Sheet
+    Design: Illuminated Manuscript meets Gothic Horror
+    Palette: Void Black · Torch Amber · Blood Crimson · Aged Parchment
 */
 
-/* --- FONTS & CORE STYLES --- */
-/* Removed @import - using web-safe fonts for Roll20 compatibility */
+/* --- FONTS --- */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
+/* --- DESIGN TOKENS --- */
 .charsheet {
-    background-color: #0a0a0a;
-    color: #e0e0e0;
-    font-family: Arial, Helvetica, sans-serif;
+    /* Background */
+    --bg-void:    #0a0806;
+    --bg-deep:    #100e0a;
+    --bg-surface: #181410;
+    --bg-raised:  #201c16;
+    --bg-hover:   #28221a;
+
+    /* Text */
+    --text-primary:  #cfc0a0;
+    --text-bright:   #e4d4b0;
+    --text-secondary: #8a7a5a;
+    --text-muted:    #4a4030;
+
+    /* Torch Amber / Gold */
+    --gold-deep:   #6a4a18;
+    --gold-mid:    #b07828;
+    --gold-bright: #d9a03c;
+    --gold-vivid:  #f0b84a;
+    --gold-glow:   rgba(217, 160, 60, 0.22);
+    --gold-border: rgba(185, 130, 40, 0.30);
+    --gold-border-bright: rgba(217, 160, 60, 0.65);
+
+    /* Blood Crimson */
+    --crimson-deep:   #500a18;
+    --crimson-mid:    #8c1422;
+    --crimson-bright: #be2038;
+    --crimson-glow:   rgba(190, 32, 56, 0.22);
+    --crimson-border: rgba(190, 32, 56, 0.40);
+
+    /* Shadows */
+    --shadow-card: 0 4px 18px rgba(0, 0, 0, 0.7), 0 1px 4px rgba(0, 0, 0, 0.5);
+
+    /* Fonts */
+    --font-display: 'Cinzel', 'Palatino Linotype', Palatino, Georgia, serif;
+    --font-body:    'EB Garamond', 'Palatino Linotype', Georgia, serif;
+    --font-mono:    'Courier New', monospace;
+
+    /* Radii */
+    --r-sm: 3px;
+    --r-md: 6px;
+    --r-lg: 10px;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+.charsheet {
+    background-color: var(--bg-void);
+    background-image:
+        radial-gradient(ellipse at 15% 0%,   rgba(140, 70, 0, 0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 100%, rgba(90,  0, 20, 0.10) 0%, transparent 55%);
+    color: var(--text-primary);
+    font-family: var(--font-body);
     font-size: 16px;
-    line-height: 1.5;
-    /* Dark Red Border — maintain original thickness */
-    box-shadow: inset 0 0 0 4px #3d0000;
-    /* Consistent internal padding */
-    padding: 12px;
+    line-height: 1.6;
+    box-shadow:
+        inset 0 0 0 3px rgba(140, 90, 20, 0.45),
+        inset 0 0 0 5px rgba(8, 6, 4, 0.9);
+    padding: 14px;
     box-sizing: border-box;
 }
 
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
 h3 {
-    font-family: Georgia, "Times New Roman", serif;
-    color: rgba(169, 169, 169, 0.9); /* Iron */
-    font-size: 2rem;
-    letter-spacing: 1px;
-    text-transform: capitalize;
+    font-family: var(--font-display);
+    color: var(--gold-bright);
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
     text-align: center;
-    margin: 15px 0 25px 0;
-    padding-bottom: 10px;
-    position: relative;
+    margin: 0 0 18px 0;
+    padding: 14px 0;
     font-weight: 700;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    position: relative;
 }
 
+h3::before,
 h3::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
+    top: 50%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(169, 169, 169, 0.5), transparent);
+    width: calc(50% - 80px);
+}
+
+h3::before {
+    left: 0;
+    background: linear-gradient(90deg, transparent, var(--gold-border-bright));
+}
+
+h3::after {
+    right: 0;
+    background: linear-gradient(270deg, transparent, var(--gold-border-bright));
 }
 
 h4 {
-    font-family: Georgia, "Times New Roman", serif;
-    color: rgba(169, 169, 169, 0.8);
-    font-size: 1.3rem;
-    letter-spacing: 0.5px;
-    text-transform: capitalize;
-    margin: 15px 0 10px 0;
-    font-weight: 600;
-}
-
-/* --- TAB SYSTEM (CSS DRIVEN) --- */
-.sheet-tabs {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
-    border-bottom: 1px solid rgba(169, 169, 169, 0.2);
-    gap: 4px;
-}
-
-.sheet-tab-button {
-    font-family: Georgia, "Times New Roman", serif;
-    background: none;
-    border: none;
-    color: rgba(169, 169, 169, 0.6);
-    padding: 12px 24px;
-    font-size: 1.3em;
-    text-transform: capitalize;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
+    font-family: var(--font-display);
+    color: var(--text-secondary);
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 16px 0 10px 0;
     font-weight: 700;
-    position: relative;
 }
 
-.sheet-tab-button:hover {
-    color: rgba(169, 169, 169, 0.9);
-    background-color: rgba(26, 26, 26, 0.3);
-}
-
-input[name="attr_tab"] { display: none; }
-
-input[value="character"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="character"],
-input[value="inventory"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="inventory"],
-input[value="abilities"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="abilities"],
-input[value="dread"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="dread"] {
-    color: rgba(169, 169, 169, 1);
-    border-bottom-color: rgba(169, 169, 169, 0.8);
-    background-color: rgba(26, 26, 26, 0.4);
-}
-
-.sheet-tab-content { display: none; }
-input[value="character"]:checked ~ .sheet-tab-content[data-tab="character"],
-input[value="inventory"]:checked ~ .sheet-tab-content[data-tab="inventory"],
-input[value="abilities"]:checked ~ .sheet-tab-content[data-tab="abilities"],
-input[value="dread"]:checked ~ .sheet-tab-content[data-tab="dread"] {
-    display: block;
-}
-
-/* --- LAYOUT & SECTIONS --- */
-.sheet-container { 
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+.sheet-container {
     padding: 0;
     max-width: 1200px;
     margin: 0 auto;
@@ -113,70 +128,164 @@ input[value="dread"]:checked ~ .sheet-tab-content[data-tab="dread"] {
 
 .sheet-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
     align-items: start;
 }
 
+/* =========================================================
+   SECTION CARDS
+   ========================================================= */
 .sheet-section {
-    background: rgba(26, 26, 26, 0.5);
-    border: 1px solid rgba(169, 169, 169, 0.2);
-    border-radius: 6px;
-    padding: 18px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background: var(--bg-surface);
+    background-image: linear-gradient(180deg, rgba(220, 160, 50, 0.03) 0%, transparent 50%);
+    border: 1px solid var(--gold-border);
+    border-radius: var(--r-md);
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
 }
 
-/* --- FORMS, INPUTS, BUTTONS --- */
-input[type="text"], input[type="number"], select, textarea {
-    background-color: #0a0a0a;
-    border: 1px solid rgba(169, 169, 169, 0.3);
-    color: #e0e0e0;
-    border-radius: 4px;
-    padding: 10px 12px;
+.sheet-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-border-bright), transparent);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+.sheet-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 18px 20px;
+    background: var(--bg-surface);
+    background-image: linear-gradient(180deg, rgba(220,160,50,0.06) 0%, transparent 70%);
+    border: 1px solid var(--gold-border);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+}
+
+.sheet-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold-bright) 40%, var(--gold-vivid) 50%, var(--gold-bright) 60%, transparent 100%);
+}
+
+/* Character name input */
+.sheet-header input[type="text"]:first-child {
+    font-family: var(--font-display) !important;
+    font-size: 1.5em !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    color: var(--gold-vivid) !important;
+    letter-spacing: 3px !important;
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid var(--gold-border) !important;
+    border-radius: 0 !important;
+    padding: 4px 8px 8px !important;
+    text-shadow: 0 0 16px rgba(240, 184, 74, 0.25) !important;
+}
+
+/* =========================================================
+   FORM ELEMENTS
+   ========================================================= */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    background-color: var(--bg-deep);
+    border: 1px solid rgba(185, 130, 40, 0.20);
+    color: var(--text-primary);
+    border-radius: var(--r-sm);
+    padding: 8px 12px;
     width: 100%;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-body);
     font-size: 1em;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input:focus, select:focus, textarea:focus {
     outline: none;
-    border-color: rgba(169, 169, 169, 0.8);
-    box-shadow: 0 0 6px rgba(169, 169, 169, 0.3);
+    border-color: var(--gold-mid);
+    box-shadow: 0 0 8px var(--gold-glow), inset 0 1px 4px rgba(0,0,0,0.5);
 }
 
 input::placeholder, textarea::placeholder {
-    color: rgba(169, 169, 169, 0.5);
+    color: var(--text-muted);
+    font-style: italic;
 }
 
-textarea { 
-    resize: vertical; 
+textarea {
+    resize: vertical;
     min-height: 80px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-body);
 }
 
-/* BUTTON FIX: ENHANCED SPECIFICITY FOR ROLL20 */
+select option {
+    background-color: var(--bg-raised);
+    color: var(--text-primary);
+}
+
+select optgroup {
+    color: var(--gold-mid);
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+    font-size: 0.72em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+hr {
+    border: none;
+    border-bottom: 1px solid rgba(185, 130, 40, 0.15);
+    margin: 14px 0;
+}
+
+/* =========================================================
+   ROLL BUTTONS
+   ========================================================= */
 .charsheet button[type="roll"],
 .charsheet .sheet-ability-plaque button[type="roll"],
 .charsheet .repitem button[type="roll"] {
     background-image: none !important;
-    background-color: #1a1a1a !important;
-    color: rgba(169, 169, 169, 0.8) !important;
-    border: 1px solid rgba(169, 169, 169, 0.4) !important;
-    padding: 10px 14px !important;
+    background: linear-gradient(180deg, #2c2318 0%, #1a1510 100%) !important;
+    color: var(--gold-bright) !important;
+    border: 1px solid var(--gold-border) !important;
+    border-bottom-color: var(--gold-deep) !important;
+    padding: 8px 14px !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
-    border-radius: 4px !important;
+    letter-spacing: 2.5px !important;
+    border-radius: var(--r-sm) !important;
     cursor: pointer !important;
     transition: all 0.2s ease !important;
     width: 100% !important;
-    font-family: Arial, Helvetica, sans-serif !important;
-    letter-spacing: 1.5px !important;
-    font-size: 0.9em !important;
-    text-shadow: none !important;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.5) !important;
+    font-family: var(--font-display) !important;
+    font-size: 0.65em !important;
+    text-shadow: 0 0 8px rgba(217, 160, 60, 0.35) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,200,80,0.07) !important;
     margin: 0 !important;
     position: relative !important;
     box-sizing: border-box !important;
@@ -185,232 +294,360 @@ textarea {
 .charsheet button[type="roll"]:hover,
 .charsheet .sheet-ability-plaque button[type="roll"]:hover,
 .charsheet .repitem button[type="roll"]:hover {
-    background-color: #2a2a2a !important;
-    color: rgba(224, 224, 224, 1) !important;
-    border-color: rgba(169, 169, 169, 0.8) !important;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3) !important;
+    background: linear-gradient(180deg, #38291c 0%, #241a10 100%) !important;
+    color: var(--gold-vivid) !important;
+    border-color: var(--gold-mid) !important;
+    box-shadow: 0 0 14px var(--gold-glow), 0 2px 8px rgba(0,0,0,0.5) !important;
+    text-shadow: 0 0 14px rgba(240, 184, 74, 0.5) !important;
+    background-image: none !important;
 }
 
 .charsheet button[type="roll"]::before,
-.charsheet button[type="roll"]::after { 
-    content: '' !important; 
+.charsheet button[type="roll"]::after {
+    content: '' !important;
     display: none !important;
 }
 
-/* --- SPECIFIC COMPONENTS --- */
-.sheet-header {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 15px;
-    align-items: center;
-    margin-bottom: 25px;
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+.charsheet button[type="action"] {
+    background-image: none !important;
+    background: var(--bg-raised) !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid rgba(185, 130, 40, 0.22) !important;
+    padding: 8px 14px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    border-radius: var(--r-sm) !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    font-family: var(--font-display) !important;
+    font-size: 0.65em !important;
+    text-shadow: none !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4) !important;
 }
 
-.sheet-header input[type="text"] {
-    font-size: 1.5em;
-    font-weight: 600;
-    text-align: center;
+.charsheet button[type="action"]:hover {
+    background: var(--bg-hover) !important;
+    color: var(--gold-bright) !important;
+    border-color: var(--gold-border-bright) !important;
+    box-shadow: 0 0 10px var(--gold-glow), 0 2px 6px rgba(0,0,0,0.4) !important;
+    background-image: none !important;
 }
 
+.charsheet button {
+    background-image: none !important;
+    text-decoration: none !important;
+}
+
+/* =========================================================
+   CORE STATS BAR
+   ========================================================= */
 .sheet-core-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    gap: 12px;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 22px;
 }
 
 .sheet-stat-box {
-    background: rgba(26, 26, 26, 0.5);
-    border: 1px solid rgba(169, 169, 169, 0.2);
-    padding: 14px 12px;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.2s ease;
+    background: var(--bg-surface);
+    background-image: linear-gradient(180deg, rgba(220,160,50,0.04) 0%, transparent 70%);
+    border: 1px solid var(--gold-border);
+    border-radius: var(--r-md);
+    padding: 14px 10px 12px;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sheet-stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+}
+
+/* Health — crimson */
+.sheet-stat-box:nth-child(1)::before {
+    background: linear-gradient(90deg, transparent, var(--crimson-bright), transparent);
+}
+/* Defense — gold */
+.sheet-stat-box:nth-child(2)::before {
+    background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+}
+/* Inventory — silver */
+.sheet-stat-box:nth-child(3)::before {
+    background: linear-gradient(90deg, transparent, rgba(160,140,100,0.7), transparent);
+}
+/* DR — amber */
+.sheet-stat-box:nth-child(4)::before {
+    background: linear-gradient(90deg, transparent, rgba(200,130,40,0.7), transparent);
 }
 
 .sheet-stat-box:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--shadow-card), 0 0 14px var(--gold-glow);
+    border-color: var(--gold-border-bright);
 }
 
 .sheet-stat-box-label {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-display);
     text-transform: uppercase;
-    font-size: 0.8em;
-    letter-spacing: 1px;
+    font-size: 0.62em;
+    letter-spacing: 2.5px;
     font-weight: 700;
-    color: rgba(169, 169, 169, 0.8);
-    margin-bottom: 8px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
 }
 
 .sheet-stat-box-value {
-    font-size: 2em;
+    font-size: 1.9em;
     font-weight: 700;
-    color: #e0e0e0;
+    color: var(--text-bright);
     line-height: 1.2;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-display);
 }
 
 .sheet-stat-box-value input {
-    font: inherit; 
-    color: inherit; 
+    font: inherit;
+    color: inherit;
     background: transparent;
-    border: none; 
-    padding: 0; 
-    width: 50px; 
+    border: none;
+    padding: 0;
+    width: 50px;
     display: inline-block;
-    box-shadow: none; 
+    box-shadow: none;
     text-align: center;
 }
 
-/* --- STRIKES SYSTEM --- */
+/* =========================================================
+   TAB NAVIGATION
+   ========================================================= */
+.sheet-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--gold-border);
+    gap: 0;
+}
+
+.sheet-tab-button {
+    font-family: var(--font-display);
+    background: none !important;
+    background-image: none !important;
+    border: none;
+    color: var(--text-muted);
+    padding: 9px 20px;
+    font-size: 0.68em;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    font-weight: 700;
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.sheet-tab-button:hover {
+    color: var(--text-secondary);
+    background-color: rgba(185, 130, 40, 0.06) !important;
+    background-image: none !important;
+}
+
+input[name="attr_tab"] { display: none; }
+
+input[value="character"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="character"],
+input[value="inventory"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="inventory"],
+input[value="abilities"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="abilities"],
+input[value="dread"]:checked ~ .sheet-tabs .sheet-tab-button[data-tab="dread"] {
+    color: var(--gold-bright) !important;
+    border-bottom-color: var(--gold-bright) !important;
+    background-color: rgba(185, 130, 40, 0.08) !important;
+    background-image: none !important;
+    text-shadow: 0 0 10px rgba(217, 160, 60, 0.4) !important;
+}
+
+.sheet-tab-content { display: none; }
+input[value="character"]:checked  ~ .sheet-tab-content[data-tab="character"],
+input[value="inventory"]:checked  ~ .sheet-tab-content[data-tab="inventory"],
+input[value="abilities"]:checked  ~ .sheet-tab-content[data-tab="abilities"],
+input[value="dread"]:checked      ~ .sheet-tab-content[data-tab="dread"] {
+    display: block;
+}
+
+/* =========================================================
+   ABILITY SCORE PLAQUES
+   ========================================================= */
+.sheet-abilities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.sheet-ability-plaque {
+    border: 1px solid var(--gold-border);
+    border-radius: var(--r-md);
+    background: var(--bg-surface);
+    background-image: linear-gradient(180deg, rgba(200,140,50,0.05) 0%, transparent 50%);
+    padding: 14px 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sheet-ability-plaque::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 15%; right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-border-bright), transparent);
+}
+
+.sheet-ability-plaque:hover {
+    box-shadow: var(--shadow-card), 0 0 16px var(--gold-glow);
+    border-color: var(--gold-border-bright);
+}
+
+.sheet-ability-plaque .label {
+    font-family: var(--font-display);
+    font-size: 0.65em;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.sheet-ability-plaque .score {
+    font-size: 2.8em;
+    font-weight: 700;
+    color: var(--gold-bright);
+    text-shadow: 0 0 16px rgba(217, 160, 60, 0.3);
+    font-family: var(--font-display);
+    padding: 2px 0;
+    line-height: 1;
+}
+
+.sheet-ability-plaque .score input {
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: none;
+    padding: 0;
+    width: 100%;
+    box-shadow: none;
+    text-align: center;
+    text-shadow: inherit;
+}
+
+/* =========================================================
+   STRIKES / HEALTH DOTS
+   ========================================================= */
 .sheet-strikes-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .sheet-strikes-dots {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 3px;
-    max-width: 100%;
+    gap: 5px;
     padding: 4px;
 }
 
 .sheet-strike-dot {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    border: 2px solid rgba(169, 169, 169, 0.6);
+    border: 2px solid rgba(185, 130, 40, 0.4);
     background-color: transparent;
+    background-image: none !important;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease;
     display: inline-block;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    background-image: none !important;
     position: relative;
 }
 
 .sheet-strike-dot:hover {
-    border-color: rgba(169, 169, 169, 1);
-    transform: scale(1.15);
+    border-color: var(--gold-border-bright);
+    transform: scale(1.2);
+    box-shadow: 0 0 6px var(--gold-glow);
     background-image: none !important;
-    box-shadow: 0 0 4px rgba(169, 169, 169, 0.4);
 }
 
 .sheet-strike-dot:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(169, 169, 169, 0.4);
+    box-shadow: 0 0 0 3px var(--gold-glow);
 }
 
-/* Filled state styling using hidden input values */
-input[name="attr_strikes_display"][value="1"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+1),
-input[name="attr_strikes_display"][value="2"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+2),
-input[name="attr_strikes_display"][value="3"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+3),
-input[name="attr_strikes_display"][value="4"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+4),
-input[name="attr_strikes_display"][value="5"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+5),
-input[name="attr_strikes_display"][value="6"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+6),
-input[name="attr_strikes_display"][value="7"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+7),
-input[name="attr_strikes_display"][value="8"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+8),
-input[name="attr_strikes_display"][value="9"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+9),
+/* Filled / damaged states */
+input[name="attr_strikes_display"][value="1"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+1),
+input[name="attr_strikes_display"][value="2"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+2),
+input[name="attr_strikes_display"][value="3"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+3),
+input[name="attr_strikes_display"][value="4"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+4),
+input[name="attr_strikes_display"][value="5"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+5),
+input[name="attr_strikes_display"][value="6"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+6),
+input[name="attr_strikes_display"][value="7"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+7),
+input[name="attr_strikes_display"][value="8"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+8),
+input[name="attr_strikes_display"][value="9"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+9),
 input[name="attr_strikes_display"][value="10"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+10) {
-    background-color: #c70039 !important;
-    border-color: #c70039 !important;
-    box-shadow: 0 0 6px rgba(199, 0, 57, 0.6) !important;
+    background-color: var(--crimson-bright) !important;
+    border-color: var(--crimson-mid) !important;
+    box-shadow: 0 0 8px var(--crimson-glow) !important;
     background-image: none !important;
 }
 
-input[name="attr_strikes_display"][value="1"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+1):hover,
-input[name="attr_strikes_display"][value="2"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+2):hover,
-input[name="attr_strikes_display"][value="3"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+3):hover,
-input[name="attr_strikes_display"][value="4"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+4):hover,
-input[name="attr_strikes_display"][value="5"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+5):hover,
-input[name="attr_strikes_display"][value="6"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+6):hover,
-input[name="attr_strikes_display"][value="7"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+7):hover,
-input[name="attr_strikes_display"][value="8"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+8):hover,
-input[name="attr_strikes_display"][value="9"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+9):hover,
+input[name="attr_strikes_display"][value="1"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+1):hover,
+input[name="attr_strikes_display"][value="2"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+2):hover,
+input[name="attr_strikes_display"][value="3"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+3):hover,
+input[name="attr_strikes_display"][value="4"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+4):hover,
+input[name="attr_strikes_display"][value="5"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+5):hover,
+input[name="attr_strikes_display"][value="6"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+6):hover,
+input[name="attr_strikes_display"][value="7"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+7):hover,
+input[name="attr_strikes_display"][value="8"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+8):hover,
+input[name="attr_strikes_display"][value="9"]  ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+9):hover,
 input[name="attr_strikes_display"][value="10"] ~ .sheet-core-stats .sheet-strikes-dots .sheet-strike-dot:nth-child(-n+10):hover {
-    background-color: #e0004a !important;
-    border-color: #e0004a !important;
+    background-color: #e03050 !important;
+    border-color: #e03050 !important;
+    box-shadow: 0 0 12px rgba(224, 48, 80, 0.4) !important;
     background-image: none !important;
-    transform: scale(1.15) !important;
+    transform: scale(1.2) !important;
 }
 
 .sheet-strikes-remaining {
-    font-size: 0.8em;
-    color: rgba(169, 169, 169, 0.8);
+    font-size: 0.72em;
+    color: var(--text-secondary);
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    font-family: var(--font-display);
 }
 
-/* --- ABILITY SCORE PLAQUES --- */
-.sheet-abilities-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-}
-
-.sheet-ability-plaque {
-    border: 1px solid rgba(169, 169, 169, 0.2);
-    border-radius: 6px;
-    background: rgba(26, 26, 26, 0.5);
-    padding: 14px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.2s ease;
-}
-
-.sheet-ability-plaque:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.sheet-ability-plaque .label {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.4em;
-    text-transform: capitalize;
-    color: rgba(169, 169, 169, 0.8);
-    font-weight: 700;
-    margin-bottom: 4px;
-}
-
-.sheet-ability-plaque .score {
-    font-size: 2.5em;
-    font-weight: 700;
-    padding: 8px;
-    color: #e0e0e0;
-    border-radius: 4px;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 4px;
-}
-
-.sheet-ability-plaque .score input {
-    font: inherit; 
-    color: inherit; 
-    background: transparent;
-    border: none; 
-    padding: 0; 
-    width: 100%; 
-    box-shadow: none;
-    text-align: center;
-}
-
-/* --- CUSTOM CLASS CONFIGURATION --- */
+/* =========================================================
+   CUSTOM CLASS
+   ========================================================= */
 .sheet-custom-class-section {
-    background: rgba(26, 26, 26, 0.7);
-    border: 2px solid rgba(169, 169, 169, 0.3);
-    display: none; /* Hidden by default */
+    background: var(--bg-raised);
+    border: 1px solid rgba(185, 130, 40, 0.30);
+    display: none;
 }
 
-/* Show custom class section when attr_show_custom_class is 1 */
 input[name="attr_show_custom_class"][value="1"] ~ .sheet-tab-content .sheet-section.sheet-custom-class-section {
     display: block;
 }
@@ -420,67 +657,63 @@ input[name="attr_show_custom_class"][value="1"] ~ .sheet-tab-content .sheet-sect
     gap: 10px;
 }
 
-/* --- REPEATING SECTIONS --- */
+/* =========================================================
+   REPEATING SECTIONS
+   ========================================================= */
 .repcontainer .repitem {
-    border: 1px solid rgba(169, 169, 169, 0.2);
-    border-radius: 6px;
+    border: 1px solid rgba(185, 130, 40, 0.20);
+    border-radius: var(--r-md);
     padding: 14px;
-    margin-bottom: 14px;
-    background-color: rgba(26, 26, 26, 0.5);
+    margin-bottom: 12px;
+    background: var(--bg-raised);
     display: grid;
-    gap: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.2s ease;
+    gap: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    position: relative;
+}
+
+.repcontainer .repitem::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 8px;
+    width: 2px;
+    border-radius: 1px;
+    background: linear-gradient(180deg, transparent, var(--gold-border), transparent);
 }
 
 .repcontainer .repitem:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.6), 0 0 10px var(--gold-glow);
+    border-color: var(--gold-border-bright);
 }
 
-.repeating_weapons .repitem { 
-    grid-template-columns: 3fr 1fr; 
-    gap: 12px;
-}
-
-.repeating_inventory .repitem { 
-    grid-template-columns: 3fr 1fr; 
-    gap: 12px;
-}
+.repeating_weapons .repitem  { grid-template-columns: 3fr 1fr; gap: 12px; }
+.repeating_inventory .repitem { grid-template-columns: 3fr 1fr; gap: 12px; }
 
 .repeating_abilities .repitem,
 .repeating_traits .repitem,
 .repeating_magic .repitem,
-.repeating_custom .repitem {
+.repeating_custom .repitem,
+.repeating_classabilities .repitem,
+.repeating_spellsmiracles .repitem,
+.repeating_spells .repitem,
+.repeating_customabilities .repitem {
     grid-template-columns: 1fr;
-    gap: 10px;
-}
-
-.repcontrol { 
-    text-align: right; 
-    margin-top: 15px; 
-}
-
-/* --- FORM STYLING IMPROVEMENTS --- */
-label {
-    display: flex;
-    align-items: center;
     gap: 8px;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: rgba(169, 169, 169, 0.9);
 }
 
-hr {
-    border: none; 
-    border-bottom: 1px solid rgba(169, 169, 169, 0.3); 
-    margin: 15px 0;
+.repcontrol {
+    text-align: right;
+    margin-top: 14px;
 }
 
-/* --- CURRENCY SYSTEM --- */
+/* =========================================================
+   CURRENCY
+   ========================================================= */
 .sheet-currency-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
     align-items: end;
 }
 
@@ -491,53 +724,56 @@ hr {
 }
 
 .sheet-currency-item label {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.1em;
+    font-family: var(--font-display);
+    font-size: 0.7em;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     font-weight: 700;
-    color: rgba(169, 169, 169, 0.9);
-    text-transform: capitalize;
+    color: var(--gold-mid);
     margin-bottom: 0;
     text-align: center;
 }
 
 .sheet-currency-item input[type="number"] {
     text-align: center;
-    font-size: 1.2em;
-    font-weight: 600;
-    padding: 8px 12px;
-    background-color: rgba(26, 26, 26, 0.7);
-    border: 1px solid rgba(169, 169, 169, 0.3);
-    color: #ffa500;
+    font-size: 1.3em;
+    font-weight: 700;
+    font-family: var(--font-display);
+    padding: 8px;
+    background-color: rgba(8, 6, 4, 0.8);
+    border: 1px solid rgba(185, 130, 40, 0.25);
+    color: var(--gold-bright);
 }
 
-/* --- DREAD SYSTEM --- */
+/* =========================================================
+   DREAD SYSTEM
+   ========================================================= */
 .sheet-dread-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
     align-items: center;
 }
 
-.sheet-dread-current {
-    text-align: center;
-}
+.sheet-dread-current { text-align: center; }
 
 .sheet-dread-label {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-display);
     text-transform: uppercase;
-    font-size: 0.9em;
-    letter-spacing: 1px;
+    font-size: 0.65em;
+    letter-spacing: 3px;
     font-weight: 700;
-    color: rgba(169, 169, 169, 0.8);
+    color: var(--text-secondary);
     margin-bottom: 8px;
 }
 
 .sheet-dread-value {
-    font-size: 2.5em;
+    font-size: 3.2em;
     font-weight: 700;
-    color: #c70039;
-    line-height: 1.2;
-    font-family: Arial, Helvetica, sans-serif;
+    color: var(--crimson-bright);
+    text-shadow: 0 0 18px var(--crimson-glow);
+    font-family: var(--font-display);
+    line-height: 1;
 }
 
 .sheet-dread-buttons {
@@ -546,25 +782,29 @@ hr {
 }
 
 .sheet-dread-btn {
-    background-color: #1a1a1a !important;
-    color: rgba(169, 169, 169, 0.8) !important;
-    border: 1px solid rgba(169, 169, 169, 0.4) !important;
-    padding: 8px 16px !important;
+    background: linear-gradient(180deg, #2c1418 0%, #1a0c10 100%) !important;
+    background-image: none !important;
+    color: var(--crimson-bright) !important;
+    border: 1px solid var(--crimson-border) !important;
+    padding: 6px 0 !important;
     font-weight: 700 !important;
-    border-radius: 4px !important;
+    border-radius: var(--r-sm) !important;
     cursor: pointer !important;
     transition: all 0.2s ease !important;
-    font-family: Arial, Helvetica, sans-serif !important;
-    font-size: 1.2em !important;
+    font-family: var(--font-display) !important;
+    font-size: 1.3em !important;
     width: 50px !important;
     height: 40px !important;
-    background-image: none !important;
+    text-shadow: 0 0 10px var(--crimson-glow) !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5) !important;
 }
 
 .sheet-dread-btn:hover {
-    background-color: #2a2a2a !important;
-    color: rgba(224, 224, 224, 1) !important;
-    border-color: rgba(169, 169, 169, 0.8) !important;
+    background: linear-gradient(180deg, #3c1820 0%, #240e14 100%) !important;
+    background-image: none !important;
+    color: #e03050 !important;
+    border-color: var(--crimson-bright) !important;
+    box-shadow: 0 0 14px var(--crimson-glow), 0 2px 6px rgba(0,0,0,0.5) !important;
 }
 
 .sheet-dread-descriptions {
@@ -575,15 +815,18 @@ hr {
 
 .sheet-dread-desc {
     display: none;
-    padding: 12px;
-    background: rgba(26, 26, 26, 0.3);
-    border-radius: 4px;
-    border-left: 3px solid #c70039;
-    font-size: 0.9em;
-    line-height: 1.4;
+    padding: 12px 16px;
+    background: rgba(8, 6, 4, 0.6);
+    border-radius: var(--r-md);
+    border-left: 3px solid var(--crimson-bright);
+    font-size: 0.95em;
+    line-height: 1.55;
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    font-style: italic;
 }
 
-/* Show specific dread description based on dread_display value */
+/* Dread level CSS selector logic — DO NOT MODIFY */
 input[name="attr_dread_display"][value="0"] ~ .sheet-tab-content .sheet-dread-descriptions .sheet-dread-desc[data-level="0"],
 input[name="attr_dread_display"][value="1"] ~ .sheet-tab-content .sheet-dread-descriptions .sheet-dread-desc[data-level="1"],
 input[name="attr_dread_display"][value="2"] ~ .sheet-tab-content .sheet-dread-descriptions .sheet-dread-desc[data-level="2"],
@@ -594,70 +837,66 @@ input[name="attr_dread_display"][value="6"] ~ .sheet-tab-content .sheet-dread-de
     display: block;
 }
 
-.sheet-dread-desc[data-level="0"] {
-    border-left-color: #50c878;
-}
-
+.sheet-dread-desc[data-level="0"] { border-left-color: #3a9c5c; }
 .sheet-dread-desc[data-level="1"],
-.sheet-dread-desc[data-level="2"] {
-    border-left-color: #ffa500;
-}
-
+.sheet-dread-desc[data-level="2"] { border-left-color: #c09028; }
 .sheet-dread-desc[data-level="3"],
-.sheet-dread-desc[data-level="4"] {
-    border-left-color: #ff6347;
-}
-
+.sheet-dread-desc[data-level="4"] { border-left-color: #b84018; }
 .sheet-dread-desc[data-level="5"],
-.sheet-dread-desc[data-level="6"] {
-    border-left-color: #c70039;
-}
+.sheet-dread-desc[data-level="6"] { border-left-color: var(--crimson-bright); }
 
-/* --- TORCH SYSTEM --- */
+/* =========================================================
+   TORCH SYSTEM
+   ========================================================= */
 .sheet-torch-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 14px;
     align-items: center;
 }
 
-.sheet-torch-current {
-    text-align: center;
-}
+.sheet-torch-current { text-align: center; }
 
 .sheet-torch-label {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-display);
     text-transform: uppercase;
-    font-size: 0.9em;
-    letter-spacing: 1px;
+    font-size: 0.65em;
+    letter-spacing: 3px;
     font-weight: 700;
-    color: rgba(169, 169, 169, 0.8);
-    margin-bottom: 8px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
 }
 
 .sheet-torch-value {
-    font-size: 2.5em;
+    font-size: 3.2em;
     font-weight: 700;
-    color: #ffa500;
-    line-height: 1.2;
-    font-family: Arial, Helvetica, sans-serif;
+    color: var(--gold-bright);
+    text-shadow: 0 0 22px rgba(217, 160, 60, 0.55), 0 0 44px rgba(200, 80, 10, 0.20);
+    font-family: var(--font-display);
+    line-height: 1;
 }
 
 .sheet-torch-status {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: center;
     justify-content: center;
 }
 
 .sheet-torch-status-label {
+    font-family: var(--font-display);
+    font-size: 0.65em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     font-weight: 700;
-    color: rgba(169, 169, 169, 0.8);
+    color: var(--text-secondary);
 }
 
 .sheet-torch-status-value {
-    font-weight: 700;
-    color: #e0e0e0;
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--gold-bright);
+    font-size: 1em;
 }
 
 .sheet-torch-controls {
@@ -668,164 +907,184 @@ input[name="attr_dread_display"][value="6"] ~ .sheet-tab-content .sheet-dread-de
 }
 
 .sheet-torch-btn {
-    background-color: #1a1a1a !important;
-    color: rgba(169, 169, 169, 0.8) !important;
-    border: 1px solid rgba(169, 169, 169, 0.4) !important;
+    background: linear-gradient(180deg, #281e10 0%, #180e06 100%) !important;
+    background-image: none !important;
+    color: var(--gold-mid) !important;
+    border: 1px solid var(--gold-border) !important;
     padding: 8px 12px !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
-    border-radius: 4px !important;
+    letter-spacing: 2px !important;
+    border-radius: var(--r-sm) !important;
     cursor: pointer !important;
     transition: all 0.2s ease !important;
-    font-family: Arial, Helvetica, sans-serif !important;
-    letter-spacing: 0.5px !important;
-    font-size: 0.8em !important;
-    background-image: none !important;
+    font-family: var(--font-display) !important;
+    font-size: 0.6em !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5) !important;
 }
 
 .sheet-torch-btn:hover {
-    background-color: #2a2a2a !important;
-    color: rgba(224, 224, 224, 1) !important;
-    border-color: rgba(169, 169, 169, 0.8) !important;
+    background: linear-gradient(180deg, #342614 0%, #20140a 100%) !important;
+    background-image: none !important;
+    color: var(--gold-bright) !important;
+    border-color: var(--gold-mid) !important;
+    box-shadow: 0 0 12px var(--gold-glow), 0 2px 6px rgba(0,0,0,0.5) !important;
 }
 
 .sheet-torch-progression {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 10px;
-    padding: 10px;
-    background: rgba(26, 26, 26, 0.3);
-    border-radius: 4px;
-    font-size: 0.9em;
+    padding: 10px 14px;
+    background: rgba(6, 4, 2, 0.7);
+    border: 1px solid rgba(185, 130, 40, 0.12);
+    border-radius: var(--r-md);
+    font-size: 0.85em;
 }
 
 .sheet-torch-stage {
-    font-family: monospace;
-    font-weight: normal;
-    color: rgba(169, 169, 169, 0.5);
-    transition: all 0.2s ease;
+    font-family: var(--font-display);
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
 }
 
 .sheet-torch-arrow {
-    color: rgba(169, 169, 169, 0.4);
+    color: var(--text-muted);
+    opacity: 0.45;
     font-size: 0.8em;
 }
 
-/* --- ROLL TEMPLATE --- */
+/* =========================================================
+   ROLL TEMPLATE
+   ========================================================= */
 .sheet-rolltemplate-titd table {
     width: 100%;
-    background-color: #0a0a0a;
-    border: 2px solid rgba(169, 169, 169, 0.8);
-    color: #e0e0e0;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 8px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    background-color: #0c0a06;
+    border: 1px solid rgba(185, 130, 40, 0.55);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.7), 0 0 0 1px rgba(185,130,40,0.10);
     border-collapse: collapse;
-    border-radius: 4px;
+    overflow: hidden;
 }
 
 .sheet-rolltemplate-titd .sheet-header {
-    background-color: transparent;
-    color: rgba(169, 169, 169, 1);
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.5em;
+    background: linear-gradient(180deg, #201808 0%, #140f06 100%);
+    color: var(--gold-bright);
+    font-family: var(--font-display);
+    font-size: 0.85em;
+    letter-spacing: 3px;
+    text-transform: uppercase;
     text-align: center;
-    padding: 10px;
-    border-bottom: 1px solid rgba(169, 169, 169, 0.4);
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(185, 130, 40, 0.35);
     font-weight: 700;
+    text-shadow: 0 0 12px rgba(217, 160, 60, 0.35);
 }
 
-.sheet-rolltemplate-titd .sheet-row { 
-    padding: 8px; 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 10px;
+.sheet-rolltemplate-titd .sheet-row {
+    padding: 6px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
 }
 
-.sheet-rolltemplate-titd .sheet-label { 
-    font-weight: bold; 
-    font-family: Arial, Helvetica, sans-serif;
+.sheet-rolltemplate-titd .sheet-label {
+    font-family: var(--font-display);
+    font-size: 0.7em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-secondary);
+    padding: 8px;
 }
 
-.sheet-rolltemplate-titd .sheet-result { 
-    font-weight: bold; 
-    font-size: 1.1em; 
-    text-align: right; 
-    font-family: Arial, Helvetica, sans-serif;
+.sheet-rolltemplate-titd .sheet-result {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.2em;
+    text-align: right;
+    color: var(--gold-bright);
+    padding: 8px;
 }
 
-.sheet-rolltemplate-titd .sheet-desc { 
-    grid-column: 1 / -1; 
-    font-size: 0.9em; 
-    font-style: italic; 
-    padding: 10px; 
-    font-family: Arial, Helvetica, sans-serif;
+.sheet-rolltemplate-titd .sheet-desc {
+    grid-column: 1 / -1;
+    font-size: 0.9em;
+    font-style: italic;
+    padding: 8px 12px;
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(185,130,40,0.12);
 }
 
-.sheet-rolltemplate-titd .inlinerollresult { 
-    background: rgba(255,255,255,0.1); 
-    border: 1px solid rgba(169, 169, 169, 0.3); 
-    color: #e0e0e0; 
-    font-weight: bold; 
-    padding: 3px 6px; 
-    border-radius: 3px; 
-    font-family: Arial, Helvetica, sans-serif;
+.sheet-rolltemplate-titd .inlinerollresult {
+    background: rgba(185, 130, 40, 0.12);
+    border: 1px solid rgba(185, 130, 40, 0.35);
+    color: var(--gold-bright);
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: var(--font-display);
 }
 
-.sheet-rolltemplate-titd .inlinerollresult.fullcrit { 
-    color: #50c878; 
+.sheet-rolltemplate-titd .inlinerollresult.fullcrit {
+    color: #50c878;
     border-color: #50c878;
-    box-shadow: 0 0 4px rgba(80, 200, 120, 0.3);
+    box-shadow: 0 0 8px rgba(80, 200, 120, 0.4);
+    text-shadow: 0 0 8px rgba(80, 200, 120, 0.35);
 }
 
-.sheet-rolltemplate-titd .inlinerollresult.fullfail { 
-    color: #c70039; 
-    border-color: #c70039;
-    box-shadow: 0 0 4px rgba(199, 0, 57, 0.3);
+.sheet-rolltemplate-titd .inlinerollresult.fullfail {
+    color: var(--crimson-bright);
+    border-color: var(--crimson-mid);
+    box-shadow: 0 0 8px var(--crimson-glow);
+    text-shadow: 0 0 8px var(--crimson-glow);
 }
 
-/* --- ADDITIONAL ROLL20 COMPATIBILITY --- */
-/* Fix for Roll20's default button styling interference */
-.charsheet button {
-    background-image: none !important;
-    text-decoration: none !important;
-}
-
-/* Ensure proper checkbox styling */
+/* =========================================================
+   CHECKBOX
+   ========================================================= */
 .charsheet input[type="checkbox"] {
     width: auto !important;
     height: auto !important;
     box-shadow: none !important;
     margin-right: 6px !important;
+    accent-color: var(--gold-mid);
 }
 
-/* --- RESPONSIVE IMPROVEMENTS --- */
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 @media (max-width: 768px) {
-    .sheet-core-stats {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-    
-    .sheet-abilities-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-    
-    .sheet-header {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    .sheet-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .sheet-currency-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-    }
+    .sheet-core-stats        { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .sheet-abilities-grid    { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .sheet-header            { grid-template-columns: 1fr; gap: 10px; }
+    .sheet-grid              { grid-template-columns: 1fr; gap: 14px; }
+    .sheet-currency-grid     { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}
+
+/* Inventory sub-label (armor slots) */
+.sheet-stat-box-sub {
+    font-size: 0.55em;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    margin-top: 6px;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+}
+
+/* Checkbox label inline */
+.charsheet label:has(input[type="checkbox"]) {
+    text-transform: none;
+    letter-spacing: 0.5px;
+    font-size: 0.85em;
+    font-family: var(--font-body);
+    font-weight: 400;
+    color: var(--text-primary);
 }
